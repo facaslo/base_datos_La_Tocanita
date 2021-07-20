@@ -1,0 +1,13 @@
+car_id,car_nombre,car_tipocargo
+1,Gerente,Gerencial
+2,Contador,Administrativo
+3,Jefe Talento Humano,Administrativo
+4,Jefe Producción ,Administrativo
+5,Técnico de mantenimiento,Operativo
+6,Auxiliar Contable,Auxiliar
+7,Conductor,Operativo
+8,Operario,Operativo
+9,Operario de Linea,Operativo
+10,Asistente Bodega,Auxiliar
+11,Auxiliar Bodega,Auxiliar
+12,Jefe de ventas,Auxiliar

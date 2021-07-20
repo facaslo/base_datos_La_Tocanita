@@ -1,29 +1,18 @@
 {% extends 'base/base.html' %}
 
 {% block titulo %}    
-    <title> Game collector </title> 
-    <link rel="stylesheet" type = "text/css" href = "{{ url_for('static', filename='css/styleindex.css') }}">    
+    <title>Log in </title>   
 {% endblock %}
 
 {% block content %}
     
-    <div id="container">
-        <div class = "container_element">
-            <img src="{{ url_for('static', filename = 'img/metroid.png')}}" >
-        </div>
-
-        <div class = "container_element">
-            <h1> Game Collector</h1>    
-            <h4> Game Collector es una app que te permite guardar y consultar información de tus videojuegos favoritos </h4>
-
-            <form action="login">
-                <button type="submit" class="btn btn-primary btn-block btn-large">  Iniciar sesión </button>
-            </form>
-            <form action="register">
-                <button type="submit"class="btn btn-primary btn-block btn-large"> Registrarse </button>      
-            </form>
-        </div>
-    </div>
-    
+<form method="POST" action="">
+    <center>
+    <H1> Ingrese sus datos </H1> <br>
+    Usuario <input type = "text" name= "user" /> <br>
+    Contraseña <input type = "password" name = "password" /> <br>
+    <input type = "submit">
+    </center>
+</form>    
 
 {% endblock %}

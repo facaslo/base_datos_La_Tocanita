@@ -1,0 +1,9 @@
+ins_codigoinsumo,ins_caducidad,ins_rendimiento,ins_costo,ins_nombre,ins_cantidad
+1,Sí,0.7,1000,Papa,20000
+2,Sí,0.6,630,Yuca,15000
+3,No,0.9,4000,Aceite,1000
+4,No,30,8350,Estabilizante,850
+5,Si,35,8200,Acidulzante,100
+6,No,28,20,Almidon,500
+7,No,10,630,Sal,1000
+8,No,20,420,Azucar,100

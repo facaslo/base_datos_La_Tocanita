@@ -1,0 +1,13 @@
+prd_id,prd_codigo,prd_peso,prd_cantidad,prd_nombre
+1,9,160,2931,Papa Francesa 160gr
+2,9,200,1556,Papa Francesa 200gr
+3,9,1000,1426,Papa Francesa 1kg
+4,9,2000,1743,Papa Francesa 2kg
+5,10,160,2038,Papa en Cascos 160gr
+6,10,200,1935,Papa en Cascos 200gr
+7,10,1000,2277,Papa en Cascos 1kg
+8,10,2000,2467,Papa en Cascos 2kg
+9,11,160,1311,Yuca para Fritar 160gr
+10,11,200,2681,Yuca para Fritar 200gr
+11,11,1000,2267,Yuca para Fritar 1kg
+12,11,2000,1757,Yuca para Fritar 2kg

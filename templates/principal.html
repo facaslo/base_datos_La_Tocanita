@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}    
+    <title> Principal </title>   
+
+    <script>        
+        function logout(){
+            window.location.href = "/logout"
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <button onclick="logout()"> Salir de la sesión </button> 
+    
+    {% from "_macro.html" import show_dataBase %}
+    {{ show_dataBase(tablas)}}
+
+{% endblock %}
