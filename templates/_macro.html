@@ -1,0 +1,44 @@
+{% macro render_field(field)%}
+    <!-- <dt> {{field.label}} </dt>
+    <dd> {{ field(**kwargs)|safe }}  </dd> -->
+    
+    <p class = formInput> {{ field(**kwargs)|safe }}  </p>
+    
+    <!-- Imprimir lista de errores -->
+    {% if field.errors%}
+        <ul>
+            {% for error in field.errors %}
+                <li> 
+                    {{error}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro show_collection(coleccion,usuario) %}
+    <ol id="lista">
+        {% for elemento in coleccion %}
+            <li> <a href="/{{usuario}}/{{elemento}}"> {{elemento}} </a> </li>
+        {% endfor %}
+    </ol>
+{% endmacro %}
+
+{% macro show_game(coleccion, usuario , nombre_coleccion, nombresElementos)%}
+    <ol id="lista">
+        {% for elemento in coleccion %}
+            <li> <a href="/{{usuario}}/{{nombre_coleccion}}?juego={{elemento}}"> {{ nombresElementos.getElement(loop.index0) }} </a> </li>
+        {% endfor %}
+    </ol>
+{% endmacro %}
+
+{% macro show_results(resultados, id, nombreLista) %}
+    <ol id="lista">
+        {% for elemento in resultados %}
+            <li> <a href="/{{id}}/{{nombreLista}}/search/{{elemento.getElement(1)}}"> {{ elemento.getElement(0) }} </a> </li>
+        {% endfor %}
+    </ol>
+{% endmacro %}}
+
+
