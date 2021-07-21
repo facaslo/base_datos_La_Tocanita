@@ -48,7 +48,7 @@ def principal():
         cursor.execute('show tables')
         listaNombreTablas = []
         for (table,) in cursor:
-            listaNombreTablas.append(table.decode())
+            listaNombreTablas.append(table)
         return render_template('principal.html', tablas = listaNombreTablas)
     except:
         return render_template ('401.html') , 401
