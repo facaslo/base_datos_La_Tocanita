@@ -1,5 +1,4 @@
 -- SET ROLE 'rol'
-
 DROP role admin;
 DROP role Gerente;
 DROP role Contador;
@@ -34,3 +33,4 @@ DROP USER JorgeI@localhost;
 DROP USER MarcosF@localhost;
 DROP USER JoseSuarez@localhost;
 DROP USER MiguelCruz@localhost;
+

@@ -1,5 +1,5 @@
 # pip3 install flask
-# pip3 install mysql-connector
+# pip3 install mysql-connector-python
 
 from flask import Flask
 from flask import redirect
@@ -48,7 +48,7 @@ def principal():
         cursor.execute('show tables')
         listaNombreTablas = []
         for (table,) in cursor:
-            listaNombreTablas.append(table.decode())
+            listaNombreTablas.append(table)
         return render_template('principal.html', tablas = listaNombreTablas)
     except:
         return render_template ('401.html') , 401
