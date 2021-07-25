@@ -7,29 +7,34 @@
 {% endmacro %}
 
 {% macro create_elements_buttons(listaElementos) %}
-    {% for elemento in listaElementos %}
-        {% if elemento == 'la_tocanita.vw_info_compra_insumos' %}            
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de insumos </button>
-        {% elif elemento == 'la_tocanita.vw_info_nomina' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de nómina </button>
-        {% elif elemento == 'la_tocanita.vw_info_venta' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de ventas </button>
-        {% elif elemento == 'la_tocanita.vw_info_produccion' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de producción </button>
-        {% elif elemento == 'la_tocanita.vw_info_cargo_trabajador' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de trabajadores </button>
-        {% elif elemento == 'la_tocanita.vw_info_produccion_trabajador' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de los trabajadores en línea de producción </button>
-        {% elif elemento == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de los clientes </button>
-        {% elif elemento == 'la_tocanita.vw_info_produccion_promedio' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de producción promedio </button>   
-        {% elif elemento == 'la_tocanita.cargamento' %}
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de cargamento </button>          
-        {% else %} 
-            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de {{elemento}} </button>          
-        {% endif %}    
-    {% endfor %}    
+    <form method="POST" action>
+        <select name="tablas_menuDesplegable">
+        {% for elemento in listaElementos %}
+            {% if elemento == 'la_tocanita.vw_info_compra_insumos' %}            
+                <option value="{{elemento}}"> Ver información de insumos </option>            
+            {% elif elemento == 'la_tocanita.vw_info_nomina' %}
+                <option value="{{elemento}}">  Ver información de nómina </option>            
+            {% elif elemento == 'la_tocanita.vw_info_venta' %}
+                <option value="{{elemento}}">  Ver información de ventas </option>            
+            {% elif elemento == 'la_tocanita.vw_info_produccion' %}
+                <option value="{{elemento}}">  Ver información de producción </option>            
+            {% elif elemento == 'la_tocanita.vw_info_cargo_trabajador' %}
+                <option value="{{elemento}}">  Ver información de trabajadores </option>            
+            {% elif elemento == 'la_tocanita.vw_info_produccion_trabajador' %}
+                <option value="{{elemento}}">  Ver información de los trabajadores en línea de producción </option>            
+            {% elif elemento == 'la_tocanita.vw_info_cliente_numeroCompras' %}
+                <option value="{{elemento}}">  Ver información de los clientes </option>            
+            {% elif elemento == 'la_tocanita.vw_info_produccion_promedio' %}
+                <option value="{{elemento}}">  Ver información de producción promedio  </option>             
+            {% elif elemento == 'la_tocanita.cargamento' %}
+                <option value="{{elemento}}">  Ver información de cargamento </option>                 
+            {% else %} 
+                <option value="{{elemento}}">  Ver información de {{elemento}} </option>                   
+            {% endif %}    
+        {% endfor %}    
+        </select>
+        <button type="submit"> Ver información </button>
+    </form>
 {% endmacro %}
 
 

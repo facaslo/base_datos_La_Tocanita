@@ -46,12 +46,15 @@ def index():
             
         except Exception as ex:
             print(ex)
-            #return render_template ('401.html') , 401        
+            return render_template ('401.html') , 401        
 
     return render_template('index.html')
 
 @app.route('/rol', methods=['GET','POST'])
 def principal():             
+    if request.method == 'POST':
+        tabla = request.form.get('tablas_menuDesplegable')        
+        return redirect ('/verTabla?nombreTabla={}'.format(tabla))
     try:
         rolParametro = request.args.get('tipo')        
         direccioneshtml = {'admin': 'admin.html', 'Gerente':'gerente.html','Contador': 'contador.html', 'adminRecHumanos': 'recHumanos.html',
@@ -74,11 +77,13 @@ def principal():
                     nombreVista = [palabra.split("'")[0] for palabra in nombreVista]
                     nombreVista = nombreVista[0] + "." + nombreVista[1]                    
                     accesos.append(nombreVista)
-        cursor.fetchall()
-        print(accesos)
-        return render_template(direccioneshtml[rolParametro], listaBotones = accesos, rol = rolParametro)        
+        cursor.fetchall()          
+        return render_template(direccioneshtml[rolParametro], listaBotones = accesos, rol = rolParametro)               
+            
     except:        
         return render_template ('401.html') , 401        
+
+            
 
 @app.route('/verTabla')
 def infoTabla():
@@ -103,6 +108,8 @@ def infoTabla():
     #    print(Exception)
     #    return render_template ('401.html') , 401    
 
+
+
 @app.route('/logout')
 def logout():
     try:
@@ -116,7 +123,9 @@ def logout():
         pass    
 
     return redirect('/')
-    
+
+
+
 if __name__ == '__main__' :
     app.run(debug = True, port = 8000)
 

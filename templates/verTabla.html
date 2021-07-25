@@ -9,10 +9,7 @@
 {% endblock %}
 
 {% block content%}
-    <button onclick="goBack()"> Volver </button>
-    <form>
-        
-    </form>
+    <button onclick="goBack()"> Volver </button>    
     {% from "_macro.html" import create_table %}
     {{ create_table(nombreTabla, nombreColumnas , filas) }}    
 {% endblock %}

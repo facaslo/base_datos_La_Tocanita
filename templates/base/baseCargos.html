@@ -17,15 +17,10 @@
     {%block titulo%} {% endblock %}
 </head>
 <body>    
-    <button onclick="logout()"> Salir de la sesión </button>    
-         
+    <button onclick="logout()"> Salir de la sesión </button>             
     {% from "_macro.html" import create_elements_buttons %}
     {{ create_elements_buttons(listaBotones) }}
-
-    {% block content %}        
-        
-    {% endblock %}
-
-    
+    {% block content %}                
+    {% endblock %}    
 </body>
 </html>
