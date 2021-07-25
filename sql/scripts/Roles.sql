@@ -1,7 +1,6 @@
 DROP ROLE IF EXISTS 'admin';
 CREATE ROLE 'admin';
 GRANT ALL PRIVILEGES ON la_tocanita.* TO 'admin' WITH GRANT OPTION;
--- GRANT SHOW DATABASES ON *.* TO 'admin';
 DROP ROLE IF EXISTS 'Gerente';
 CREATE ROLE 'Gerente';
 GRANT SELECT ON la_tocanita.* TO 'Gerente' WITH GRANT OPTION;
@@ -65,3 +64,9 @@ DROP ROLE IF EXISTS 'Conductor';
 CREATE ROLE 'Conductor';
 GRANT ALL PRIVILEGES ON la_tocanita.cargamento TO 'Conductor';
 GRANT SELECT ON la_tocanita.geografia TO 'Conductor';
+
+-- Para ver el acceso a las tablas en el back-end
+GRANT SELECT ON mysql.* TO 'admin','Gerente','Contador','adminRecHumanos','Jefe de Ventas',
+'Auxiliar Contable', 'Jefe de Produccion', 'Linea de Produccion', 'Conductor';
+
+SHOW GRANTS FOR 'Gerente'@'%';

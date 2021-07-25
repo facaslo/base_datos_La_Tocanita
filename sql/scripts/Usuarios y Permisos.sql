@@ -57,4 +57,5 @@ SET DEFAULT ROLE 'Jefe de Ventas' TO 'JoanG'@localhost;
 SET DEFAULT ROLE 'Jefe de Produccion' TO 'FranciscoC'@localhost;
 SET DEFAULT ROLE 'Conductor' TO 'JoseSuarez'@localhost,'DavidSanz'@localhost;
 SET DEFAULT ROLE 'Linea de Produccion' TO 'RaulN'@localhost, 'PedroS'@localhost, 'RichiH'@localhost, 'MiguelV'@localhost, 'RamonC'@localhost, 
-'JorgeI'@localhost, 'MarcosF'@localhost, 'IsmaelS'@localhost, 'AdrianN'@localhost, 'DavidL'@localhost;
+'JorgeI'@localhost,'AlbertoG'@localhost, 'MarcosF'@localhost, 'IsmaelS'@localhost, 'AdrianN'@localhost, 'DavidL'@localhost;
+

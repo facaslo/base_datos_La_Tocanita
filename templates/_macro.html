@@ -1,11 +1,72 @@
 {% macro show_dataBase(nombres)%}
     <ol id="lista">
         {% for elemento in nombres %}
-            <li> {{elemento}} </li>
+            <li> '{{elemento}}' </li>
         {% endfor %}
     </ol>
 {% endmacro %}
 
+{% macro create_elements_buttons(listaElementos) %}
+    {% for elemento in listaElementos %}
+        {% if elemento == 'la_tocanita.vw_info_compra_insumos' %}            
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de insumos </button>
+        {% elif elemento == 'la_tocanita.vw_info_nomina' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de nómina </button>
+        {% elif elemento == 'la_tocanita.vw_info_venta' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de ventas </button>
+        {% elif elemento == 'la_tocanita.vw_info_produccion' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de producción </button>
+        {% elif elemento == 'la_tocanita.vw_info_cargo_trabajador' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de trabajadores </button>
+        {% elif elemento == 'la_tocanita.vw_info_produccion_trabajador' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de los trabajadores en línea de producción </button>
+        {% elif elemento == 'la_tocanita.vw_info_cliente_numeroCompras' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de los clientes </button>
+        {% elif elemento == 'la_tocanita.vw_info_produccion_promedio' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de producción promedio </button>   
+        {% elif elemento == 'la_tocanita.cargamento' %}
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de cargamento </button>          
+        {% else %} 
+            <button onclick="redireccionarTabla('{{elemento}}')"> Ver información de {{elemento}} </button>          
+        {% endif %}    
+    {% endfor %}    
+{% endmacro %}
 
 
-
+{% macro create_table(nombreTabla, columnas , filas)%}
+    {% if nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}            
+    <h1> Ver información de insumos </h1>
+    {% elif nombreTabla == 'la_tocanita.vw_info_nomina' %}
+    <h1> Ver información de nómina </h1>
+    {% elif nombreTabla == 'la_tocanita.vw_info_venta' %}
+    <h1> Ver información de ventas </h1>
+    {% elif nombreTabla == 'la_tocanita.vw_info_produccion' %}
+    <h1> Ver información de producción </h1>
+    {% elif nombreTabla == 'la_tocanita.vw_info_cargo_trabajador' %}
+    <h1> Ver información de trabajadores </h1>
+    {% elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador' %}
+    <h1> Ver información de los trabajadores en línea de producción </h1>
+    {% elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras' %}
+    <h1> Ver información de los clientes </h1>
+    {% elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio' %}
+    <h1> Ver información de producción promedio </h1>   
+    {% elif nombreTabla == 'la_tocanita.cargamento' %}
+    <h1> Ver información de cargamento </h1>          
+    {% else %} 
+    <h1> Ver información {{nombreTabla}} </h1>
+    {% endif %}    
+    <table style="width:100%">       
+        <tr>
+            {% for nombreColumna in columnas %}
+            <th> {{nombreColumna}} </th>
+            {% endfor %}
+        </tr>
+        {% for fila in filas %}
+        <tr>
+            {% for entrada in fila %}
+                <td> {{entrada}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>    
+{% endmacro %}
