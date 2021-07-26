@@ -1,77 +1,77 @@
 {% macro show_dataBase(nombres)%}
-    <ol id="lista">
-        {% for elemento in nombres %}
-            <li> '{{elemento}}' </li>
-        {% endfor %}
-    </ol>
-{% endmacro %}
-
-{% macro create_elements_buttons(listaElementos) %}
-    <form method="POST" action>
-        <select name="tablas_menuDesplegable">
-        {% for elemento in listaElementos %}
-            {% if elemento == 'la_tocanita.vw_info_compra_insumos' %}            
-                <option value="{{elemento}}"> Ver información de insumos </option>            
-            {% elif elemento == 'la_tocanita.vw_info_nomina' %}
-                <option value="{{elemento}}">  Ver información de nómina </option>            
-            {% elif elemento == 'la_tocanita.vw_info_venta' %}
-                <option value="{{elemento}}">  Ver información de ventas </option>            
-            {% elif elemento == 'la_tocanita.vw_info_produccion' %}
-                <option value="{{elemento}}">  Ver información de producción </option>            
-            {% elif elemento == 'la_tocanita.vw_info_cargo_trabajador' %}
-                <option value="{{elemento}}">  Ver información de trabajadores </option>            
-            {% elif elemento == 'la_tocanita.vw_info_produccion_trabajador' %}
-                <option value="{{elemento}}">  Ver información de los trabajadores en línea de producción </option>            
-            {% elif elemento == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-                <option value="{{elemento}}">  Ver información de los clientes </option>            
-            {% elif elemento == 'la_tocanita.vw_info_produccion_promedio' %}
-                <option value="{{elemento}}">  Ver información de producción promedio  </option>             
-            {% elif elemento == 'la_tocanita.cargamento' %}
-                <option value="{{elemento}}">  Ver información de cargamento </option>                 
-            {% else %} 
-                <option value="{{elemento}}">  Ver información de {{elemento}} </option>                   
-            {% endif %}    
-        {% endfor %}    
-        </select>
-        <button type="submit"> Ver información </button>
-    </form>
-{% endmacro %}
-
-
-{% macro create_table(nombreTabla, columnas , filas)%}
-    {% if nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}            
-    <h1> Ver información de insumos </h1>
-    {% elif nombreTabla == 'la_tocanita.vw_info_nomina' %}
-    <h1> Ver información de nómina </h1>
-    {% elif nombreTabla == 'la_tocanita.vw_info_venta' %}
-    <h1> Ver información de ventas </h1>
-    {% elif nombreTabla == 'la_tocanita.vw_info_produccion' %}
-    <h1> Ver información de producción </h1>
-    {% elif nombreTabla == 'la_tocanita.vw_info_cargo_trabajador' %}
-    <h1> Ver información de trabajadores </h1>
-    {% elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador' %}
-    <h1> Ver información de los trabajadores en línea de producción </h1>
-    {% elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-    <h1> Ver información de los clientes </h1>
-    {% elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio' %}
-    <h1> Ver información de producción promedio </h1>   
-    {% elif nombreTabla == 'la_tocanita.cargamento' %}
-    <h1> Ver información de cargamento </h1>          
-    {% else %} 
-    <h1> Ver información {{nombreTabla}} </h1>
-    {% endif %}    
-    <table style="width:100%">       
-        <tr>
-            {% for nombreColumna in columnas %}
-            <th> {{nombreColumna}} </th>
-            {% endfor %}
-        </tr>
-        {% for fila in filas %}
-        <tr>
-            {% for entrada in fila %}
-                <td> {{entrada}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>    
+<ol id="lista">
+  {% for elemento in nombres %}
+  <li>'{{elemento}}'</li>
+  {% endfor %}
+</ol>
+{% endmacro %} {% macro create_elements_buttons(listaElementos) %}
+<form method="POST" action>
+  <select
+    class="form-select form-select-sm"
+    aria-label=".form-select-sm example"
+    name="tablas_menuDesplegable"
+  >
+    {% for elemento in listaElementos %} {% if elemento ==
+    'la_tocanita.vw_info_compra_insumos' %}
+    <option value="{{elemento}}">Ver información de insumos</option>
+    {% elif elemento == 'la_tocanita.vw_info_nomina' %}
+    <option value="{{elemento}}">Ver información de nómina</option>
+    {% elif elemento == 'la_tocanita.vw_info_venta' %}
+    <option value="{{elemento}}">Ver información de ventas</option>
+    {% elif elemento == 'la_tocanita.vw_info_produccion' %}
+    <option value="{{elemento}}">Ver información de producción</option>
+    {% elif elemento == 'la_tocanita.vw_info_cargo_trabajador' %}
+    <option value="{{elemento}}">Ver información de trabajadores</option>
+    {% elif elemento == 'la_tocanita.vw_info_produccion_trabajador' %}
+    <option value="{{elemento}}">
+      Ver información de los trabajadores en línea de producción
+    </option>
+    {% elif elemento == 'la_tocanita.vw_info_cliente_numeroCompras' %}
+    <option value="{{elemento}}">Ver información de los clientes</option>
+    {% elif elemento == 'la_tocanita.vw_info_produccion_promedio' %}
+    <option value="{{elemento}}">Ver información de producción promedio</option>
+    {% elif elemento == 'la_tocanita.cargamento' %}
+    <option value="{{elemento}}">Ver información de cargamento</option>
+    {% else %}
+    <option value="{{elemento}}">Ver información de {{elemento}}</option>
+    {% endif %} {% endfor %}
+  </select>
+  <button type="submit">Ver información</button>
+</form>
+{% endmacro %} {% macro create_table(nombreTabla, columnas , filas)%} {% if
+nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
+<h1>Ver información de insumos</h1>
+{% elif nombreTabla == 'la_tocanita.vw_info_nomina' %}
+<h1>Ver información de nómina</h1>
+{% elif nombreTabla == 'la_tocanita.vw_info_venta' %}
+<h1>Ver información de ventas</h1>
+{% elif nombreTabla == 'la_tocanita.vw_info_produccion' %}
+<h1>Ver información de producción</h1>
+{% elif nombreTabla == 'la_tocanita.vw_info_cargo_trabajador' %}
+<h1>Ver información de trabajadores</h1>
+{% elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador' %}
+<h1>Ver información de los trabajadores en línea de producción</h1>
+{% elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras' %}
+<h1>Ver información de los clientes</h1>
+{% elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio' %}
+<h1>Ver información de producción promedio</h1>
+{% elif nombreTabla == 'la_tocanita.cargamento' %}
+<h1>Ver información de cargamento</h1>
+{% else %}
+<h1>Ver información {{nombreTabla}}</h1>
+{% endif %}
+<table style="width: 100%">
+  <tr>
+    {% for nombreColumna in columnas %}
+    <th>{{nombreColumna}}</th>
+    {% endfor %}
+  </tr>
+  {% for fila in filas %}
+  <tr>
+    {% for entrada in fila %}
+    <td>{{entrada}}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
 {% endmacro %}

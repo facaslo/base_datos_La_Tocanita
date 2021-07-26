@@ -1,26 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer>        
-        function logout(){
-            window.location.href = "/logout"
-        }
-        function redireccionarTabla(elemento){
-            console.log(typeof(elemento))
-            console.log(`/verTabla?nombreTabla=${elemento}`)
-            window.location.href = `/verTabla?nombreTabla=${elemento}`            
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- CSS propio -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+      type="text/css"
+    />
+    <style>
+      body {
+        background: linear-gradient(#343a40, #66cccc);
+        background-attachment: fixed;
+        /*Hace que la imagen quede fija y no se mueva con el contenedor*/
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+    <script defer>
+      function logout() {
+        window.location.href = "/logout";
+      }
+      function redireccionarTabla(elemento) {
+        console.log(typeof elemento);
+        console.log(`/verTabla?nombreTabla=${elemento}`);
+        window.location.href = `/verTabla?nombreTabla=${elemento}`;
+      }
     </script>
     {%block titulo%} {% endblock %}
-</head>
-<body>    
-    <button onclick="logout()"> Salir de la sesión </button>             
-    {% from "_macro.html" import create_elements_buttons %}
-    {{ create_elements_buttons(listaBotones) }}
-    {% block content %}                
-    {% endblock %}    
-</body>
+  </head>
+  <body>
+    <header class="site-header">
+      <!-- As a heading -->
+      <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">La Tocanita</span>
+          <button
+            onclick="logout()"
+            class="btn btn-outline-info my-2 my-sm-0 d-flex"
+          >
+            Salir de la sesión
+          </button>
+        </div>
+      </nav>
+    </header>
+    {% block content %} {% endblock %}
+  </body>
 </html>
