@@ -3,7 +3,7 @@
   padding: 20px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
-  margin: 20% 0px;
+  margin: 10% 0px;
 }
 
 #login-content {
@@ -80,8 +80,8 @@ a.article-title:hover {
 }
 
 .main-logo img {
-  width: 70%;
-  height: 70%;
+  width: 60%;
+  height: 60%;
 }
 
 .main-logo {
@@ -100,15 +100,13 @@ a.article-title:hover {
   flex-direction: column;
 }
 
-.main-buttons a {
+.main-buttons button {
   padding: 10px 0px;
-  margin: 10px 00px;
-  width: 80%;
-  margin: 10% 0px;
+  width: 90%;
+  margin: 2% 0px;
   justify-content: center;
-  font-size: 16px;
-  background-color: #343a40 !important;
-  border-color: #343a40 !important;
+  font-size: 14px;
+  white-space: normal;
 }
 
 .com-text {

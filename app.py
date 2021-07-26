@@ -109,7 +109,7 @@ def infoTabla():
 def buscar():
     nombreTabla = request.args.get('nombreTabla')    
     if request.method == 'POST':
-        
+        pass
 
 
     try:                 
