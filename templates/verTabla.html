@@ -5,11 +5,16 @@
         function goBack(){
             window.history.back();
         }
+        function search(tabla){
+            window.location.href = `/buscar?nombreTabla=${tabla}`;
+        }
     </script>
+    
 {% endblock %}
 
 {% block content%}
     <button onclick="goBack()"> Volver </button>    
+    <button onclick="search('{{nombreTabla}}')"> Filtrar </button>
     {% from "_macro.html" import create_table %}
-    {{ create_table(nombreTabla, nombreColumnas , filas) }}    
+    {{ create_table(nombreTabla, nombreColumnas , filas) }}        
 {% endblock %}

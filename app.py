@@ -87,28 +87,53 @@ def principal():
 
 @app.route('/verTabla')
 def infoTabla():
-    #try:
-    tabla = request.args.get('nombreTabla')              
+    try:
+        tabla = request.args.get('nombreTabla')              
+        
+        nombreColumnas = []
+        cursor.execute('DESCRIBE {}'.format(tabla))        
+        for columna in cursor.fetchall():
+            nombreColumnas.append(columna[0])       
+        
+        filas = []
+        cursor.execute('SELECT * FROM {}'.format(tabla))
+        for fila in cursor.fetchall():
+            filas.append(fila)
     
-    nombreColumnas = []
-    cursor.execute('DESCRIBE {}'.format(tabla))        
-    for columna in cursor.fetchall():
-        nombreColumnas.append(columna[0])
-    
-    print(nombreColumnas)
+        return render_template ('verTabla.html',  nombreTabla = tabla, nombreColumnas = nombreColumnas, filas = filas)
 
-    filas = []
-    cursor.execute('SELECT * FROM {}'.format(tabla))
-    for fila in cursor.fetchall():
-        filas.append(fila)
-    
-    return render_template ('verTabla.html',  nombreTabla = tabla, nombreColumnas = nombreColumnas, filas = filas)
+    except:    
+        return render_template ('401.html') , 401    
 
-    #except Exception:
-    #    print(Exception)
-    #    return render_template ('401.html') , 401    
+@app.route('/buscar')
+def buscar():
+    nombreTabla = request.args.get('nombreTabla')    
+    if request.method == 'POST':
+        
 
 
+    try:                 
+        if nombreTabla == 'la_tocanita.vw_info_cargo_trabajador':
+            campos_busqueda = ['car_id', 'car_nombre', 'car_tipoCargo', 'tra_id', 'tra_nombre']
+        elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras':
+            campos_busqueda = ['cli_id', 'cli_nombre', 'cli_totalCompras']
+        elif nombreTabla == 'la_tocanita.vw_info_compra_insumos':
+            campos_busqueda = ['prv_nit', 'prv_nombre', 'com_idrecibo', 'com_fecha', 'ins_nombre']
+        elif nombreTabla == 'la_tocanita.vw_info_nomina':
+            campos_busqueda = ['tra_id', 'tra_nombre', 'nom_fecha', 'nom_periodo']
+        elif nombreTabla == 'la_tocanita.vw_info_produccion':
+            campos_busqueda = ['cdp_fecha', 'prd_id', 'prd_nombre']
+        elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio':
+            campos_busqueda = ['prd_id','prd_nombre']
+        elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador':
+            campos_busqueda = ['cdp_fecha','prd_id', 'tra_nombre']
+        elif nombreTabla == 'la_tocanita.vw_info_venta':
+            campos_busqueda = ['vnt_id','cli_id', 'geo_nombre', 'vnt_fecha'] 
+        elif nombreTabla == 'la_tocanita.cargamento':
+            campos_busqueda = ['crg_fecha','crg_placaFurgon']
+        return render_template ('filtro.html', campos=campos_busqueda, nombreTabla= nombreTabla)       
+    except:
+        return render_template ('401.html') , 401    
 
 @app.route('/logout')
 def logout():
@@ -123,8 +148,6 @@ def logout():
         pass    
 
     return redirect('/')
-
-
 
 if __name__ == '__main__' :
     app.run(debug = True, port = 8000)
