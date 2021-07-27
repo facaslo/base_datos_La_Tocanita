@@ -1,9 +1,26 @@
-{% extends 'base/baseCargos.html' %}
-
-{% block titulo %}    
-    <title> rol gerente </title>  
-{% endblock %}
-
-{% block content %}
-    <button onclick=""> Actualizar información de los cargos </button>
+{% extends 'base/baseCargos.html' %} {% block titulo %}
+<title>La Tocanita - Gerente</title>
+{% endblock %} {% block content %}
+<main role="main" class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="content-section" id="aside">
+        <section class="main-logo">
+          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
+        </section>
+        <section class="main-buttons">
+          <button type="button" class="btn btn-dark">
+            Actualizar información de los cargos
+          </button>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="content-section">
+        {% from "_macro.html" import create_elements_buttons %} {{
+        create_elements_buttons(listaBotones) }}
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock %}

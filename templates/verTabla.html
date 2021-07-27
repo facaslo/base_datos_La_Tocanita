@@ -1,20 +1,50 @@
-{% extends 'base/base.html' %}
-{% block titulo %}
-    <title> Información de tabla </title>    
-    <script>
-        function goBack(){
-            window.history.back();
-        }
-        function search(tabla){
-            window.location.href = `/buscar?nombreTabla=${tabla}`;
-        }
-    </script>
-    
-{% endblock %}
-
-{% block content%}
-    <button onclick="goBack()"> Volver </button>    
-    <button onclick="search('{{nombreTabla}}')"> Filtrar </button>
-    {% from "_macro.html" import create_table %}
-    {{ create_table(nombreTabla, nombreColumnas , filas) }}        
+{% extends 'base/base.html' %} {% block titulo %}
+<title>Información de tabla</title>
+<script>
+  function goBack() {
+    window.history.back();
+  }
+  function search(tabla) {
+    window.location.href = `/buscar?nombreTabla=${tabla}`;
+  }
+</script>
+{% endblock %} {% block content%}
+<header class="site-header">
+  <!-- As a heading -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">La Tocanita</span>
+      <div id="nav-tablas">
+        <button
+          onclick="search('{{nombreTabla}}')"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >
+          Filtrar Tabla
+        </button>
+        <button
+          onclick="goBack()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+          id="nav-salir"
+        >
+          Volver
+        </button>
+        <button
+          onclick="logout()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+          id="nav-salir"
+        >
+          Salir de la sesión
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+<main role="main" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      {% from "_macro.html" import create_table %} {{ create_table(nombreTabla,
+      nombreColumnas , filas) }}
+    </div>
+  </div>
+</main>
 {% endblock %}

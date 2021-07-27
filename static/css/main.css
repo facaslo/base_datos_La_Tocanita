@@ -140,3 +140,36 @@ main {
 .form-group label {
   margin-bottom: 0.5 rem;
 }
+
+#select-tablas {
+  width: 80%;
+  padding: 5px;
+}
+
+.macro-vista {
+  display: flex;
+  justify-content: space-between;
+}
+
+#nav-tablas {
+  display: flex;
+  justify-content: space-between;
+}
+
+#nav-salir {
+  margin-left: 5px;
+}
+
+.titulo-ver-tablas {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+#filtro .content-section {
+  margin: 5% 0px !important;
+}
+
+#filtro-label label {
+  margin-top: 3px;
+}
