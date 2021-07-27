@@ -4,6 +4,9 @@
   function goBack() {
     window.history.back();
   }
+  function search(tabla) {
+    window.location.href = `/buscar?nombreTabla=${tabla}`;
+  }
 </script>
 {% endblock %} {% block content%}
 <header class="site-header">
@@ -30,6 +33,8 @@
   </nav>
 </header>
 <main role="main" class="container-fluid">
+  <button onclick="goBack()">Volver</button>
+  <button onclick="search('{{nombreTabla}}')">Filtrar</button>
   <div class="row">
     <div class="col-md-12">
       {% from "_macro.html" import create_table %} {{ create_table(nombreTabla,

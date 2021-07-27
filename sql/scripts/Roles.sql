@@ -69,4 +69,5 @@ GRANT SELECT ON la_tocanita.geografia TO 'Conductor';
 GRANT SELECT ON mysql.* TO 'admin','Gerente','Contador','adminRecHumanos','Jefe de Ventas',
 'Auxiliar Contable', 'Jefe de Produccion', 'Linea de Produccion', 'Conductor';
 
-SHOW GRANTS FOR 'Gerente'@'%';
+describe vw_info_produccion;
+
