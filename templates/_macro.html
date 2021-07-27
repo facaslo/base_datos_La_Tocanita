@@ -158,6 +158,10 @@ nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
                     <th> Id del cargo  </th>
                 {% elif nombreColumna == 'cli_id' %}
                     <th> Id de cliente </th>
+                {% elif nombreColumna == 'cli_telefono' %}
+                    <th> Teléfono del cliente  </th>
+                {% elif nombreColumna == 'cli_correo' %}
+                    <th> Correo del cliente </th>
                 {% elif nombreColumna == 'cli_nombre' %}
                     <th> Nombre de cliente </th>
                 {% elif nombreColumna == 'cli_totalCompras' %}
@@ -172,22 +176,48 @@ nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
                     <th> Fecha de compra  </th>
                 {% elif nombreColumna == 'ins_nombre' %}
                     <th> Nombre de insumo </th>
+                {% elif nombreColumna == 'ins_codigo' %}
+                    <th> Código de insumo </th>
+                {% elif nombreColumna == 'cin_costototal' %}
+                    <th> Costo de la compra </th>
+                {% elif nombreColumna == 'cin_cantidad' %}
+                    <th> Cantidad de insumo </th>
                 {% elif nombreColumna == 'nom_fecha' %}
                     <th> Fecha de pago </th>
                 {% elif nombreColumna == 'nom_periodo' %}
                     <th> Nombre del periodo  </th>
+                {% elif nombreColumna == 'nom_descuentos' %}
+                    <th> Valor de descuentos </th>
+                {% elif nombreColumna == 'nom_valorPago' %}
+                    <th> Valor del pago  </th>
                 {% elif nombreColumna == 'cdp_fecha' %}
                     <th> Fecha de producción  </th>
+                {% elif nombreColumna == 'cdp_costoProduccion' %}
+                    <th> Costo de la producción  </th>
                 {% elif nombreColumna == 'prd_id' %}
                     <th> Id de producto  </th>
+                {% elif nombreColumna == 'rpd_cantidadProducida' %}
+                    <th> Cantidad producida  </th>
+                {% elif nombreColumna == 'prd_peso' %}
+                    <th> Peso producido  </th>
                 {% elif nombreColumna == 'prd_nombre' %}
                     <th> Nombre de producto  </th>
+                {% elif nombreColumna == 'promedioProducido' %}
+                    <th> PromedioProducido  </th>
                 {% elif nombreColumna == 'vnt_id' %}
                     <th> Id de venta  </th>
                 {% elif nombreColumna == 'geo_nombre' %}
                     <th> Nombre de municipio  </th>
                 {% elif nombreColumna == 'vnt_fecha' %}
-                    <th> Fecha de venta  </th>                            
+                    <th> Fecha de venta  </th>      
+                {% elif nombreColumna == 'vnt_direccion' %}
+                    <th> Dirección de la venta  </th>    
+                {% elif nombreColumna == 'vnt_estado' %}
+                    <th> Estado de la venta  </th>      
+                {% elif nombreColumna == 'vpn_cantidad' %}
+                    <th> Cantidad de producto </th>    
+                {% elif nombreColumna == 'vpn_valorVenta' %}
+                    <th> Valor de la venta </th>                        
                 {% elif nombreColumna == 'crg_fecha' %}
                     <th> Fecha de cargamento  </th>   
                 {% elif nombreColumna == 'crg_placaFurgon' %}
