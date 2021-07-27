@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar venta</title>
+    <script>
+          
+        function goBack(){
+            window.history.back();
+        }        
+        
+    </script>
+</head>
+<body>
+    <button onclick="goBack()">
+        Volver
+    </button>
+    <h1> Realizar venta </h1>
+    {% if not primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase %}
+    <h2> Ingrese la información del cliente </h2>
+    {% elif primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase %}
+    <h2> Ingrese la información del nuevo cliente </h2>
+    {% elif not segundoPaso and clienteEnBase and primerPaso and not geografiaEnBase %}   
+    <h2> Ingrese la información del municipio </h2>
+    {% elif segundoPaso and not geografiaEnBase and primerPaso and clienteEnBase%}
+    <h2> Ingrese la información del nuevo municipio </h2>
+    {% elif segundoPaso and geografiaEnBase and primerPaso and clienteEnBase %}
+    <h2> Ingrese la información de la venta </h2>
+    {% endif %}
+    <form method="POST" action="">
+        {% if not primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase and not final %}
+        <label for="cli_id"> Id del cliente </label>
+        <input type="text" name="cli_id" required>        
+        <input type="submit" value="Verificar id">
+        {% elif primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase and not final%}
+        <label for="cli_id"> Id del cliente </label>
+        <input type="number" name="cli_id" required>    
+        <label for="cli_nombre"> Nombre del cliente </label>
+        <input type="text" name="cli_nombre" required>  
+        <label for="cli_telefono"> Teléfono del cliente </label>
+        <input type="number" name="cli_telefono" required>   
+        <label for="cli_correo"> Correo del cliente </label>
+        <input type="number" name="cli_correo" required>           
+        <input type="submit" value="Ingresar datos">
+        {% elif not segundoPaso and clienteEnBase and primerPaso and not geografiaEnBase and not final %}             
+        <label for="geo_codigoPostal"> Código postal del municipio </label>
+        <input type="number" name="geo_codigoPostal" required>        
+        <input type="submit" value="Verificar municipio">
+        <script>
+            alert('El cliente está en la base de datos')
+        </script>
+        {% elif segundoPaso and not geografiaEnBase and primerPaso and clienteEnBase and not final %}
+        <label for="geo_codigoPostal"> Código postal </label>
+        <input type="number" name="geo_codigoPostal" required>    
+        <label for="geo_nombre"> Nombre del municipio </label>
+        <input type="text" name="geo_nombre" required>  
+        <input type="submit" value="Ingresar datos">
+        {% elif segundoPaso and geografiaEnBase and primerPaso and clienteEnBase and not final %}
+        <label for="id_venta"> Id de venta </label>
+        <input type="number" name="id_venta" required>    
+        <label for="id_cliente"> Id del cliente </label>
+        <input type="number" name="id_cliente" required>  
+        <label for="geo_codigoPostal"> Código postal </label>
+        <input type="number" name="geo_codigoPostal" required>  
+        <label for="vnt_direccion"> Dirección de la venta </label>
+        <input type="number" name="vnt_direccion" required> 
+        <label for="prd_id"> Id del producto </label>        
+        <input type="number" name="prd_id" required> 
+        <label for="vpn_cantidad"> Cantidad del producto </label>
+        <input type="number" name="vpn_cantidad" required>                 
+        <label for="vpn_valorVenta"> Valor de la venta </label>  
+        <input type="number" name="vpn_valorVenta" required>
+        <input type="submit" value="Ingresar datos">
+        <script>
+            alert('El municipio está en la base de datos')
+        </script>
+        {% elif final %}
+        
+        <script>
+            alert('La venta ha sido creada')
+            window.location.href = '/rol?tipo={{rol}}'
+        </script>
+        {% endif %}
+    </form>
+</body>
+</html>

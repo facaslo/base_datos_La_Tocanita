@@ -21,6 +21,7 @@ baseDatos = None
 cursor = None
 #Campos de busqueda para los formularios 
 campos_busqueda = None
+rol = ''
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -58,7 +59,9 @@ def principal():
         tabla = request.form.get('tablas_menuDesplegable')        
         return redirect ('/verTabla?nombreTabla={}'.format(tabla))
     try:
-        rolParametro = request.args.get('tipo')        
+        rolParametro = request.args.get('tipo')   
+        global rol
+        rol = rolParametro     
         direccioneshtml = {'admin': 'admin.html', 'Gerente':'gerente.html','Contador': 'contador.html', 'adminRecHumanos': 'recHumanos.html',
         'Jefe de Ventas': 'jefeVentas.html', 'Auxiliar Contable': 'auxiliarContable.html', 'Jefe de Produccion' :'jefeProduccion.html', 'Linea de Produccion': 'lineaProduccion.html','Conductor': 'conductor.html'}
         
@@ -164,6 +167,12 @@ def buscar():
     except:
         return render_template ('401.html') , 401    
 
+@app.route('/RealizarVenta', methods=['GET','POST'])
+def realizarCompra():
+    global rol
+    return render_template ('realizarVenta.html', clienteEnBase = True , geografiaEnBase = True , primerPaso = True , segundoPaso = True, final = True , rol=rol)
+    
+
 @app.route('/logout')
 def logout():
     try:
@@ -173,6 +182,8 @@ def logout():
         baseDatos.close()
         global user
         user=''
+        global rol 
+        rol = ''
     except:
         pass    
 

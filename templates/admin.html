@@ -10,20 +10,26 @@
           <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
         </section>
         <section class="main-buttons">
-          <button type="button" class="btn btn-dark">
+          <button type="button" onclick="redireccionarCompra()" class="btn btn-dark">
             Actualizar compra de insumos
           </button>
-          <button type="button" class="btn btn-dark">
+          <button type="button" onclick="redireccionarNomina()" class="btn btn-dark">
             Actualizar pago de nomina
           </button>
-          <button type="button" class="btn btn-dark">
+          <button type="button" onclick="redireccionarTrabajadores()" class="btn btn-dark">
             Actualizar información de los trabajadores
           </button>
-          <button type="button" class="btn btn-dark">
+          <button type="button"  onclick="redireccionarProduccion()" class="btn btn-dark">
             Actualizar información de la producción
           </button>
-          <button type="button" class="btn btn-dark">Realizar venta</button>
-          <button type="button" class="btn btn-dark">Actualizar venta</button>
+          <button type="button" class="btn btn-dark" onclick="redireccionarHacerVenta()" >Realizar venta</button>
+          <button type="button" class="btn btn-dark" onclick="redireccionarVenta()" >Actualizar venta</button>
+          <button type="button" class="btn btn-dark" onclick="redireccionarCargos()">
+            Actualizar información de los cargos
+          </button>
+          <button type="button" class="btn btn-dark" onclick="redireccionarCargamento()">
+            Actualizar información del cargamento
+          </button>
         </section>
       </div>
     </div>
