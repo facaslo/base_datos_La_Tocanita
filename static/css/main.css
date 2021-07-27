@@ -165,3 +165,11 @@ main {
   justify-content: center;
   padding: 10px;
 }
+
+#filtro .content-section {
+  margin: 5% 0px !important;
+}
+
+#filtro-label label {
+  margin-top: 3px;
+}

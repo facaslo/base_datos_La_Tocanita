@@ -16,8 +16,15 @@
       <span class="navbar-brand mb-0 h1">La Tocanita</span>
       <div id="nav-tablas">
         <button
+          onclick="search('{{nombreTabla}}')"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >
+          Filtrar Tabla
+        </button>
+        <button
           onclick="goBack()"
           class="btn btn-outline-info my-2 my-sm-0 d-flex"
+          id="nav-salir"
         >
           Volver
         </button>
@@ -33,8 +40,6 @@
   </nav>
 </header>
 <main role="main" class="container-fluid">
-  <button onclick="goBack()">Volver</button>
-  <button onclick="search('{{nombreTabla}}')">Filtrar</button>
   <div class="row">
     <div class="col-md-12">
       {% from "_macro.html" import create_table %} {{ create_table(nombreTabla,

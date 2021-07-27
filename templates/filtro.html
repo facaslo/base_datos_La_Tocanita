@@ -1,16 +1,58 @@
-{% extends 'base/base.html' %}
-
-{% block titulo %}
-    <title> Filtrando tabla {{nombreTabla}}</title>
-    <script>
-        function goBack(){
-            window.history.back();
-        }       
-    </script>
-{% endblock %}
-
-{% block content %}
-    <button onclick="goBack()"> Volver </button>   
-    {% from "_macro.html" import createSearchForm %}  
-    {{ createSearchForm(campos, nombreTabla) }}
+{% extends 'base/base.html' %} {% block titulo %}
+<title>Filtrando tabla {{nombreTabla}}</title>
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
+{% endblock %} {% block content %}
+<header class="site-header">
+  <!-- As a heading -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">La Tocanita</span>
+      <div id="nav-tablas">
+        <button
+          onclick="goBack()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >
+          Volver
+        </button>
+        <button
+          onclick="logout()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+          id="nav-salir"
+        >
+          Salir de la sesión
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+<style>
+  body {
+    background: linear-gradient(#343a40, #66cccc);
+    background-attachment: fixed;
+    /*Hace que la imagen quede fija y no se mueva con el contenedor*/
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+<main role="main" class="container-fluid" id="filtro">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="content-section" id="aside">
+        <section class="main-logo">
+          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
+        </section>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="content-section">
+        {% from "_macro.html" import createSearchForm %} {{
+        createSearchForm(campos, nombreTabla) }}
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock %}

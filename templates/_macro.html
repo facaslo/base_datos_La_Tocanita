@@ -4,7 +4,9 @@
   <li>'{{elemento}}'</li>
   {% endfor %}
 </ol>
-{% endmacro %} {% macro create_elements_buttons(listaElementos) %}
+{% endmacro %} 
+
+{% macro create_elements_buttons(listaElementos) %}
 <form method="POST" action class="macro-vista">
   <select
     class="form-select form-select-sm"
@@ -42,100 +44,31 @@
     Ver información
   </button>
 </form>
-{% endmacro %} {% macro create_table(nombreTabla, columnas , filas)%} {% if
-nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
-<h1 class="titulo-ver-tablas">Ver información de insumos</h1>
-{% elif nombreTabla == 'la_tocanita.vw_info_nomina' %}
-<h1 class="titulo-ver-tablas">Ver información de nómina</h1>
-{% elif nombreTabla == 'la_tocanita.vw_info_venta' %}
-<h1 class="titulo-ver-tablas">Ver información de ventas</h1>
-{% elif nombreTabla == 'la_tocanita.vw_info_produccion' %}
-<h1 class="titulo-ver-tablas">Ver información de producción</h1>
-{% elif nombreTabla == 'la_tocanita.vw_info_cargo_trabajador' %}
-<h1 class="titulo-ver-tablas">Ver información de trabajadores</h1>
-{% elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador' %}
-<h1 class="titulo-ver-tablas">
-  Ver información de los trabajadores en línea de producción
-</h1>
-{% elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-<h1 class="titulo-ver-tablas">Ver información de los clientes</h1>
-{% elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio' %}
-<h1 class="titulo-ver-tablas">Ver información de producción promedio</h1>
-{% elif nombreTabla == 'la_tocanita.cargamento' %}
-<h1 class="titulo-ver-tablas">Ver información de cargamento</h1>
-{% else %}
-<h1 class="titulo-ver-tablas">Ver información {{nombreTabla}}</h1>
-{% endif %}
-<table style="width: 100%" class="table-light table-striped">
-  <tr>
-    {% for nombreColumna in columnas %}
-    <th>{{nombreColumna}}</th>
-    {% endfor %}
-  </tr>
-  {% for fila in filas %}
-  <tr>
-    {% for entrada in fila %}
-    <td>{{entrada}}</td>
-    {% endfor %}
-  </tr>
-  {% endfor %}
-</table>
-{% endmacro %}
-
-{% macro create_elements_buttons(listaElementos) %}
-    <form method="POST" action>
-        <select name="tablas_menuDesplegable">
-        {% for elemento in listaElementos %}
-            {% if elemento == 'la_tocanita.vw_info_compra_insumos' %}            
-                <option value="{{elemento}}"> Ver información de insumos </option>            
-            {% elif elemento == 'la_tocanita.vw_info_nomina' %}
-                <option value="{{elemento}}">  Ver información de nómina </option>            
-            {% elif elemento == 'la_tocanita.vw_info_venta' %}
-                <option value="{{elemento}}">  Ver información de ventas </option>            
-            {% elif elemento == 'la_tocanita.vw_info_produccion' %}
-                <option value="{{elemento}}">  Ver información de producción </option>            
-            {% elif elemento == 'la_tocanita.vw_info_cargo_trabajador' %}
-                <option value="{{elemento}}">  Ver información de trabajadores </option>            
-            {% elif elemento == 'la_tocanita.vw_info_produccion_trabajador' %}
-                <option value="{{elemento}}">  Ver información de los trabajadores en línea de producción </option>            
-            {% elif elemento == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-                <option value="{{elemento}}">  Ver información de los clientes </option>            
-            {% elif elemento == 'la_tocanita.vw_info_produccion_promedio' %}
-                <option value="{{elemento}}">  Ver información de producción promedio  </option>             
-            {% elif elemento == 'la_tocanita.cargamento' %}
-                <option value="{{elemento}}">  Ver información de cargamento </option>                 
-            {% else %} 
-                <option value="{{elemento}}">  Ver información de {{elemento}} </option>                   
-            {% endif %}    
-        {% endfor %}    
-        </select>
-        <button type="submit"> Ver información </button>
-    </form>
-{% endmacro %}
+{% endmacro %} 
 
 {% macro create_table(nombreTabla, columnas , filas)%}
     {% if nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}            
-    <h1> Ver información de insumos </h1>
+    <h1 class="titulo-ver-tablas"> Ver información de insumos </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_nomina' %}
-    <h1> Ver información de nómina </h1>
+    <h1 class="titulo-ver-tablas"> Ver información de nómina </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_venta' %}
-    <h1> Ver información de ventas </h1>
+    <h1 class="titulo-ver-tablas"> Ver información de ventas </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_produccion' %}
-    <h1> Ver información de producción </h1>
+    <h1 class="titulo-ver-tablas"> Ver información de producción </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_cargo_trabajador' %}
-    <h1> Ver información de trabajadores </h1>
+    <h1 class="titulo-ver-tablas"> Ver información de trabajadores </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador' %}
-    <h1> Ver información de los trabajadores en línea de producción </h1>
+    <h1 class="titulo-ver-tablas"> Ver información de los trabajadores en línea de producción </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-    <h1> Ver información de los clientes </h1>
+    <h1 class="titulo-ver-tablas"> Ver información de los clientes </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio' %}
-    <h1> Ver información de producción promedio </h1>   
+    <h1 class="titulo-ver-tablas"> Ver información de producción promedio </h1>   
     {% elif nombreTabla == 'la_tocanita.cargamento' %}
-    <h1> Ver información de cargamento </h1>          
+    <h1 class="titulo-ver-tablas"> Ver información de cargamento </h1>          
     {% else %} 
-    <h1> Ver información {{nombreTabla}} </h1>
+    <h1 class="titulo-ver-tablas"> Ver información {{nombreTabla}} </h1>
     {% endif %}    
-    <table style="width:100%">       
+    <table style="width: 100%" class="table-light table-striped">       
         <tr>
             {% for nombreColumna in columnas %}
             <th> {{nombreColumna}} </th>
@@ -153,101 +86,103 @@ nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
 
 {% macro createSearchForm(campos_busqueda, nombreTabla)%}
     {% if nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}            
-    <h1> Buscar en insumos </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en insumos </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_nomina' %}
-    <h1> Buscar en nómina </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en nómina </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_venta' %}
-    <h1> Buscar en ventas </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en ventas </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_produccion' %}
-    <h1> Buscar en producción </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en producción </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_cargo_trabajador' %}
-    <h1> Buscar en trabajadores </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en trabajadores </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador' %}
-    <h1> Buscar en los trabajadores en línea de producción </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en los trabajadores en línea de producción </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-    <h1> Buscar en los clientes </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en los clientes </h1>
     {% elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio' %}
-    <h1> Buscar en producción promedio </h1>   
+    <h1 class="titulo-ver-tablas"> Buscar en producción promedio </h1>   
     {% elif nombreTabla == 'la_tocanita.cargamento' %}
-    <h1> Buscar en cargamento </h1>          
+    <h1 class="titulo-ver-tablas"> Buscar en cargamento </h1>          
     {% else %} 
-    <h1> Buscar en {{nombreTabla}} </h1>
+    <h1 class="titulo-ver-tablas"> Buscar en {{nombreTabla}} </h1>
     {% endif %}    
 
 
     <form method="POST">
+        <div class="mb-3" id="filtro-label">
         {% for campo in campos_busqueda %}
             {% if campo == 'car_id' %}
-                <label for="car_id"> Id del cargo </label>
-                <input type="text" name = "car_id"> </form>
+                <label for="car_id" class="form-label"> Id del cargo </label>
+                <input type="text" name = "car_id" class="form-control"> </form>
             {% elif campo == 'car_nombre' %}
-                <label for="car_nombre"> Nombre del cargo </label>
-                <input type="text" name = "car_nombre"> </form>
+                <label for="car_nombre" class="form-label"> Nombre del cargo </label>
+                <input type="text" name = "car_nombre" class="form-control"> </form>
             {% elif campo == 'car_tipoCargo' %}
-                <label for="car_tipoCargo"> Tipo de cargo </label>
-                <input type="text" name = "car_tipoCargo"> </form>
+                <label for="car_tipoCargo" class="form-label"> Tipo de cargo </label>
+                <input type="text" name = "car_tipoCargo" class="form-control"> </form>
             {% elif campo == 'tra_id' %}
-                <label for="tra_id"> Id del trabajador </label>
-                <input type="text" name = "tra_id"> </form>
+                <label for="tra_id" class="form-label"> Id del trabajador </label>
+                <input type="text" name = "tra_id" class="form-control"> </form>
             {% elif campo == 'tra_nombre' %}
-                <label for="tra_nombre"> Nombre del trabajador </label>
-                <input type="text" name = "tra_nombre"> </form>
+                <label for="tra_nombre" class="form-label"> Nombre del trabajador </label>
+                <input type="text" name = "tra_nombre" class="form-control"> </form>
             {% elif campo == 'cli_id' %}
-                <label for="cli_id"> Id del cliente </label>
-                <input type="text" name = "cli_id"> </form>
+                <label for="cli_id" class="form-label"> Id del cliente </label>
+                <input type="text" name = "cli_id" class="form-control"> </form>
             {% elif campo == 'cli_nombre' %}
-                <label for="cli_nombre"> Nombre del cliente </label>
-                <input type="text" name = "cli_nombre"> </form>
+                <label for="cli_nombre" class="form-label"> Nombre del cliente </label>
+                <input type="text" name = "cli_nombre" class="form-control"> </form>
             {% elif campo == 'cli_totalCompras' %}
-                <label for="cli_totalCompras"> Total de las compras </label>
-                <input type="text" name = "cli_totalCompras"> </form>
+                <label for="cli_totalCompras" class="form-label"> Total de las compras </label>
+                <input type="text" name = "cli_totalCompras" class="form-control"> </form>
             {% elif campo == 'prv_nit' %}
-                <label for="prv_nit"> Nit del proveedor </label>
-                <input type="text" name = "prv_nit"> </form>
+                <label for="prv_nit" class="form-label"> Nit del proveedor </label>
+                <input type="text" name = "prv_nit" class="form-control"> </form>
             {% elif campo == 'prv_nombre' %}
-                <label for="prv_nombre"> Nombre del proveedor </label>
-                <input type="text" name = "prv_nombre"> </form>
+                <label for="prv_nombre" class="form-label"> Nombre del proveedor </label>
+                <input type="text" name = "prv_nombre" class="form-control"> </form>
             {% elif campo == 'com_idrecibo' %}
-                <label for="com_idrecibo"> Id del recibo </label>
-                <input type="text" name = "com_idrecibo"> </form>
+                <label for="com_idrecibo" class="form-label"> Id del recibo </label>
+                <input type="text" name = "com_idrecibo" class="form-control"> </form>
             {% elif campo == 'com_fecha' %}
-                <label for="com_fecha"> Fecha de la compra </label>
-                <input type="text" name = "com_fecha"> </form>
+                <label for="com_fecha" class="form-label"> Fecha de la compra </label>
+                <input type="text" name = "com_fecha" class="form-control"> </form>
             {% elif campo == 'ins_nombre' %}
-                <label for="ins_nombre"> Nombre del insumo </label>
-                <input type="text" name = "ins_nombre"> </form>
+                <label for="ins_nombre" class="form-label"> Nombre del insumo </label>
+                <input type="text" name = "ins_nombre" class="form-control"> </form>
             {% elif campo == 'nom_fecha' %}
-                <label for="nom_fecha"> Fecha del pago </label>
-                <input type="text" name = "nom_fecha"> </form>
+                <label for="nom_fecha" class="form-label"> Fecha del pago </label>
+                <input type="text" name = "nom_fecha" class="form-control"> </form>
             {% elif campo == 'nom_periodo' %}
-                <label for="nom_periodo"> Periodo de pago </label>
-                <input type="text" name = "nom_periodo"> </form>
+                <label for="nom_periodo" class="form-label"> Periodo de pago </label>
+                <input type="text" name = "nom_periodo" class="form-control"> </form>
             {% elif campo == 'cdp_fecha' %}
-                <label for="cdp_fecha"> Fecha de la producción </label>
-                <input type="text" name = "cdp_fecha"> </form>
+                <label for="cdp_fecha" class="form-label"> Fecha de la producción </label>
+                <input type="text" name = "cdp_fecha" class="form-control"> </form>
             {% elif campo == 'prd_id' %}
-                <label for="prd_id"> Id del producto </label>
-                <input type="text" name = "prd_id"> </form>
+                <label for="prd_id" class="form-label"> Id del producto </label>
+                <input type="text" name = "prd_id" class="form-control"> </form>
             {% elif campo == 'prd_nombre' %}
-                <label for="prd_nombre"> Nombre del producto </label>
-                <input type="text" name = "prd_nombre"> </form>
+                <label for="prd_nombre" class="form-label"> Nombre del producto </label>
+                <input type="text" name = "prd_nombre" class="form-control"> </form>
             {% elif campo == 'vnt_id' %}
-                <label for="vnt_id"> Id de la venta </label>
-                <input type="text" name = "vnt_id"> </form>
+                <label for="vnt_id" class="form-label"> Id de la venta </label>
+                <input type="text" name = "vnt_id" class="form-control"> </form>
             {% elif campo == 'geo_nombre' %}
-                <label for="geo_nombre"> Nombre del municipio </label>
-                <input type="text" name = "geo_nombre"> </form>
+                <label for="geo_nombre" class="form-label"> Nombre del municipio </label>
+                <input type="text" name = "geo_nombre" class="form-control"> </form>
             {% elif campo == 'vnt_fecha' %}
-                <label for="vnt_fecha"> Fecha de la venta </label>
-                <input type="text" name = "vnt_fecha"> </form>            
+                <label for="vnt_fecha" class="form-label"> Fecha de la venta </label>
+                <input type="text" name = "vnt_fecha" class="form-control"> </form>            
             {% elif campo == 'crg_fecha' %}
-                <label for="crg_fecha"> Fecha del envío </label>
-                <input type="text" name = "crg_fecha"> </form>      
+                <label for="crg_fecha" class="form-label"> Fecha del envío </label>
+                <input type="text" name = "crg_fecha" class="form-control"> </form>      
             {% elif campo == 'crg_placaFurgon' %}
-                <label for="crg_placaFurgon"> Placa del furgón </label>
-                <input type="text" name = "crg_placaFurgon"> </form>        
+                <label for="crg_placaFurgon" class="form-label"> Placa del furgón </label>
+                <input type="text" name = "crg_placaFurgon" class="form-control"> </form>        
             {% endif %}                           
         {% endfor %}
-        <button type="submit"> Enviar criterios de búsqueda </button>
+        </div>
+        <button type="submit" class="btn btn-info"> Enviar criterios de búsqueda </button>
     </form>
 {% endmacro %}
