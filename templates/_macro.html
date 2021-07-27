@@ -5,11 +5,12 @@
   {% endfor %}
 </ol>
 {% endmacro %} {% macro create_elements_buttons(listaElementos) %}
-<form method="POST" action>
+<form method="POST" action class="macro-vista">
   <select
     class="form-select form-select-sm"
     aria-label=".form-select-sm example"
     name="tablas_menuDesplegable"
+    id="select-tablas"
   >
     {% for elemento in listaElementos %} {% if elemento ==
     'la_tocanita.vw_info_compra_insumos' %}
@@ -36,31 +37,36 @@
     <option value="{{elemento}}">Ver información de {{elemento}}</option>
     {% endif %} {% endfor %}
   </select>
-  <button type="submit">Ver información</button>
+
+  <button type="submit" class="btn btn-outline-dark" id="ver-info">
+    Ver información
+  </button>
 </form>
 {% endmacro %} {% macro create_table(nombreTabla, columnas , filas)%} {% if
 nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
-<h1>Ver información de insumos</h1>
+<h1 class="titulo-ver-tablas">Ver información de insumos</h1>
 {% elif nombreTabla == 'la_tocanita.vw_info_nomina' %}
-<h1>Ver información de nómina</h1>
+<h1 class="titulo-ver-tablas">Ver información de nómina</h1>
 {% elif nombreTabla == 'la_tocanita.vw_info_venta' %}
-<h1>Ver información de ventas</h1>
+<h1 class="titulo-ver-tablas">Ver información de ventas</h1>
 {% elif nombreTabla == 'la_tocanita.vw_info_produccion' %}
-<h1>Ver información de producción</h1>
+<h1 class="titulo-ver-tablas">Ver información de producción</h1>
 {% elif nombreTabla == 'la_tocanita.vw_info_cargo_trabajador' %}
-<h1>Ver información de trabajadores</h1>
+<h1 class="titulo-ver-tablas">Ver información de trabajadores</h1>
 {% elif nombreTabla == 'la_tocanita.vw_info_produccion_trabajador' %}
-<h1>Ver información de los trabajadores en línea de producción</h1>
+<h1 class="titulo-ver-tablas">
+  Ver información de los trabajadores en línea de producción
+</h1>
 {% elif nombreTabla == 'la_tocanita.vw_info_cliente_numeroCompras' %}
-<h1>Ver información de los clientes</h1>
+<h1 class="titulo-ver-tablas">Ver información de los clientes</h1>
 {% elif nombreTabla == 'la_tocanita.vw_info_produccion_promedio' %}
-<h1>Ver información de producción promedio</h1>
+<h1 class="titulo-ver-tablas">Ver información de producción promedio</h1>
 {% elif nombreTabla == 'la_tocanita.cargamento' %}
-<h1>Ver información de cargamento</h1>
+<h1 class="titulo-ver-tablas">Ver información de cargamento</h1>
 {% else %}
-<h1>Ver información {{nombreTabla}}</h1>
+<h1 class="titulo-ver-tablas">Ver información {{nombreTabla}}</h1>
 {% endif %}
-<table style="width: 100%">
+<table style="width: 100%" class="table-light table-striped">
   <tr>
     {% for nombreColumna in columnas %}
     <th>{{nombreColumna}}</th>

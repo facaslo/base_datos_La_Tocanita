@@ -1,12 +1,31 @@
-{% extends 'base/baseCargos.html' %}
+{% extends 'base/baseCargos.html' %} {% block titulo %}
+<title>La Tocanita - Auxiliar Contable</title>
 
-{% block titulo %}    
-    <title> rol auxiliar contable </title>   
-
-{% endblock %}
-
-{% block content %}
-    <button onclick=""> Actualizar compra de insumos </button>
-    <button onclick=""> Actualizar pago de nomina </button>
-    <button onclick=""> Actualizar venta </button>     
+{% endblock %} {% block content %}
+<main role="main" class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="content-section" id="aside">
+        <section class="main-logo">
+          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
+        </section>
+        <section class="main-buttons">
+          <button type="button" class="btn btn-dark">
+            Actualizar compra de insumos
+          </button>
+          <button type="button" class="btn btn-dark">
+            Actualizar pago de nomina
+          </button>
+          <button type="button" class="btn btn-dark">Actualizar venta</button>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="content-section">
+        {% from "_macro.html" import create_elements_buttons %} {{
+        create_elements_buttons(listaBotones) }}
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock %}
