@@ -132,7 +132,69 @@ nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
     <table style="width:100%">       
         <tr>
             {% for nombreColumna in columnas %}
-            <th> {{nombreColumna}} </th>
+                {% if nombreColumna == 'car_id' %}
+                    <th> Id de cargo </th>
+                {% elif nombreColumna == 'car_nombre' %}
+                    <th> Nombre de cargo </th>
+                {% elif nombreColumna == 'car_tipoCargo' %}
+                    <th> Tipo de cargo </th>
+                {% elif nombreColumna == 'tra_id' %}
+                    <th> Id de trabajador </th>
+                {% elif nombreColumna == 'tra_nombre' %}
+                    <th> Nombre de trabajador </th>
+                {% elif nombreColumna == 'tra_telefono' %}
+                    <th> Telefono del trabajador  </th>
+                {% elif nombreColumna == 'tra_correo' %}
+                    <th> Correo del trabajador </th>
+                {% elif nombreColumna == 'tra_titulacion' %}
+                    <th> Titulación del trabajador  </th>
+                {% elif nombreColumna == 'tra_fechaContratacion' %}
+                    <th> Fecha de contratación </th>
+                {% elif nombreColumna == 'tra_fechaDesvinculacion' %}
+                    <th> Fecha de desvinculación </th>
+                {% elif nombreColumna == 'tra_tipoContrato' %}
+                    <th> Tipo de contrato  </th>
+                {% elif nombreColumna == 'cargo_car_id' %}
+                    <th> Id del cargo  </th>
+                {% elif nombreColumna == 'cli_id' %}
+                    <th> Id de cliente </th>
+                {% elif nombreColumna == 'cli_nombre' %}
+                    <th> Nombre de cliente </th>
+                {% elif nombreColumna == 'cli_totalCompras' %}
+                    <th> Número de compras </th>
+                {% elif nombreColumna == 'prv_nit' %}
+                    <th> Nit de proveedor </th>
+                {% elif nombreColumna == 'prv_nombre' %}
+                    <th> Nombre de proveedor  </th>
+                {% elif nombreColumna == 'com_idrecibo' %}
+                    <th> Id de compra </th>
+                {% elif nombreColumna == 'com_fecha' %}
+                    <th> Fecha de compra  </th>
+                {% elif nombreColumna == 'ins_nombre' %}
+                    <th> Nombre de insumo </th>
+                {% elif nombreColumna == 'nom_fecha' %}
+                    <th> Fecha de pago </th>
+                {% elif nombreColumna == 'nom_periodo' %}
+                    <th> Nombre del periodo  </th>
+                {% elif nombreColumna == 'cdp_fecha' %}
+                    <th> Fecha de producción  </th>
+                {% elif nombreColumna == 'prd_id' %}
+                    <th> Id de producto  </th>
+                {% elif nombreColumna == 'prd_nombre' %}
+                    <th> Nombre de producto  </th>
+                {% elif nombreColumna == 'vnt_id' %}
+                    <th> Id de venta  </th>
+                {% elif nombreColumna == 'geo_nombre' %}
+                    <th> Nombre de municipio  </th>
+                {% elif nombreColumna == 'vnt_fecha' %}
+                    <th> Fecha de venta  </th>                            
+                {% elif nombreColumna == 'crg_fecha' %}
+                    <th> Fecha de cargamento  </th>   
+                {% elif nombreColumna == 'crg_placaFurgon' %}
+                    <th> Placa de furgón  </th>
+                {% else %}
+                    <th> {{nombreColumna}}  </th>
+                {% endif %}                  
             {% endfor %}
         </tr>
         {% for fila in filas %}
@@ -169,79 +231,79 @@ nombreTabla == 'la_tocanita.vw_info_compra_insumos' %}
     {% endif %}    
 
 
-    <form method="POST">
+    <form method="POST" action="">
         {% for campo in campos_busqueda %}
             {% if campo == 'car_id' %}
                 <label for="car_id"> Id del cargo </label>
-                <input type="text" name = "car_id"> </form>
+                <input type="text" name = "car_id"> 
             {% elif campo == 'car_nombre' %}
                 <label for="car_nombre"> Nombre del cargo </label>
-                <input type="text" name = "car_nombre"> </form>
+                <input type="text" name = "car_nombre"> 
             {% elif campo == 'car_tipoCargo' %}
                 <label for="car_tipoCargo"> Tipo de cargo </label>
-                <input type="text" name = "car_tipoCargo"> </form>
+                <input type="text" name = "car_tipoCargo">
             {% elif campo == 'tra_id' %}
                 <label for="tra_id"> Id del trabajador </label>
-                <input type="text" name = "tra_id"> </form>
+                <input type="text" name = "tra_id"> 
             {% elif campo == 'tra_nombre' %}
                 <label for="tra_nombre"> Nombre del trabajador </label>
-                <input type="text" name = "tra_nombre"> </form>
+                <input type="text" name = "tra_nombre"> 
             {% elif campo == 'cli_id' %}
                 <label for="cli_id"> Id del cliente </label>
-                <input type="text" name = "cli_id"> </form>
+                <input type="text" name = "cli_id"> 
             {% elif campo == 'cli_nombre' %}
                 <label for="cli_nombre"> Nombre del cliente </label>
-                <input type="text" name = "cli_nombre"> </form>
+                <input type="text" name = "cli_nombre"> 
             {% elif campo == 'cli_totalCompras' %}
                 <label for="cli_totalCompras"> Total de las compras </label>
-                <input type="text" name = "cli_totalCompras"> </form>
+                <input type="text" name = "cli_totalCompras"> 
             {% elif campo == 'prv_nit' %}
                 <label for="prv_nit"> Nit del proveedor </label>
-                <input type="text" name = "prv_nit"> </form>
+                <input type="text" name = "prv_nit"> 
             {% elif campo == 'prv_nombre' %}
                 <label for="prv_nombre"> Nombre del proveedor </label>
-                <input type="text" name = "prv_nombre"> </form>
+                <input type="text" name = "prv_nombre"> 
             {% elif campo == 'com_idrecibo' %}
                 <label for="com_idrecibo"> Id del recibo </label>
-                <input type="text" name = "com_idrecibo"> </form>
+                <input type="text" name = "com_idrecibo"> 
             {% elif campo == 'com_fecha' %}
                 <label for="com_fecha"> Fecha de la compra </label>
-                <input type="text" name = "com_fecha"> </form>
+                <input type="text" name = "com_fecha"> 
             {% elif campo == 'ins_nombre' %}
                 <label for="ins_nombre"> Nombre del insumo </label>
-                <input type="text" name = "ins_nombre"> </form>
+                <input type="text" name = "ins_nombre"> 
             {% elif campo == 'nom_fecha' %}
                 <label for="nom_fecha"> Fecha del pago </label>
-                <input type="text" name = "nom_fecha"> </form>
+                <input type="text" name = "nom_fecha"> 
             {% elif campo == 'nom_periodo' %}
                 <label for="nom_periodo"> Periodo de pago </label>
-                <input type="text" name = "nom_periodo"> </form>
+                <input type="text" name = "nom_periodo"> 
             {% elif campo == 'cdp_fecha' %}
                 <label for="cdp_fecha"> Fecha de la producción </label>
-                <input type="text" name = "cdp_fecha"> </form>
+                <input type="text" name = "cdp_fecha"> 
             {% elif campo == 'prd_id' %}
                 <label for="prd_id"> Id del producto </label>
-                <input type="text" name = "prd_id"> </form>
+                <input type="text" name = "prd_id"> 
             {% elif campo == 'prd_nombre' %}
                 <label for="prd_nombre"> Nombre del producto </label>
-                <input type="text" name = "prd_nombre"> </form>
+                <input type="text" name = "prd_nombre"> 
             {% elif campo == 'vnt_id' %}
                 <label for="vnt_id"> Id de la venta </label>
-                <input type="text" name = "vnt_id"> </form>
+                <input type="text" name = "vnt_id"> 
             {% elif campo == 'geo_nombre' %}
                 <label for="geo_nombre"> Nombre del municipio </label>
-                <input type="text" name = "geo_nombre"> </form>
+                <input type="text" name = "geo_nombre"> 
             {% elif campo == 'vnt_fecha' %}
                 <label for="vnt_fecha"> Fecha de la venta </label>
-                <input type="text" name = "vnt_fecha"> </form>            
+                <input type="text" name = "vnt_fecha">             
             {% elif campo == 'crg_fecha' %}
                 <label for="crg_fecha"> Fecha del envío </label>
-                <input type="text" name = "crg_fecha"> </form>      
+                <input type="text" name = "crg_fecha">       
             {% elif campo == 'crg_placaFurgon' %}
                 <label for="crg_placaFurgon"> Placa del furgón </label>
-                <input type="text" name = "crg_placaFurgon"> </form>        
+                <input type="text" name = "crg_placaFurgon">         
             {% endif %}                           
         {% endfor %}
-        <button type="submit"> Enviar criterios de búsqueda </button>
+        <input type="submit" value='Enviar criterios de búsqueda' > 
     </form>
 {% endmacro %}

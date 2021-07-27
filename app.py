@@ -19,6 +19,8 @@ app.secret_key = "llave"
 user = ''
 baseDatos = None
 cursor = None
+#Campos de busqueda para los formularios 
+campos_busqueda = None
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -85,7 +87,7 @@ def principal():
 
             
 
-@app.route('/verTabla')
+@app.route('/verTabla', methods=['GET','POST'])
 def infoTabla():
     try:
         tabla = request.args.get('nombreTabla')              
@@ -93,8 +95,8 @@ def infoTabla():
         nombreColumnas = []
         cursor.execute('DESCRIBE {}'.format(tabla))        
         for columna in cursor.fetchall():
-            nombreColumnas.append(columna[0])       
-        
+            nombreColumnas.append(columna[0])               
+
         filas = []
         cursor.execute('SELECT * FROM {}'.format(tabla))
         for fila in cursor.fetchall():
@@ -105,12 +107,39 @@ def infoTabla():
     except:    
         return render_template ('401.html') , 401    
 
-@app.route('/buscar')
+@app.route('/buscar', methods=['GET','POST'])
 def buscar():
-    nombreTabla = request.args.get('nombreTabla')    
-    if request.method == 'POST':
-        pass
+    global campos_busqueda    
+    nombreTabla = request.args.get('nombreTabla')        
+    if request.method == 'POST':                
+        diccionario_busqueda = {}
+        for argumento in campos_busqueda:
+            valorCampo = request.form.get(argumento)
+            if valorCampo != '' :
+                diccionario_busqueda[argumento] = valorCampo
+        query = 'SELECT * FROM {} WHERE '.format(nombreTabla)
+        numeroArgumentosEnDiccionario = len(diccionario_busqueda)
+        numeroArgumentosProcesados = 0
+        for argumento in diccionario_busqueda:
+            if numeroArgumentosProcesados != numeroArgumentosEnDiccionario -1 :
+                query += '{} = "{}" AND '.format(argumento,diccionario_busqueda[argumento])
+                numeroArgumentosProcesados += 1                             
+            else:
+                query += '{} = "{}" '.format(argumento,diccionario_busqueda[argumento])
+        
+        nombreColumnas = []
+        cursor.execute('DESCRIBE {}'.format(nombreTabla))        
+        for columna in cursor.fetchall():
+            nombreColumnas.append(columna[0]) 
+        
+        print(query)
+        cursor.execute(query)                     
+        filas = []        
+        for fila in cursor.fetchall():
+            filas.append(fila)
 
+        return render_template ('verTabla.html',  nombreTabla = nombreTabla, nombreColumnas = nombreColumnas, filas = filas)
+        
 
     try:                 
         if nombreTabla == 'la_tocanita.vw_info_cargo_trabajador':
