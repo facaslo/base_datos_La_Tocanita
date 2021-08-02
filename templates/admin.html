@@ -10,25 +10,25 @@
           <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
         </section>
         <section class="main-buttons">
-          <button type="button" onclick="redireccionarCompra()" class="btn btn-dark">
+          <button type="button" onclick="hacerCompra()" class="btn btn-dark">
+            Hacer compra de insumos
+          </button>
+          <button type="button" onclick="actualizarCompra()" class="btn btn-dark">
             Actualizar compra de insumos
           </button>
-          <button type="button" onclick="redireccionarNomina()" class="btn btn-dark">
-            Actualizar pago de nomina
+          <button type="button" onclick="hacerVenta()" class="btn btn-dark">
+            Hacer venta de productos
           </button>
-          <button type="button" onclick="redireccionarTrabajadores()" class="btn btn-dark">
-            Actualizar información de los trabajadores
+          <button type="button"  onclick="actualizarVenta()" class="btn btn-dark">
+            Actualizar venta de productos
           </button>
-          <button type="button"  onclick="redireccionarProduccion()" class="btn btn-dark">
-            Actualizar información de la producción
+          <button type="button" class="btn btn-dark" onclick="hacerNomina()" >Realizar pago de nómina</button>
+          <button type="button" class="btn btn-dark" onclick="actualizarNomina()" > Actualizar pago de nómina</button>
+          <button type="button" class="btn btn-dark" onclick="hacerProduccion()">
+            Ingresar información de producción
           </button>
-          <button type="button" class="btn btn-dark" onclick="redireccionarHacerVenta()" >Realizar venta</button>
-          <button type="button" class="btn btn-dark" onclick="redireccionarVenta()" >Actualizar venta</button>
-          <button type="button" class="btn btn-dark" onclick="redireccionarCargos()">
-            Actualizar información de los cargos
-          </button>
-          <button type="button" class="btn btn-dark" onclick="redireccionarCargamento()">
-            Actualizar información del cargamento
+          <button type="button" class="btn btn-dark" onclick="actualizarProduccion()">
+            Actualizar información de producción
           </button>
         </section>
       </div>

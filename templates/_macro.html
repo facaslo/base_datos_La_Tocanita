@@ -46,8 +46,9 @@
 
 {% macro createSearchForm(nombreTablas, campos_busqueda, nombreTabla)%}               
     <h1 class="titulo-ver-tablas"> {{nombreTablas[nombreTabla]}} </h1>    
-
     <form method="POST">
+        <h6> Ingrese al menos uno de los campos por los que desea filtrar. LLenar más de uno hace que la busqueda sea combinada.</h6>
+        <hr>
         <div class="mb-3" id="filtro-label">
         {% for campo in campos_busqueda %}
             {% if campo[1] == 'STR' %}

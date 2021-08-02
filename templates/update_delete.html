@@ -12,12 +12,19 @@
         }
         function error(){            
             alert("Errores en los campos de actualización o borrado");
+            window.location.href = '/verTabla/update?enTabla=False';
         }       
         function errorBusqueda(){            
             alert("El registro no se encuentra en la tabla");
+            window.location.href = '/verTabla/update?enTabla=False';
+        }    
+        function errorBorrado(){            
+            alert("El registro no se encuentra en la tabla");
+            window.location.href = '/verTabla/delete';
         }    
         function goBack() {
             window.history.back();
+            window.location.href = '/verTabla';
         }
         function search() {
             window.location.href = `/verTabla/buscar`;
@@ -53,6 +60,14 @@
                 errorBusqueda();
             });
         </script>
+    {% endif %}
+
+    {% if errorBorrado%}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            errorBorrado();
+        });
+    </script>
     {% endif %}
 </head>
 <body>    

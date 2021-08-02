@@ -111,12 +111,12 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS PROC_IS_TABLE_UPDATABLE;
 DELIMITER $$
 CREATE PROCEDURE PROC_IS_TABLE_UPDATABLE(IN nombreRol varchar(292) , IN nombreTabla varchar(292), OUT updatable varchar(5))
-BEGIN	
+BEGIN		
 	SET updatable := 'no';
 	IF EXISTS (SELECT * FROM elementos_interfaz WHERE eli_rol = nombreRol 
     AND eli_permiso = 'UPDATE' AND eli_tabla = nombreTabla ) THEN
-		SET updatable := 'si';
-    END IF;     
+		SET updatable := 'si'; 
+    END IF;   
 END
 $$
 DELIMITER ;
@@ -124,12 +124,12 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS PROC_IS_TABLE_DELETABLE;
 DELIMITER $$
 CREATE PROCEDURE PROC_IS_TABLE_DELETABLE(IN nombreRol varchar(292) , IN nombreTabla varchar(292), OUT deletable varchar(5))
-BEGIN	
-	SET deletable := 'no';
+BEGIN		
+	SET deletable := 'no';    
 	IF EXISTS (SELECT * FROM elementos_interfaz WHERE eli_rol = nombreRol 
     AND eli_permiso = 'DELETE' AND eli_tabla = nombreTabla ) THEN
-		SET deletable := 'si';
-    END IF;     
+		SET deletable := 'si';	
+    END IF;    
 END
 $$
 DELIMITER ;
@@ -139,31 +139,30 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS PROC_DELETE_QUERY;
 DELIMITER $$
 CREATE PROCEDURE PROC_DELETE_QUERY(IN nombreTabla varchar(292) , IN campos varchar(292))
-BEGIN	
-	-- Dynamic SQL
+BEGIN		
+	-- SQL dinámico
     SET @updateTable := CONCAT('DELETE FROM ', nombreTabla , ' WHERE ' , campos);    
     PREPARE stmt FROM @updateTable;
     EXECUTE stmt;
-    DEALLOCATE PREPARE stmt;  
+    DEALLOCATE PREPARE stmt;     
 END
 $$
 DELIMITER ;
-
-
 
 -- Tabla para ejecutar una query de borrado
 DROP PROCEDURE IF EXISTS PROC_UPDATE_QUERY;
 DELIMITER $$
 CREATE PROCEDURE PROC_UPDATE_QUERY(IN nombreTabla varchar(292) , IN campos varchar(292) , IN condiciones varchar(292))
-BEGIN	
-	-- Dynamic SQL
+BEGIN		
+	-- SQL dinámico
     SET @updateTable := CONCAT('UPDATE ', nombreTabla , ' SET ' , campos , ' WHERE ' , condiciones);    
     PREPARE stmt FROM @updateTable;
     EXECUTE stmt;
-    DEALLOCATE PREPARE stmt;  
+    DEALLOCATE PREPARE stmt;      
 END
 $$
 DELIMITER ;
+
 
 -- ##################################################################
 
@@ -180,9 +179,11 @@ CREATE PROCEDURE procedimiento_Venta(
     IN valorVenta INT
 	)   
 BEGIN
+	START TRANSACTION;
 	INSERT INTO venta VALUES (id_venta, id_cliente, codigoPostal, -1 , direccion, curdate(), 'No entregado');
     INSERT INTO venta_productos VALUES(id_venta, producto, cantidad, valorVenta);
     INSERT INTO colaVentas VALUES(id_venta, null, null);
+    COMMIT;
 END
 $$
 DELIMITER ;
@@ -247,6 +248,7 @@ DELIMITER $$
 CREATE PROCEDURE procedimiento_Venta( 
     IN nombreCliente VARCHAR(45),
     IN producto TINYINT,
+    
     IN cantidad INT,
     IN total INT,
     IN codPostal INT,
