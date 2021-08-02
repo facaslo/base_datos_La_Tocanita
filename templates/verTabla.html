@@ -4,9 +4,18 @@
   function goBack() {
     window.history.back();
   }
-  function search(tabla) {
-    window.location.href = `/buscar?nombreTabla=${tabla}`;
+  function search() {
+    window.location.href = `/verTabla/buscar`;
   }
+  function update() {
+    window.location.href = `/verTabla/update`;
+  }
+  function del() {
+    window.location.href = `/verTabla/delete`;
+  }
+  function logout() {
+        window.location.href = "/logout";
+  }      
 </script>
 {% endblock %} {% block content%}
 <header class="site-header">
@@ -15,12 +24,28 @@
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">La Tocanita</span>
       <div id="nav-tablas">
+        {% if actualizable == 'si' %}
         <button
-          onclick="search('{{nombreTabla}}')"
+          onclick="update()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >  
+          Actualizar registros
+        </button>
+        {% endif %}
+        {% if borrable == 'si' %}
+        <button
+          onclick="del()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >  
+          Borrar registros
+        </button>
+        {% endif %}
+        <button
+          onclick="search()"
           class="btn btn-outline-info my-2 my-sm-0 d-flex"
         >
           Filtrar Tabla
-        </button>
+        </button>        
         <button
           onclick="goBack()"
           class="btn btn-outline-info my-2 my-sm-0 d-flex"
@@ -42,7 +67,7 @@
 <main role="main" class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      {% from "_macro.html" import create_table %} {{ create_table(nombreTabla,
+      {% from "_macro.html" import create_table %} {{ create_table(nombreTablas,nombreTabla,
       nombreColumnas , filas) }}
     </div>
   </div>

@@ -1,0 +1,17 @@
+eli_tabla,nomb_nombre
+colaVentas,cola de pedidos
+cargamento,cargamento
+cargo,cargos
+cliente,clientes
+geografia,municipios
+insumo,insumos
+producto,productos
+proveedor,proveedores
+trabajador,trabajadores
+vw_info_cargo_trabajador,cargo del trabajador
+vw_info_cliente_numerocompras,número de compras del cliente
+vw_info_compra_insumos,compra de insumos
+vw_info_nomina,nómina
+vw_info_produccion,linea de producción
+vw_info_produccion_trabajador,producción por trabajador
+vw_info_venta,venta de productos

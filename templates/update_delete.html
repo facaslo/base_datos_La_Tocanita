@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Update </title>
+    <script>         
+        function exitoActualizacion(){
+            alert("Las entradas se han actualizado con exito")
+            window.location.href = '/verTabla'
+        }
+        function error(){            
+            alert("Errores en los campos de actualización o borrado");
+        }        
+        function goBack() {
+            window.history.back();
+        }
+        function search() {
+            window.location.href = `/verTabla/buscar`;
+        }
+        function update() {
+            window.location.href = `/verTabla/update`;
+        }
+        function del() {
+            window.location.href = `/verTabla/delete`;
+        }
+        function logout() {
+                window.location.href = "/logout";
+        }      
+    </script>
+    {% if error %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            error();
+            });
+        </script>
+    {% endif %}
+    {% if exitoActualizacion %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            exitoActualizacion();
+            });
+        </script>
+    {% endif %}
+
+</head>
+<body>    
+    <button
+          onclick="goBack()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+          id="nav-salir"
+    >
+        Volver
+    </button>
+    {% from "_macro.html" import create_update_delete_form %}   
+    {{ create_update_delete_form(delete , update , nombreTablas,nombreTabla,campos) }} 
+</body>
+</html>

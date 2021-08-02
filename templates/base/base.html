@@ -20,6 +20,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer>
       if ("{{mensaje}}" != "") alert("{{mensaje}}");
+      function goBack() {
+        window.history.back();
+      }
+      function search() {
+        window.location.href = `/verTabla/buscar`;
+      }
+      function update() {
+        window.location.href = `/verTabla/update`;
+      }
+      function del() {
+        window.location.href = `/verTabla/delete`;
+      }
+      function logout() {
+            window.location.href = "/logout";
+      }      
     </script>
     {%block titulo%} {% endblock %}
   </head>

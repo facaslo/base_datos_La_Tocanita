@@ -1,0 +1,102 @@
+﻿eli_rol,eli_permiso,eli_tabla
+'admin'@'%',CREATE,colaVentas
+'admin'@'%',READ,colaVentas
+'admin'@'%',UPDATE,colaVentas
+'admin'@'%',DELETE,colaVentas
+'admin'@'%',CREATE,cargamento
+'admin'@'%',READ,cargamento
+'admin'@'%',UPDATE,cargamento
+'admin'@'%',DELETE,cargamento
+'admin'@'%',CREATE,cargo
+'admin'@'%',READ,cargo
+'admin'@'%',UPDATE,cargo
+'admin'@'%',DELETE,cargo
+'admin'@'%',CREATE,cliente
+'admin'@'%',READ,cliente
+'admin'@'%',UPDATE,cliente
+'admin'@'%',DELETE,cliente
+'admin'@'%',CREATE,geografia
+'admin'@'%',READ,geografia
+'admin'@'%',UPDATE,geografia
+'admin'@'%',DELETE,geografia
+'admin'@'%',CREATE,insumo
+'admin'@'%',READ,insumo
+'admin'@'%',UPDATE,insumo
+'admin'@'%',DELETE,insumo
+'admin'@'%',CREATE,Producto
+'admin'@'%',READ,Producto
+'admin'@'%',UPDATE,Producto
+'admin'@'%',DELETE,Producto
+'admin'@'%',CREATE,Proveedor
+'admin'@'%',READ,Proveedor
+'admin'@'%',UPDATE,Proveedor
+'admin'@'%',DELETE,Proveedor
+'admin'@'%',CREATE,Trabajador
+'admin'@'%',READ,Trabajador
+'admin'@'%',UPDATE,Trabajador
+'admin'@'%',DELETE,Trabajador
+'admin'@'%',READ,vw_info_cargo_trabajador
+'admin'@'%',READ,vw_info_cliente_numerocompras
+'admin'@'%',READ,vw_info_compra_insumos
+'admin'@'%',READ,vw_info_nomina
+'admin'@'%',READ,vw_info_produccion
+'admin'@'%',READ,vw_info_produccion_trabajador
+'admin'@'%',READ,vw_info_venta
+'Gerente'@'%',READ,cargamento
+'Gerente'@'%',CREATE,cargo
+'Gerente'@'%',READ,cargo
+'Gerente'@'%',UPDATE,cargo
+'Gerente'@'%',DELETE,cargo
+'Gerente'@'%',READ,cliente
+'Gerente'@'%',READ,geografia
+'Gerente'@'%',READ,insumo
+'Gerente'@'%',CREATE,Producto
+'Gerente'@'%',READ,Producto
+'Gerente'@'%',UPDATE,Producto
+'Gerente'@'%',DELETE,Producto
+'Gerente'@'%',READ,Proveedor
+'Gerente'@'%',READ,Trabajador
+'Gerente'@'%',READ,vw_info_cargo_trabajador
+'Gerente'@'%',READ,vw_info_cliente_numerocompras
+'Gerente'@'%',READ,vw_info_compra_insumos
+'Gerente'@'%',READ,vw_info_nomina
+'Gerente'@'%',READ,vw_info_produccion
+'Gerente'@'%',READ,vw_info_produccion_trabajador
+'Gerente'@'%',READ,vw_info_venta
+'adminRecHumanos'@'%',READ,cargo
+'adminRecHumanos'@'%',CREATE,Trabajador
+'adminRecHumanos'@'%',READ,Trabajador
+'adminRecHumanos'@'%',UPDATE,Trabajador
+'adminRecHumanos'@'%',DELETE,Trabajador
+'adminRecHumanos'@'%',READ,vw_info_cargo_trabajador
+'Jefe de Ventas'@'%',READ,cargamento
+'Jefe de Ventas'@'%',CREATE,cliente
+'Jefe de Ventas'@'%',READ,cliente
+'Jefe de Ventas'@'%',UPDATE,cliente
+'Jefe de Ventas'@'%',DELETE,cliente
+'Jefe de Ventas'@'%',CREATE,geografia
+'Jefe de Ventas'@'%',READ,geografia
+'Jefe de Ventas'@'%',UPDATE,geografia
+'Jefe de Ventas'@'%',DELETE,geografia
+'Jefe de Ventas'@'%',CREATE,Proveedor
+'Jefe de Ventas'@'%',READ,Proveedor
+'Jefe de Ventas'@'%',UPDATE,Proveedor
+'Jefe de Ventas'@'%',DELETE,Proveedor
+'Jefe de Ventas'@'%',READ,vw_info_cliente_numerocompras
+'Jefe de Ventas'@'%',READ,vw_info_venta
+'Contador'@'%',READ,vw_info_compra_insumos
+'Contador'@'%',READ,vw_info_nomina
+'Contador'@'%',READ,vw_info_venta
+'Linea de Produccion'@'%',CREATE,insumo
+'Linea de Produccion'@'%',READ,insumo
+'Linea de Produccion'@'%',UPDATE,insumo
+'Linea de Produccion'@'%',DELETE,insumo
+'Linea de Produccion'@'%',READ,vw_info_produccion
+'Linea de Produccion'@'%',READ,vw_info_produccion_trabajador
+'Conductor'@'%',READ,colaVentas
+'Conductor'@'%',UPDATE,colaVentas
+'Conductor'@'%',CREATE,cargamento
+'Conductor'@'%',READ,cargamento
+'Conductor'@'%',UPDATE,cargamento
+'Conductor'@'%',DELETE,cargamento
+'Conductor'@'%',READ,geografia

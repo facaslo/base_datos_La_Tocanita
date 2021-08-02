@@ -49,8 +49,9 @@
     </div>
     <div class="col-md-9">
       <div class="content-section">
+        <p> Ingrese al menos uno de los campos por los que desea filtrar. LLenar más de uno hace que la busqueda sea combinada.</p>
         {% from "_macro.html" import createSearchForm %} {{
-        createSearchForm(campos, nombreTabla) }}
+        createSearchForm(nombreTablas, campos, nombreTabla) }}
       </div>
     </div>
   </div>

@@ -9,6 +9,15 @@
         <section class="main-logo">
           <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
         </section>
+        <section class="main-buttons">
+          <button type="button" onclick="redireccionarCompra()" class="btn btn-dark">
+            Actualizar compra de insumos
+          </button>
+          <button type="button" onclick="redireccionarNomina()" class="btn btn-dark">
+            Actualizar pago de nomina
+          </button>
+          <button type="button" class="btn btn-dark" onclick="redireccionarVenta()">Actualizar venta</button>
+        </section>
       </div>
     </div>
     <div class="col-md-9">

@@ -1,0 +1,59 @@
+col_nombre,usu_nombre
+crg_id,Id del cargamento
+crg_fecha,Fecha del cargamento
+crg_placaFurgon,Placa del furgón
+car_id,Id del cargo
+car_nombre,Nombre del cargo
+car_tipoCargo,Tipo del cargo
+cli_id,Id del cliente
+cli_nombre,Nombre del cliente
+cli_telefono,Telefono del cliente
+cli_correo,Correo del cliente
+vnt_id,Id de la venta
+vnt_estado,Estado de la venta
+com_idrecibo,Id del recibo
+prv_nit,Nit del proveedor
+com_fecha,Fecha de la compra
+ins_codigo,Código del insumo
+cin_cantidad,Cantidad del insumo
+cin_costototal,Costo de la compra
+geo_codigoPostal,Código postal
+geo_nombre,Nombre del municipio
+ins_caducidad,Caducidad
+ins_rendimiento,Rendimiento del insumo
+ins_costo,Costo del insumo
+ins_nombre,Nombre del insumo
+ins_cantidad,Cantidad del insumo
+nom_fecha,Fecha de pago
+nom_periodo,Periodo de pago
+tra_id,Id del trabajador
+nom_descuentos,Descuentos
+nom_tipoCuenta,Tipo de cuenta
+nom_numeroCuenta,Numero de la cuenta
+nom_valorPago,Valor de pago
+cdp_fecha,Fecha de producción
+cdp_costoProduccion,Costo de la poducción
+prd_id,Id del producto
+ipd_cantidadinsumo,Cantidad de insumo usada
+prd_codigo,Código del producto
+prd_cantidad,Cantidad del producto
+prd_peso,Peso del producto
+prd_nombre,Nombre del producto
+prv_nombre,Nombre del proveedor
+prv_telefono,Teléfono del proveedor
+prv_correo,Correo del proveedor
+prv_direccion,Dirección del proveedor
+prd_cantidadProducida,Cantidad de producto producida
+tra_nombre,Nombre del trabajador
+tra_telefono,Teléfono del trabajador
+tra_correo,Correo del trabajador
+tra_titulacion,Titulación del trabajador
+tra_fechaContratacion,Fecha de contratación del trabajador
+tra_fechaDesvinculacion,Fecha de desvinculación del trabajador
+tra_tipoContrato,Tipo de contrato del trabajador
+vnt_direccion,Dirección de la venta
+vnt_fecha,Fecha de la venta
+vpn_id,Id del producto
+vpn_cantidad,Cantidad 
+vpn_valorVenta,Valor de la venta
+totalCompras,Total de compras

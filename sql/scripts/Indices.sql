@@ -27,9 +27,7 @@ CREATE INDEX indice_nombreProveedor ON proveedor(prv_nombre);
 
 -- Indices trabajador
 CREATE INDEX indice_nombreTrabajador ON trabajador(tra_nombre);
-CREATE INDEX indice_cargoTrabajador ON trabajador(cargo_car_id);
+CREATE INDEX indice_cargoTrabajador ON trabajador(car_id);
 
 -- Indices venta
 CREATE INDEX indice_fechaVenta ON venta(vnt_fecha);
-
-

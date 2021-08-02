@@ -1,0 +1,8 @@
+eli_rol,doc_nombre
+'admin'@'%',admin.html
+'Gerente'@'%',gerente.html
+'adminRecHumanos'@'%',recHumanos.html
+'Jefe de Ventas'@'%',jefeVentas.html
+'Contador'@'%',contador.html
+'Linea de Produccion'@'%',lineaProduccion.html
+'Conductor'@'%',conductor.html

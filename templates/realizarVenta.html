@@ -18,15 +18,15 @@
         Volver
     </button>
     <h1> Realizar venta </h1>
-    {% if not primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase %}
+    {% if not primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase and not final %}
     <h2> Ingrese la información del cliente </h2>
-    {% elif primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase %}
+    {% elif primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase and not final %}
     <h2> Ingrese la información del nuevo cliente </h2>
-    {% elif not segundoPaso and clienteEnBase and primerPaso and not geografiaEnBase %}   
+    {% elif not segundoPaso and clienteEnBase and primerPaso and not geografiaEnBase and not final %}   
     <h2> Ingrese la información del municipio </h2>
-    {% elif segundoPaso and not geografiaEnBase and primerPaso and clienteEnBase%}
+    {% elif segundoPaso and not geografiaEnBase and primerPaso and clienteEnBase and not final%}
     <h2> Ingrese la información del nuevo municipio </h2>
-    {% elif segundoPaso and geografiaEnBase and primerPaso and clienteEnBase %}
+    {% elif segundoPaso and geografiaEnBase and primerPaso and clienteEnBase and not final %}
     <h2> Ingrese la información de la venta </h2>
     {% endif %}
     <form method="POST" action="">
@@ -42,7 +42,7 @@
         <label for="cli_telefono"> Teléfono del cliente </label>
         <input type="number" name="cli_telefono" required>   
         <label for="cli_correo"> Correo del cliente </label>
-        <input type="number" name="cli_correo" required>           
+        <input type="text" name="cli_correo" required>           
         <input type="submit" value="Ingresar datos">
         {% elif not segundoPaso and clienteEnBase and primerPaso and not geografiaEnBase and not final %}             
         <label for="geo_codigoPostal"> Código postal del municipio </label>

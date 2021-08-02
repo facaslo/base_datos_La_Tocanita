@@ -27,12 +27,7 @@
     <script defer>
       function logout() {
         window.location.href = "/logout";
-      }
-      function redireccionarTabla(elemento) {
-        console.log(typeof elemento);
-        console.log(`/verTabla?nombreTabla=${elemento}`);
-        window.location.href = `/verTabla?nombreTabla=${elemento}`;
-      }
+      }      
       function redireccionarCompra(){
         window.location.href = '/realizarCompra'
       }
@@ -46,7 +41,7 @@
         window.location.href = '/ActualizarProducción'
       }
       function redireccionarHacerVenta(){
-        window.location.href = '/RealizarVenta'
+        window.location.href = '/RealizarVenta?clienteEnBase=False&geografiaEnBase=False&primerPaso=False&segundoPaso=False&final=False'        
       }
       function redireccionarVenta(){
         window.location.href = '/ActualizarVenta'

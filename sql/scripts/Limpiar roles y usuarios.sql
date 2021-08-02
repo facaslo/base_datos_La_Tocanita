@@ -4,8 +4,6 @@ DROP role Gerente;
 DROP role Contador;
 DROP role adminRecHumanos;
 DROP role 'Jefe de Ventas';
-DROP role 'Auxiliar Contable';
-DROP role 'Jefe de Produccion';
 DROP role 'Linea de Produccion';
 DROP role 'Conductor';
 
@@ -33,4 +31,3 @@ DROP USER JorgeI@localhost;
 DROP USER MarcosF@localhost;
 DROP USER JoseSuarez@localhost;
 DROP USER MiguelCruz@localhost;
-

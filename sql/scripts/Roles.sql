@@ -5,16 +5,7 @@ DROP ROLE IF EXISTS 'Gerente';
 CREATE ROLE 'Gerente';
 GRANT SELECT ON la_tocanita.* TO 'Gerente' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON la_tocanita.cargo TO 'Gerente' WITH GRANT OPTION;
-DROP ROLE IF EXISTS 'Contador';
-CREATE ROLE 'Contador';
-GRANT SELECT ON la_tocanita.compra TO 'Contador';
-GRANT SELECT ON la_tocanita.compra_insumos TO 'Contador';
-GRANT SELECT ON la_tocanita.nomina TO 'Contador';
-GRANT SELECT ON la_tocanita.venta TO 'Contador';
-GRANT SELECT ON la_tocanita.venta_productos TO 'Contador';
-GRANT SELECT ON la_tocanita.vw_info_compra_insumos TO 'Contador';
-GRANT SELECT ON la_tocanita.vw_info_nomina TO 'Contador';
-GRANT SELECT ON la_tocanita.vw_info_venta TO 'Contador';
+GRANT ALL PRIVILEGES ON la_tocanita.producto TO 'Gerente' WITH GRANT OPTION;
 DROP ROLE IF EXISTS 'adminRecHumanos';
 CREATE ROLE 'adminRecHumanos';
 GRANT SELECT ON la_tocanita.cargo TO 'adminRecHumanos';
@@ -30,26 +21,15 @@ GRANT ALL PRIVILEGES ON la_tocanita.venta TO 'Jefe de Ventas';
 GRANT ALL PRIVILEGES ON la_tocanita.venta_productos TO 'Jefe de Ventas';
 GRANT SELECT ON la_tocanita.vw_info_venta TO 'Jefe de Ventas';
 GRANT SELECT ON la_tocanita.vw_info_cliente_numeroCompras TO 'Jefe de Ventas';
-DROP ROLE IF EXISTS 'Auxiliar Contable';
-CREATE ROLE 'Auxiliar Contable';
-GRANT ALL PRIVILEGES ON la_tocanita.compra TO 'Auxiliar Contable';
-GRANT ALL PRIVILEGES ON la_tocanita.compra_insumos TO 'Auxiliar Contable';
-GRANT ALL PRIVILEGES ON la_tocanita.venta TO 'Auxiliar Contable';
-GRANT ALL PRIVILEGES ON la_tocanita.venta_productos TO 'Auxiliar Contable';
-GRANT SELECT ON la_tocanita.vw_info_compra_insumos TO 'Auxiliar Contable';
-GRANT SELECT ON la_tocanita.vw_info_nomina TO 'Auxiliar Contable';
-GRANT SELECT ON la_tocanita.vw_info_venta TO 'Auxiliar Contable';
-DROP ROLE IF EXISTS 'Jefe de Produccion';
-CREATE ROLE 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.insumo TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.produccion TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.produccion_insumos_daily TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.produccion_trabajador_daily TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.producto TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.resultado_produccion_daily TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.vw_info_produccion TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.vw_info_produccion_trabajador TO 'Jefe de Produccion';
-GRANT SELECT ON la_tocanita.vw_info_produccion_promedio TO 'Jefe de Produccion';
+DROP ROLE IF EXISTS 'Contador';
+CREATE ROLE 'Contador';
+GRANT ALL PRIVILEGES ON la_tocanita.compra TO 'Contador';
+GRANT ALL PRIVILEGES ON la_tocanita.compra_insumos TO 'Contador';
+GRANT ALL PRIVILEGES ON la_tocanita.venta TO 'Contador';
+GRANT ALL PRIVILEGES ON la_tocanita.venta_productos TO 'Contador';
+GRANT SELECT ON la_tocanita.vw_info_compra_insumos TO 'Contador';
+GRANT SELECT ON la_tocanita.vw_info_nomina TO 'Contador';
+GRANT SELECT ON la_tocanita.vw_info_venta TO 'Contador';
 DROP ROLE IF EXISTS 'Linea de Produccion';
 CREATE ROLE 'Linea de Produccion';
 GRANT ALL PRIVILEGES ON la_tocanita.insumo TO 'Linea de Produccion';
@@ -64,10 +44,38 @@ DROP ROLE IF EXISTS 'Conductor';
 CREATE ROLE 'Conductor';
 GRANT ALL PRIVILEGES ON la_tocanita.cargamento TO 'Conductor';
 GRANT SELECT ON la_tocanita.geografia TO 'Conductor';
+GRANT SELECT, UPDATE ON la_tocanita.colaventas TO 'Conductor';
 
+-- Para permitir el acceso a los elementos de la interfaz gráfica
+GRANT SELECT ON la_tocanita.elementos_interfaz TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT SELECT ON la_tocanita.nombre_tabla TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT SELECT ON la_tocanita.nombre_html TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
 -- Para ver el acceso a las tablas en el back-end
-GRANT SELECT ON mysql.* TO 'admin','Gerente','Contador','adminRecHumanos','Jefe de Ventas',
-'Auxiliar Contable', 'Jefe de Produccion', 'Linea de Produccion', 'Conductor';
+GRANT SELECT ON mysql.* TO 'admin','Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
 
-describe vw_info_produccion;
+-- Asignar permisos para ejecutar procedimientos
+-- GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_OBTENER_ROL TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+-- 'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_OBTENER_TABLAS_INTERFAZ TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_OBTENER_HTML TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_SELECT_TABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_GET_PRIMARY_FOR_TABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_GET_COLUMNS_FOR_TABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_FILTROS TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_SEARCH_QUERY TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_IS_TABLE_UPDATABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_IS_TABLE_DELETABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
 
