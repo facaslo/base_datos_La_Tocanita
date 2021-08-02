@@ -2,13 +2,13 @@
 <title>Información de tabla</title>
 <script>
   function goBack() {
-    window.history.back();
+    window.location.href = '/rol';
   }
   function search() {
     window.location.href = `/verTabla/buscar`;
   }
   function update() {
-    window.location.href = `/verTabla/update`;
+    window.location.href = `/verTabla/update?enTabla=False`;
   }
   function del() {
     window.location.href = `/verTabla/delete`;

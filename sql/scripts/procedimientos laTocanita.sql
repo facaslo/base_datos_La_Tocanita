@@ -76,6 +76,8 @@ DELIMITER ;
     WHERE eli_tabla = nombreTabla;
 END $$
 DELIMITER ;  
+
+SELECT * FROM cargamento WHERE crg_id = '1';
  
 -- Procedimiento para imprimir una tabla
 DROP PROCEDURE IF EXISTS PROC_SELECT_TABLE;
@@ -132,6 +134,36 @@ END
 $$
 DELIMITER ;
 
+
+-- Procedimiento para ejecutar una query de actualizacion
+DROP PROCEDURE IF EXISTS PROC_DELETE_QUERY;
+DELIMITER $$
+CREATE PROCEDURE PROC_DELETE_QUERY(IN nombreTabla varchar(292) , IN campos varchar(292))
+BEGIN	
+	-- Dynamic SQL
+    SET @updateTable := CONCAT('DELETE FROM ', nombreTabla , ' WHERE ' , campos);    
+    PREPARE stmt FROM @updateTable;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;  
+END
+$$
+DELIMITER ;
+
+
+
+-- Tabla para ejecutar una query de borrado
+DROP PROCEDURE IF EXISTS PROC_UPDATE_QUERY;
+DELIMITER $$
+CREATE PROCEDURE PROC_UPDATE_QUERY(IN nombreTabla varchar(292) , IN campos varchar(292) , IN condiciones varchar(292))
+BEGIN	
+	-- Dynamic SQL
+    SET @updateTable := CONCAT('UPDATE ', nombreTabla , ' SET ' , campos , ' WHERE ' , condiciones);    
+    PREPARE stmt FROM @updateTable;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;  
+END
+$$
+DELIMITER ;
 
 -- ##################################################################
 

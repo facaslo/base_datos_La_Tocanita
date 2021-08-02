@@ -156,13 +156,15 @@ def buscar():
         cursor.callproc('PROC_FILTROS', args)
         for resultado in cursor.stored_results():            
             for elemento in resultado.fetchall():                
-                camposFormulario.append(elemento[0])                
+                camposFormulario.append([elemento[0], elemento[1]])                
         
         camposNoVacios = []
         for campo in camposFormulario:
-            valor = request.form.get(campo)
-            if valor != '' :
-                pareja = [campo,valor]
+            valor = request.form.get(campo[0])
+            if valor != '' :                
+                if campo[1] == 'DATE':
+                    valor = "'{}'".format(valor)
+                pareja = [campo[0],valor]
                 camposNoVacios.append(pareja)
         
         query = ''
@@ -203,32 +205,12 @@ def buscar():
 
 @app.route('/verTabla/update', methods=['GET','POST'])
 def updateTabla(): 
-    tabla = session['tabla']   
-    if request.method == 'POST':
-        pass
+    tabla = session['tabla']      
+    registroEnTabla = (request.args.get('enTabla') == 'True')
+    session['registroEnTabla'] = registroEnTabla
+    session.modified = True
 
-    # Campos del formulario de actualización    
-    campos = [] 
-    args=(tabla,)
-    cursor.callproc('PROC_GET_COLUMNS_FOR_TABLE', args)
-    for resultado in cursor.stored_results():            
-        for elemento in resultado.fetchall():                
-            campo = []
-            for entrada in elemento:
-                campo.append(entrada)
-            campos.append(campo)   
-    
-    return render_template ('update_delete.html', delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = campos , exitoActualizacion = False ,error = False)
-    
-    
-@app.route('/verTabla/delete', methods=['GET','POST'])
-def deleteTabla():
-    tabla = session['tabla']   
-    if request.method == 'POST':
-        pass
-
-    # Campos del formulario de borrado    
-    campos = [] 
+    camposPrimarios = [] 
     args=(tabla,)
     cursor.callproc('PROC_GET_PRIMARY_FOR_TABLE', args)
     for resultado in cursor.stored_results():            
@@ -236,9 +218,142 @@ def deleteTabla():
             campo = []
             for entrada in elemento:
                 campo.append(entrada)
-            campos.append(campo)   
+            camposPrimarios.append(campo) 
+
+    camposSecundarios = [] 
+    args=(tabla,)
+    cursor.callproc('PROC_GET_COLUMNS_FOR_TABLE', args)
+    for resultado in cursor.stored_results():            
+        for elemento in resultado.fetchall():                
+            campo = []
+            for entrada in elemento:
+                campo.append(entrada)
+            camposSecundarios.append(campo)  
+
+    if request.method == 'POST' and not session['registroEnTabla']:        
+        camposFormulario = [[entrada[0], entrada[1]] for entrada in camposPrimarios]                      
+        columnas_y_Valores = []
+        for nombreCampo in camposFormulario:
+            valor = request.form.get(nombreCampo[0])
+            if nombreCampo[1] == 'DATE':
+                valor = "'{}'".format(valor)
+            pareja = [nombreCampo[0], valor]        
+            columnas_y_Valores.append(pareja)
+
+        query = ''
+        for i in range(len(columnas_y_Valores)):
+            if i != len(columnas_y_Valores)-1 :
+                query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1] + ','
+            else:
+                query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1]
+
+        
+        args = (tabla, query)
+        filas = []
+        cursor.callproc("PROC_SEARCH_QUERY", args)
+        for resultado in cursor.stored_results():
+            for elemento in resultado.fetchall():
+                fila = []
+                for entrada in elemento:
+                    fila.append(entrada)    
+                filas.append(fila) 
+
+        # El registro está en la tabla
+        if len(filas) > 0 :            
+            session['registroActualizacion'] = [[session['nombreColumnas'][pareja[0]],pareja[1],pareja[0]] for pareja in columnas_y_Valores]            
+            session.modified = True
+            return redirect ('/verTabla/update?enTabla=True')
+
+        # El registro no está en la tabla
+        else:
+            return render_template ('update_delete.html', verificarExistencia = True,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False ,error = False, errorBusqueda = True)       
+
+    # El registro está en la tabla y se va a actualizar
+    elif request.method == 'POST' and session['registroEnTabla']:  
+        camposFormulario = [[entrada[0], entrada[1]] for entrada in camposSecundarios]                             
+        columnas_y_Valores = []
+        for nombreCampo in camposFormulario:
+            valor = request.form.get(nombreCampo[0])
+            if nombreCampo[1] == 'DATE':
+                valor = "'{}'".format(valor)
+            pareja = [nombreCampo[0], valor]        
+            columnas_y_Valores.append(pareja)       
+
+        query = ''
+        for i in range(len(columnas_y_Valores)):
+            if i != len(columnas_y_Valores)-1 :
+                query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1] + ','
+            else:
+                query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1]
+
+        condiciones = ''
+        for i in range(len(session['registroActualizacion'])):
+            if i != len(session['registroActualizacion'])-1 :
+                condiciones += session['registroActualizacion'][i][2] + '=' + columnas_y_Valores[i][1] + 'AND'
+            else:
+                condiciones += session['registroActualizacion'][i][2] + '=' + columnas_y_Valores[i][1]
+
+        try:
+            args=(tabla,query,condiciones)
+            cursor.callproc("PROC_UPDATE_QUERY", args)            
+            cursor.fetchall()
+            baseDatos.commit()
+            return render_template ('update_delete.html', verificarExistencia = False,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = True ,error = False, errorBusqueda = False)
+
+        except Exception as e:
+            print(e)
+            return render_template ('update_delete.html', verificarExistencia = False,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False ,error = True, errorBusqueda = False)
+      
+    if not session['registroEnTabla']:
+        return render_template ('update_delete.html', verificarExistencia = True,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False ,error = False, errorBusqueda = False)
+
+    else:
+        return render_template ('update_delete.html', verificarExistencia = False,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposSecundarios , exitoActualizacion = False ,error = False, errorBusqueda = False , nombreRegistro = session['registroActualizacion'])  
     
-    return render_template ('update_delete.html', delete = True, update = False,  nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = campos , exitoActualizacion = False , error = False)
+    
+@app.route('/verTabla/delete', methods=['GET','POST'])
+def deleteTabla():
+    tabla = session['tabla']  
+    camposPrimarios = [] 
+    args=(tabla,)
+    cursor.callproc('PROC_GET_PRIMARY_FOR_TABLE', args)
+    for resultado in cursor.stored_results():            
+        for elemento in resultado.fetchall():                
+            campo = []
+            for entrada in elemento:
+                campo.append(entrada)
+            camposPrimarios.append(campo) 
+
+    if request.method == 'POST':
+        camposFormulario = [[entrada[0], entrada[1]] for entrada in camposPrimarios]                             
+        columnas_y_Valores = []
+        for nombreCampo in camposFormulario:
+            valor = request.form.get(nombreCampo[0])
+            if nombreCampo[1] == 'DATE':
+                valor = "'{}'".format(valor)
+            pareja = [nombreCampo[0], valor]        
+            columnas_y_Valores.append(pareja)       
+
+        query = ''
+        for i in range(len(columnas_y_Valores)):
+            if i != len(columnas_y_Valores)-1 :
+                query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1] + ' AND '
+            else:
+                query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1]
+
+        try:
+            args=(tabla,query)
+            cursor.callproc("PROC_DELETE_QUERY", args)            
+            cursor.fetchall()
+            baseDatos.commit()
+            return render_template ('update_delete.html', delete = True, update = False, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = True ,error = False, errorBusqueda = False)
+
+        except Exception as e:
+            print(e)
+            return render_template ('update_delete.html', verificarExistencia = False,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False , errorBusqueda = True)
+      
+    
+    return render_template ('update_delete.html', delete = True, update = False,  nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False , error = False , errorBusqueda = False)
 
       
 

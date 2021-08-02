@@ -12,7 +12,10 @@
         }
         function error(){            
             alert("Errores en los campos de actualización o borrado");
-        }        
+        }       
+        function errorBusqueda(){            
+            alert("El registro no se encuentra en la tabla");
+        }    
         function goBack() {
             window.history.back();
         }
@@ -44,6 +47,13 @@
         </script>
     {% endif %}
 
+    {% if errorBusqueda %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                errorBusqueda();
+            });
+        </script>
+    {% endif %}
 </head>
 <body>    
     <button
@@ -54,6 +64,6 @@
         Volver
     </button>
     {% from "_macro.html" import create_update_delete_form %}   
-    {{ create_update_delete_form(delete , update , nombreTablas,nombreTabla,campos) }} 
+    {{ create_update_delete_form(verificarExistencia, delete , update , nombreTablas,nombreTabla,campos , nombreRegistro) }} 
 </body>
 </html>

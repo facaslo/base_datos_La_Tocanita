@@ -273,7 +273,8 @@ DROP TABLE IF EXISTS colaventas;
 CREATE TABLE colaVentas(
 	vnt_id SMALLINT,
     crg_id INT, 
-    vnt_estado VARCHAR(15)
+    vnt_estado VARCHAR(15),
+    PRIMARY KEY (vnt_id, crg_id)
 );
 
 

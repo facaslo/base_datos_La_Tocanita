@@ -78,4 +78,8 @@ GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_IS_TABLE_UPDATABLE TO 'Gerente','adm
 'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_IS_TABLE_DELETABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_UPDATE_QUERY TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_DELETE_QUERY TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
 
