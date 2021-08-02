@@ -2,7 +2,7 @@
 <title>Información de tabla</title>
 <script>
   function goBack() {
-    window.location.href = '/rol';
+    window.location.href = "/rol";
   }
   function search() {
     window.location.href = `/verTabla/buscar`;
@@ -14,8 +14,8 @@
     window.location.href = `/verTabla/delete`;
   }
   function logout() {
-        window.location.href = "/logout";
-  }      
+    window.location.href = "/logout";
+  }
 </script>
 {% endblock %} {% block content%}
 <header class="site-header">
@@ -28,24 +28,25 @@
         <button
           onclick="update()"
           class="btn btn-outline-info my-2 my-sm-0 d-flex"
-        >  
+        >
           Actualizar registros
         </button>
-        {% endif %}
-        {% if borrable == 'si' %}
+        {% endif %} {% if borrable == 'si' %}
         <button
           onclick="del()"
           class="btn btn-outline-info my-2 my-sm-0 d-flex"
-        >  
+          id="nav-salir"
+        >
           Borrar registros
         </button>
         {% endif %}
         <button
           onclick="search()"
           class="btn btn-outline-info my-2 my-sm-0 d-flex"
+          id="nav-salir"
         >
           Filtrar Tabla
-        </button>        
+        </button>
         <button
           onclick="goBack()"
           class="btn btn-outline-info my-2 my-sm-0 d-flex"
@@ -60,8 +61,8 @@
 <main role="main" class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      {% from "_macro.html" import create_table %} {{ create_table(nombreTablas,nombreTabla,
-      nombreColumnas , filas) }}
+      {% from "_macro.html" import create_table %} {{
+      create_table(nombreTablas,nombreTabla, nombreColumnas , filas) }}
     </div>
   </div>
 </main>

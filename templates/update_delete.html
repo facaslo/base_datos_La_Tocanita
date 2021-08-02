@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- CSS propio -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+      type="text/css"
+    />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,29 +50,26 @@
         }
         function logout() {
                 window.location.href = "/logout";
-        }      
+        }     
     </script>
     {% if error %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-            error();
-            });
-        </script>
-    {% endif %}
-    {% if exitoActualizacion %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-            exitoActualizacion();
-            });
-        </script>
-    {% endif %}
-
-    {% if errorBusqueda %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                errorBusqueda();
-            });
-        </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        error();
+      });
+    </script>
+    {% endif %} {% if exitoActualizacion %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        exitoActualizacion();
+      });
+    </script>
+    {% endif %} {% if errorBusqueda %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        errorBusqueda();
+      });
+    </script>
     {% endif %}
 
     {% if errorBorrado%}
@@ -69,16 +79,27 @@
         });
     </script>
     {% endif %}
-</head>
-<body>    
-    <button
-          onclick="goBack()"
-          class="btn btn-outline-info my-2 my-sm-0 d-flex"
-          id="nav-salir"
-    >
-        Volver
-    </button>
-    {% from "_macro.html" import create_update_delete_form %}   
-    {{ create_update_delete_form(verificarExistencia, delete , update , nombreTablas,nombreTabla,campos , nombreRegistro) }} 
-</body>
+  </head>
+  <body>
+    <header class="site-header">
+      <!-- As a heading -->
+      <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">La Tocanita</span>
+          <div id="nav-tablas">
+            <button
+              onclick="goBack()"
+              class="btn btn-outline-info my-2 my-sm-0 d-flex"
+              id="nav-salir"
+            >
+              Volver
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    {% from "_macro.html" import create_update_delete_form %} {{
+    create_update_delete_form(verificarExistencia, delete , update ,
+    nombreTablas,nombreTabla,campos , nombreRegistro) }}
+  </body>
 </html>

@@ -4,9 +4,7 @@
   <li>'{{elemento}}'</li>
   {% endfor %}
 </ol>
-{% endmacro %} 
-
-{% macro create_elements_buttons(listaElementos) %}
+{% endmacro %} {% macro create_elements_buttons(listaElementos) %}
 <form method="POST" action class="macro-vista">
   <select
     class="form-select form-select-sm"
@@ -14,7 +12,7 @@
     name="tablas_menuDesplegable"
     id="select-tablas"
   >
-    {% for tabla,nombre in listaElementos.items()  %} 
+    {% for tabla,nombre in listaElementos.items() %}
     <option value="{{tabla}}">Ver información de {{nombre}}</option>
     {% endfor %}
   </select>
@@ -23,205 +21,125 @@
     Ver información
   </button>
 </form>
-{% endmacro %} 
+{% endmacro %} {% macro create_table(nombreTablas, nombreTabla, columnas ,
+filas)%}
+<h1 class="titulo-ver-tablas">
+  Ver información de {{nombreTablas[nombreTabla]}}
+</h1>
 
-{% macro create_table(nombreTablas, nombreTabla, columnas , filas)%}               
-    <h1 class="titulo-ver-tablas"> Ver información de {{nombreTablas[nombreTabla]}} </h1>
+<table style="width: 100%" class="table-light table-striped">
+  <tr>
+    {% for nombreColumna,nombreUsuario in columnas.items() %}
+    <th>{{nombreUsuario}}</th>
+    {% endfor %}
+  </tr>
+  {% for fila in filas %}
+  <tr>
+    {% for entrada in fila %}
+    <td>{{entrada}}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+{% endmacro %} {% macro createSearchForm(nombreTablas, campos_busqueda,
+nombreTabla)%}
+<h1 class="titulo-ver-tablas">{{nombreTablas[nombreTabla]}}</h1>
+<form method="POST">
+  <h6>
+    Ingrese al menos uno de los campos por los que desea filtrar. LLenar más de
+    uno hace que la busqueda sea combinada.
+  </h6>
+  <hr />
+  <div class="mb-3" id="filtro-label">
+    {% for campo in campos_busqueda %} {% if campo[1] == 'STR' %}
+    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+    <input type="text" name="{{campo[0]}}" class="form-control" />
+    {% elif campo[1] == 'NUM' %}
+    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+    <input type="number" name="{{campo[0]}}" class="form-control" />
+    {% elif campo[1] == 'DATE' %}
+    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+    <input type="date" name="{{campo[0]}}" class="form-control" />
+    <!-- Para los menús desplegables -->
+    {% elif campo[1] == 'DESP' %}
+    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+    <select
+      class="form-select form-select-sm"
+      aria-label=".form-select-sm example"
+      name="{{campo[0]}}"
+      id="select-tablas"
+    >
+      {% if campo[0] == 'vnt_estado' %}
 
-    <table style="width: 100%" class="table-light table-striped">       
-        <tr>
-            {% for nombreColumna,nombreUsuario in columnas.items() %}
-                <th> {{nombreUsuario}} </th>                
-            {% endfor %}
-        </tr>
-        {% for fila in filas %}
-        <tr>
-            {% for entrada in fila %}
-                <td> {{entrada}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>    
-{% endmacro %}
+      <option value="''">--</option>
+      <option value="'No entregado'">No entregado</option>
+      <option value="'Entregado'">Entregado</option>
 
-{% macro createSearchForm(nombreTablas, campos_busqueda, nombreTabla)%}               
-    <h1 class="titulo-ver-tablas"> {{nombreTablas[nombreTabla]}} </h1>    
-    <form method="POST">
-        <h6> Ingrese al menos uno de los campos por los que desea filtrar. LLenar más de uno hace que la busqueda sea combinada.</h6>
-        <hr>
-        <div class="mb-3" id="filtro-label">
-        {% for campo in campos_busqueda %}
-            {% if campo[1] == 'STR' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <input type="text" name ="{{campo[0]}}" class="form-control"> 
-            {% elif campo[1] == 'NUM' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <input type="number" name = "{{campo[0]}}" class="form-control"> 
-            {% elif campo[1] == 'DATE' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <input type="date" name = "{{campo[0]}}" class="form-control"> 
-            <!-- Para los menús desplegables -->
-            {% elif campo[1] == 'DESP' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <select
-                class="form-select form-select-sm"
-                aria-label=".form-select-sm example"
-                name="{{campo[0]}}"
-                id="select-tablas"
-                >      
-                {% if campo[0] == 'vnt_estado' %}                
-                              
-                    <option value="''"> -- </option>       
-                    <option value="'No entregado'">No entregado</option>                    
-                    <option value="'Entregado'">Entregado</option>                   
-                
-                {% elif campo[0] == 'car_tipoCargo' %}    
-                     
-                    <option value="''"> -- </option>        
-                    <option value="'Auxiliar'">Auxiliar</option>                    
-                    <option value="'Operativo'">Operativo</option>                   
-                    <option value="'Administrativo'">Administrativo</option>                   
-                    <option value="'Gerencial'">Gerencial</option> 
-                
-                {% elif campo[0] == 'tra_titulacion' %}    
-                             
-                    <option value="''"> -- </option>     
-                    <option value="'Bachiller'">Bachiller</option>                    
-                    <option value="'Pregrado'">Pregrado</option>                   
-                    <option value="'Tecnico'">Técnico</option>                   
-                    <option value="'Maestria'">Maestría</option> 
-                 
-                {% elif campo[0] == 'nom_tipoCuenta' %}    
-                              
-                    <option value="''"> -- </option>     
-                    <option value="'AHORROS'">Ahorros</option>                    
-                    <option value="'CORRIENTE'">Corriente</option>                                       
+      {% elif campo[0] == 'car_tipoCargo' %}
 
-                {% elif campo[0] == 'crg_placaFurgon' %}    
-                    <option value="''"> -- </option>     
-                    <option value="'VNS-945'">VNS-945</option>                    
-                    <option value="'PRM-264'">PRM-264</option> 
+      <option value="''">--</option>
+      <option value="'Auxiliar'">Auxiliar</option>
+      <option value="'Operativo'">Operativo</option>
+      <option value="'Administrativo'">Administrativo</option>
+      <option value="'Gerencial'">Gerencial</option>
 
-                {% elif campo[0] == 'ins_caducidad' %}  
-                     
-                    <option value="''"> -- </option>        
-                    <option value="'Sí'">Sí</option>                    
-                    <option value="'No'">No</option>                  
-                    
+      {% elif campo[0] == 'tra_titulacion' %}
 
-                {% endif %}
-                </select>      
-            {% endif %}                           
-        {% endfor %}
-        </div>
-        <button type="submit" class="btn btn-info"> Enviar criterios de búsqueda </button>
-    </form>
-{% endmacro %}
+      <option value="''">--</option>
+      <option value="'Bachiller'">Bachiller</option>
+      <option value="'Pregrado'">Pregrado</option>
+      <option value="'Tecnico'">Técnico</option>
+      <option value="'Maestria'">Maestría</option>
 
+      {% elif campo[0] == 'nom_tipoCuenta' %}
 
-{% macro create_update_delete_form(verificarExistencia, delete, update, nombreTablas,nombreTabla,campos , nombreRegistro)%} 
-    {% if verificarExistencia and update %}    
-    <h1 class="titulo-ver-tablas"> Verificar existencia de entrada en {{nombreTablas[nombreTabla]}} </h1> 
-    <!-- Formulario para introducir los campos -->
-    <form method="POST">
-        <div class="mb-3" id="filtro-label">
-        {% for campo in campos %}
-            {% if campo[1] == 'STR' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <input required type="text" name ="{{campo[0]}}" class="form-control"> 
-            {% elif campo[1] == 'NUM' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <input required type="number" name = "{{campo[0]}}" class="form-control"> 
-            {% elif campo[1] == 'DATE' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <input required type="date" name = "{{campo[0]}}" class="form-control"> 
-            {% elif campo[1] == 'DESP' %}
-                <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                <select
-                class="form-select form-select-sm"
-                aria-label=".form-select-sm example"
-                name="{{campo[0]}}"
-                id="select-tablas"
-                required
-                >      
-                {% if campo[0] == 'vnt_estado' %}                
-                                
-                        <option value="''"> -- </option>       
-                        <option value="'No entregado'">No entregado</option>                    
-                        <option value="'Entregado'">Entregado</option>                   
-                    
-                    {% elif campo[0] == 'car_tipoCargo' %}    
-                        
-                        <option value="''"> -- </option>        
-                        <option value="'Auxiliar'">Auxiliar</option>                    
-                        <option value="'Operativo'">Operativo</option>                   
-                        <option value="'Administrativo'">Administrativo</option>                   
-                        <option value="'Gerencial'">Gerencial</option> 
-                    
-                    {% elif campo[0] == 'tra_titulacion' %}    
-                                
-                        <option value="''"> -- </option>     
-                        <option value="'Bachiller'">Bachiller</option>                    
-                        <option value="'Pregrado'">Pregrado</option>                   
-                        <option value="'Tecnico'">Técnico</option>                   
-                        <option value="'Maestria'">Maestría</option> 
-                    
-                    {% elif campo[0] == 'nom_tipoCuenta' %}    
-                                
-                        <option value="''"> -- </option>     
-                        <option value="'AHORROS'">Ahorros</option>                    
-                        <option value="'CORRIENTE'">Corriente</option>                                       
-                    
-                    {% elif campo[0] == 'crg_placaFurgon' %}    
-                        <option value="''"> -- </option>     
-                        <option value="'VNS-945'">VNS-945</option>                    
-                        <option value="'PRM-264'">PRM-264</option>
+      <option value="''">--</option>
+      <option value="'AHORROS'">Ahorros</option>
+      <option value="'CORRIENTE'">Corriente</option>
 
-                    {% elif campo[0] == 'ins_caducidad' %}  
-                     
-                        <option value="''"> -- </option>        
-                        <option value="'Sí'">Sí</option>                    
-                        <option value="'No'">No</option>  
-                                    
-                {% endif %}
-                </select>  
-            {% endif %}                           
-        {% endfor %}
-        </div>
-        {% if update %}
-            <button type="submit" class="btn btn-info"> Enviar criterios de actualización </button>   
-        {% elif delete %}
-            <button type="submit" class="btn btn-info"> Enviar claves de borrado </button>     
-        {% endif %}        
-    </form>      
-    {% endif %}
+      {% elif campo[0] == 'crg_placaFurgon' %}
+      <option value="''">--</option>
+      <option value="'VNS-945'">VNS-945</option>
+      <option value="'PRM-264'">PRM-264</option>
 
-    <!--  Una vez comprobada existencia-->
-    {% if not verificarExistencia %}
-        {% if update%}
-            <h1 class="titulo-ver-tablas"> Actualizar entrada de {{nombreTablas[nombreTabla]}} </h1>    
-            <h2 class="titulo-ver-tablas"> Nuevos valores de la entrada 
-                {% for registro in nombreRegistro %}
-                    {{registro[0]}} = {{registro[1]}}
-                {% endfor %}
-            </h2>    
-        {% elif delete %}
-            <h1 class="titulo-ver-tablas"> Borrar entrada de {{nombreTablas[nombreTabla]}} </h1>    
-            <h2 class="titulo-ver-tablas"> Campos clave de la entrada a borrar </h2>    
-        {% endif %}
-        <form method="POST">
-            <div class="mb-3" id="filtro-label">
-            {% for campo in campos %}
-                {% if campo[1] == 'STR' %}
+      {% elif campo[0] == 'ins_caducidad' %}
+
+      <option value="''">--</option>
+      <option value="'Sí'">Sí</option>
+      <option value="'No'">No</option>
+
+      {% endif %}
+    </select>
+    {% endif %} {% endfor %}
+  </div>
+  <button type="submit" class="btn btn-info">
+    Enviar criterios de búsqueda
+  </button>
+</form>
+{% endmacro %} {% macro create_update_delete_form(verificarExistencia, delete,
+update, nombreTablas,nombreTabla,campos , nombreRegistro)%} 
+    <main role="main" class="container">
+        <div class="row">
+          <div class="col col-lg-6 col-md-8 col-12 offset-md-2 offset-lg-3">
+            <div class="content-section" id="login-content">
+{% if
+verificarExistencia and update %}
+<!-- Formulario para introducir los campos -->
+
+              <form method="POST" action>
+                <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Verificar existencia de entrada en {{nombreTablas[nombreTabla]}}</legend>
+                  <div class="mb-3" id="filtro-label">
+                    {% for campo in campos %} {% if campo[1] == 'STR' %}
                     <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                    <input required type="text" name ="{{campo[0]}}" class="form-control"> 
-                {% elif campo[1] == 'NUM' %}
+                    <input required type="text" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'NUM' %}
                     <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                    <input required type="number" name = "{{campo[0]}}" class="form-control"> 
-                {% elif campo[1] == 'DATE' %}
+                    <input required type="number" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'DATE' %}
                     <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
-                    <input required type="date" name = "{{campo[0]}}" class="form-control"> 
-                {% elif campo[1] == 'DESP' %}
+                    <input required type="date" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'DESP' %}
                     <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
                     <select
                     class="form-select form-select-sm"
@@ -229,58 +147,148 @@
                     name="{{campo[0]}}"
                     id="select-tablas"
                     required
-                    >      
-                    {% if campo[0] == 'vnt_estado' %}                
-                                
-                        <option value="''"> -- </option>       
-                        <option value="'No entregado'">No entregado</option>                    
-                        <option value="'Entregado'">Entregado</option>                   
-                    
-                    {% elif campo[0] == 'car_tipoCargo' %}    
-                        
-                        <option value="''"> -- </option>        
-                        <option value="'Auxiliar'">Auxiliar</option>                    
-                        <option value="'Operativo'">Operativo</option>                   
-                        <option value="'Administrativo'">Administrativo</option>                   
-                        <option value="'Gerencial'">Gerencial</option> 
-                    
-                    {% elif campo[0] == 'tra_titulacion' %}    
-                                
-                        <option value="''"> -- </option>     
-                        <option value="'Bachiller'">Bachiller</option>                    
-                        <option value="'Pregrado'">Pregrado</option>                   
-                        <option value="'Tecnico'">Técnico</option>                   
-                        <option value="'Maestria'">Maestría</option> 
-                    
-                    {% elif campo[0] == 'nom_tipoCuenta' %}    
-                                
-                        <option value="''"> -- </option>     
-                        <option value="'AHORROS'">Ahorros</option>                    
-                        <option value="'CORRIENTE'">Corriente</option>  
-                    
-                    {% elif campo[0] == 'crg_placaFurgon' %}    
-                        <option value="''"> -- </option>     
-                        <option value="'VNS-945'">VNS-945</option>                    
-                        <option value="'PRM-264'">PRM-264</option>
+                    >
+                    {% if campo[0] == 'vnt_estado' %}
 
-                    {% elif campo[0] == 'ins_caducidad' %}  
-                     
-                        <option value="''"> -- </option>        
-                        <option value="'Sí'">Sí</option>                    
-                        <option value="'No'">No</option>                      
+                    <option value="''">--</option>
+                    <option value="'No entregado'">No entregado</option>
+                    <option value="'Entregado'">Entregado</option>
 
-                                    
+                    {% elif campo[0] == 'car_tipoCargo' %}
+
+                    <option value="''">--</option>
+                    <option value="'Auxiliar'">Auxiliar</option>
+                    <option value="'Operativo'">Operativo</option>
+                    <option value="'Administrativo'">Administrativo</option>
+                    <option value="'Gerencial'">Gerencial</option>
+
+                    {% elif campo[0] == 'tra_titulacion' %}
+
+                    <option value="''">--</option>
+                    <option value="'Bachiller'">Bachiller</option>
+                    <option value="'Pregrado'">Pregrado</option>
+                    <option value="'Tecnico'">Técnico</option>
+                    <option value="'Maestria'">Maestría</option>
+
+                    {% elif campo[0] == 'nom_tipoCuenta' %}
+
+                    <option value="''">--</option>
+                    <option value="'AHORROS'">Ahorros</option>
+                    <option value="'CORRIENTE'">Corriente</option>
+
+                    {% elif campo[0] == 'crg_placaFurgon' %}
+                    <option value="''">--</option>
+                    <option value="'VNS-945'">VNS-945</option>
+                    <option value="'PRM-264'">PRM-264</option>
+
+                    {% elif campo[0] == 'ins_caducidad' %}
+
+                    <option value="''">--</option>
+                    <option value="'Sí'">Sí</option>
+                    <option value="'No'">No</option>
+
                     {% endif %}
-                </select>  
-                {% endif %}                           
-            {% endfor %}
+                    </select>
+                    {% endif %} {% endfor %}
+                </div>
+                {% if update %}
+                <button type="submit" class="btn btn-info">
+                    Enviar criterios de actualización
+                </button>
+                {% elif delete %}
+                <button type="submit" class="btn btn-info">Enviar claves de borrado</button>
+                {% endif %}
+              </form>
+
+{% endif %}
+
+<!--  Una vez comprobada existencia-->
+{% if not verificarExistencia %} {% if update%}
+              <form method="POST" action>
+                <fieldset class="form-group">
+                  <legend class="mb-4">Actualizar entrada de {{nombreTablas[nombreTabla]}}</legend>
+                  <legend class="border-bottom mb-4">  Nuevos valores de la entrada {% for registro in nombreRegistro %}
+                    {{registro[0]}} = {{registro[1]}} {% endfor %}</legend>
+                  {% elif delete %}
+                    <legend class="mb-4">
+                    Borrar entrada de {{nombreTablas[nombreTabla]}}
+                    </legend>
+                    <legend class="border-bottom mb-4">Campos clave de la entrada a borrar</legend>
+                    {% endif %}
+                    <form method = 'POST' action>
+                    <div class="mb-3" id="filtro-label">
+                    {% for campo in campos %} {% if campo[1] == 'STR' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <input required type="text" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'NUM' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <input required type="number" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'DATE' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <input required type="date" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'DESP' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <select
+                    class="form-select form-select-sm"
+                    aria-label=".form-select-sm example"
+                    name="{{campo[0]}}"
+                    id="select-tablas"
+                    required
+                    >
+                    {% if campo[0] == 'vnt_estado' %}
+
+                    <option value="''">--</option>
+                    <option value="'No entregado'">No entregado</option>
+                    <option value="'Entregado'">Entregado</option>
+
+                    {% elif campo[0] == 'car_tipoCargo' %}
+
+                    <option value="''">--</option>
+                    <option value="'Auxiliar'">Auxiliar</option>
+                    <option value="'Operativo'">Operativo</option>
+                    <option value="'Administrativo'">Administrativo</option>
+                    <option value="'Gerencial'">Gerencial</option>
+
+                    {% elif campo[0] == 'tra_titulacion' %}
+
+                    <option value="''">--</option>
+                    <option value="'Bachiller'">Bachiller</option>
+                    <option value="'Pregrado'">Pregrado</option>
+                    <option value="'Tecnico'">Técnico</option>
+                    <option value="'Maestria'">Maestría</option>
+
+                    {% elif campo[0] == 'nom_tipoCuenta' %}
+
+                    <option value="''">--</option>
+                    <option value="'AHORROS'">Ahorros</option>
+                    <option value="'CORRIENTE'">Corriente</option>
+
+                    {% elif campo[0] == 'crg_placaFurgon' %}
+                    <option value="''">--</option>
+                    <option value="'VNS-945'">VNS-945</option>
+                    <option value="'PRM-264'">PRM-264</option>
+
+                    {% elif campo[0] == 'ins_caducidad' %}
+
+                    <option value="''">--</option>
+                    <option value="'Sí'">Sí</option>
+                    <option value="'No'">No</option>
+
+                    {% endif %}
+                    </select>
+                    {% endif %} {% endfor %}
+                </div>
+                {% if update %}
+                <button type="submit" class="btn btn-info">
+                    Enviar criterios de actualización
+                </button>
+                {% elif delete %}
+                <button type="submit" class="btn btn-info">Enviar claves de borrado</button>
+                {% endif %}
+              </form>
+
+{% endif %}
             </div>
-            {% if update %}
-                <button type="submit" class="btn btn-info"> Enviar criterios de actualización </button>   
-            {% elif delete %}
-                <button type="submit" class="btn btn-info"> Enviar claves de borrado </button>     
-            {% endif %}        
-        </form>     
-    {% endif %}
-    
-{% endmacro %}
+        </div>
+
+    </main> {% endmacro %}
