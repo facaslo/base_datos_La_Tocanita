@@ -308,7 +308,7 @@ def realizarCompra():
         elif final:
             return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=True&primerPaso=True&segundoPaso=False&final=True')
 
-    return render_template ('realizarVenta.html', clienteEnBase = clienteEnBase , geografiaEnBase = geografiaEnBase , primerPaso = primerPaso , segundoPaso = segundoPaso, final = final , rol=rol)
+    return render_template ('realizarVenta.html', clienteEnBase = clienteEnBase , geografiaEnBase = geografiaEnBase , primerPaso = primerPaso , segundoPaso = segundoPaso, final = final )
     
 
 @app.route('/logout')
