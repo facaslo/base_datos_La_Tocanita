@@ -58,3 +58,5 @@ SET DEFAULT ROLE 'Linea de Produccion' TO 'FranciscoC'@localhost;
 SET DEFAULT ROLE 'Conductor' TO 'JoseSuarez'@localhost,'DavidSanz'@localhost;
 SET DEFAULT ROLE 'Linea de Produccion' TO 'RaulN'@localhost, 'PedroS'@localhost, 'RichiH'@localhost, 'MiguelV'@localhost, 'RamonC'@localhost, 
 'JorgeI'@localhost,'AlbertoG'@localhost, 'MarcosF'@localhost, 'IsmaelS'@localhost, 'AdrianN'@localhost, 'DavidL'@localhost;
+
+

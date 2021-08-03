@@ -6,6 +6,7 @@ CREATE ROLE 'Gerente';
 GRANT SELECT ON la_tocanita.* TO 'Gerente' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON la_tocanita.cargo TO 'Gerente' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON la_tocanita.producto TO 'Gerente' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON la_tocanita.historial TO 'Gerente' WITH GRANT OPTION;
 DROP ROLE IF EXISTS 'adminRecHumanos';
 CREATE ROLE 'adminRecHumanos';
 GRANT SELECT ON la_tocanita.cargo TO 'adminRecHumanos';
