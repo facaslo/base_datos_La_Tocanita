@@ -294,95 +294,116 @@ verificarExistencia and update %}
     </main> {% endmacro %}
 
 {% macro boton_crear_form(tipo, preguntarNumero, totalElementos)%}
+    <main role="main" class="container">
+        <div class="row">
+          <div class="col col-lg-6 col-md-8 col-12 offset-md-2 offset-lg-3">
+            <div class="content-section" id="login-content">
     {% if tipo == 'produccion' %}
-    <h1> Ingrese los datos de la producción </h1>
+    <legend class="border-bottom mb-4"> Ingrese los datos de la producción </legend>
     <form method='POST' action="/crear?estado=enviado">
-      <legend> Código del insumo </legend>
-      <input required name='id_insumo' type="number">
-      <legend> Cantidad de insumo </legend>
-      <input required name='cantidadIns' type="number">
-      <legend> Id de trabajador 1 </legend>
-      <input required name='trabajadorID1' type="number">
-      <legend> Id de trabajador 2 </legend>
-      <input required name='trabajadorID2' type="number">
-      <legend> Id de producto </legend>
-      <input required name='idProducto' type="number">
-      <legend> Cantidad de producto </legend>
-      <input required name='cantidadProducto' type="number">
-      <legend> Costo </legend>
-      <input required name='Costo' type="number">
-      <button type="submit" > Enviar </button> 
+      <div class="form-group">
+        <label class="from-control-label mt-3"> Código del insumo </label>
+        <input class="from-control form-control-lg" required name='id_insumo' type="number">
+        <label class="from-control-label mt-3"> Cantidad de insumo </label>
+        <input class="from-control form-control-lg" required name='cantidadIns' type="number">
+        <label class="from-control-label mt-3"> Id de trabajador 1 </label>
+        <input class="from-control form-control-lg" required name='trabajadorID1' type="number">
+        <label class="from-control-label mt-3"> Id de trabajador 2 </label>
+        <input class="from-control form-control-lg" required name='trabajadorID2' type="number">
+        <label class="from-control-label mt-3"> Id de producto </label>
+        <input class="from-control form-control-lg" required name='idProducto' type="number">
+        <label class="from-control-label mt-3"> Cantidad de producto </label>
+        <input class="from-control form-control-lg" required name='cantidadProducto' type="number">
+        <label class="from-control-label mt-3"> Costo </label>
+        <input class="from-control form-control-lg" required name='Costo' type="number">
+      </div>
+      <button class="btn btn-outline-info" type="submit" > Enviar </button>
     </form>
     {% endif %}
 
     {% if tipo == 'nomina' %}
-      <h1> Ingrese los datos de la nomina del trabajador </h1>
+      <legend class="border-bottom mb-4"> Ingrese los datos de la nomina del trabajador </legend>
       <form method='POST' action="/crear?estado=enviado">
-        <legend> Id del trabajador </legend>
-        <input required name='tra_id' type="number">
-        <legend> Periodo </legend>
-        <input required name='per_nom' type="text">
-        <legend> Descuento </legend>
-        <input required name='descuento' type="number">
-        <legend> Pago </legend>
-        <input required name='pago' type="number">
-        <button type="submit" > Enviar </button> 
+        <div class="form-group">
+            <label class="from-control-label mt-3"> Id del trabajador </label>
+            <input class="from-control form-control-lg" required name='tra_id' type="number">
+            <label class="from-control-label mt-3"> Periodo </label>
+            <input class="from-control form-control-lg" required name='per_nom' type="text">
+            <label class="from-control-label mt-3"> Descuento </label>
+            <input class="from-control form-control-lg" required name='descuento' type="number">
+            <label class="from-control-label mt-3"> Pago </label>
+            <input class="from-control form-control-lg" required name='pago' type="number">
+            </div>
+            <button class="btn btn-outline-info" type="submit" > Enviar </button>
       </form>
     {% endif %}
     
     {% if tipo == 'compra' and preguntarNumero %}
-      <h1> ¿Cuántas insumos diferentes va a comprar?</h1>
+      <legend class="border-bottom mb-4"> ¿Cuántas insumos diferentes va a comprar?</legend>
     {% elif tipo == 'venta' and preguntarNumero %}
-      <h1> ¿Cuántas productos diferentes va a vender? </h1>
+      <legend class="border-bottom mb-4"> ¿Cuántas productos diferentes va a vender? </legend>
     {% endif %}
 
     {% if preguntarNumero  %}
     <form method='POST' action="/crear?tipo={{tipo}}"> 
-        <legend> Total </legend>
-        <input required name='total' type="number">
-        <button type="submit" > Enviar </button>                                
+        <div class="form-group">
+            <label class="from-control-label" for="user" >Total</label>
+            <input class="from-control form-control-lg" required name='total' type="number">
+        </div>
+        <button class="btn btn-outline-info" type="submit" > Enviar </button>
     </form>
+
+
+
     {% endif %}
 
     {% if not preguntarNumero and tipo == 'compra' %}
     <form method='POST' action="/crear?estado=enviado">
-      <legend> Nit del proveedor </legend>
-      <input required name='nit' type="number">
-      <legend> Id del recibo </legend>
-      <input required name='id_recibo' type="number">
-      <legend> Fecha de la compra </legend>
-      <input required name='fecha' type="date">
+      <div class="form-group">
+      <label class="from-control-label mt-3"> Nit del proveedor </label>
+      <input class="from-control form-control-lg" required name='nit' type="number">
+      <label class="from-control-label mt-3"> Id del recibo </label>
+      <input class="from-control form-control-lg" required name='id_recibo' type="number">
+      <label class="from-control-label mt-3"> Fecha de la compra </label>
+      <input class="from-control form-control-lg" required name='fecha' type="date">
       {% for i in range(totalElementos)    %} 
-        <legend> Código del insumo {{i}} </legend>
-        <input required name='codigo{{i}}' type="number">
-        <legend> Cantidad de insumo {{i}} </legend>
-        <input required name='cantidad{{i}}' type="number">
+        <label class="from-control-label mt-3"> Código del insumo {{i}} </label>
+        <input class="from-control form-control-lg" required name='codigo{{i}}' type="number">
+        <label class="from-control-label mt-3"> Cantidad de insumo {{i}} </label>
+        <input class="from-control form-control-lg" required name='cantidad{{i}}' type="number">
       {% endfor %}
-      <legend> Costo total </legend>
-      <input required name="costo" type='number'> 
-      <button type="submit" > Enviar </button> 
+      <label class="from-control-label mt-3"> Costo total </label>
+      <input class="from-control form-control-lg" required name="costo" type='number'> 
+      </div>
+      <button class="btn btn-outline-info" type="submit" > Enviar </button>
     </form>
     {% endif %}
 
     {% if not preguntarNumero and tipo == 'venta' %}
     <form method='POST' action="/crear?estado=enviado">
-      <legend> Id del cliente </legend>
-      <input required name='id_cl' type="number">      
-      <legend> Código postal </legend>
-      <input required name='postal' type="number">
-      <legend> Dirección </legend>
-      <input required name='direccion' type="text">
-      {% for i in range(totalElementos)    %} 
-        <legend> Código del producto {{i}} </legend>
-        <input required name='producto{{i}}' type="number">
-        <legend> Cantidad del producto {{i}} </legend>
-        <input required name='cantidad{{i}}' type="number">
-      {% endfor %}
-      <legend> Valor de la venta </legend>
-      <input required name="valorVenta" type='number'> 
-      <button type="submit" > Enviar </button> 
+      <div class="form-group">
+        <label class="from-control-label mt-3"> Id del cliente </label>
+        <input class="from-control form-control-lg" required name='id_cl' type="number">      
+        <label class="from-control-label mt-3"> Código postal </label>
+        <input class="from-control form-control-lg" required name='postal' type="number">
+        <label class="from-control-label mt-3"> Dirección </label>
+        <input class="from-control form-control-lg" required name='direccion' type="text">
+        {% for i in range(totalElementos)    %} 
+            <label class="from-control-label mt-3"> Código del producto {{i}} </label>
+            <input class="from-control form-control-lg" required name='producto{{i}}' type="number">
+            <label class="from-control-label mt-3"> Cantidad del producto {{i}} </label>
+            <input class="from-control form-control-lg" required name='cantidad{{i}}' type="number">
+        {% endfor %}
+        <label class="from-control-label mt-3"> Valor de la venta </label>
+        <input class="from-control form-control-lg" required name="valorVenta" type='number'> 
+      </div>
+      <button class="btn btn-outline-info" type="submit" > Enviar </button>
     </form>
     {% endif %}
+</div>
+        </div>
+
+    </main> 
 {% endmacro %}
 
 
@@ -394,21 +415,20 @@ verificarExistencia and update %}
       <div class="content-section" id="login-content">
             <form method="POST" action>
                 <fieldset class="form-group">
-                  <legend class="mb-4">Nueva entrada de {{nombreTablas[nombreTabla]}}</legend>                 
-                  
+                  <legend class="border-bottom mb-4">Nueva entrada de {{nombreTablas[nombreTabla]}}</legend>                 
                     <form method = 'POST' action>
-                    <div class="mb-3" id="filtro-label">
+                    <div class="form-group">
                     {% for campo in campos_busqueda %} {% if campo[1] == 'STR' %}
-                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <label for="{{campo[0]}}" class="from-control-label mt-3"> {{campo[2]}} </label>
                     <input  type="text" name="{{campo[0]}}" class="form-control" />
                     {% elif campo[1] == 'NUM' %}
-                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <label for="{{campo[0]}}" class="from-control-label mt-3"> {{campo[2]}} </label>
                     <input  type="number" name="{{campo[0]}}" class="form-control" />
                     {% elif campo[1] == 'DATE' %}
-                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <label for="{{campo[0]}}" class="from-control-label mt-3"> {{campo[2]}} </label>
                     <input  type="date" name="{{campo[0]}}" class="form-control" />
                     {% elif campo[1] == 'DESP' %}
-                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <label for="{{campo[0]}}" class="from-control-label mt-3"> {{campo[2]}} </label>
                     <select
                     class="form-select form-select-sm"
                     aria-label=".form-select-sm example"
@@ -462,7 +482,6 @@ verificarExistencia and update %}
                 <button type="submit" class="btn btn-info">
                     Enviar 
                 </button>
-                
               </form>
             </div>
           </div>
