@@ -240,6 +240,7 @@ CREATE TABLE nombre_Tabla (
 	nomb_nombre VARCHAR(100) NOT NULL    
 );
 
+
 -- Una tabla para guardar los nombres de los archivos html para cada rol
 DROP TABLE IF EXISTS nombre_html;
 CREATE TABLE nombre_html (

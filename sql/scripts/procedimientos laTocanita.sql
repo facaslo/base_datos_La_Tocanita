@@ -370,9 +370,9 @@ DROP PROCEDURE IF EXISTS actualizar_prod;
 DELIMITER $$
 CREATE PROCEDURE actualizar_prod(
     IN fecha DATE,
-    IN costo INT)
-BEGIN
-	UPDATE produccion SET cdp_costoProduccion = costo WHERE cdp_fecha = fecha;
+    IN costo INT,
+    IN opcion VARCHAR(15))
+BEGIN	
 	IF opcion = 'actualizar' THEN
 	UPDATE produccion SET cdp_costoProduccion = costo WHERE cdp_fecha = fecha;
 	END IF;
