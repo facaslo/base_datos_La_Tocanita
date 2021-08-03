@@ -153,8 +153,7 @@ def infoTabla():
 ####################################################################################################################################
 @app.route('/verTabla/buscar', methods=['GET','POST'])
 def buscar():
-    tabla = session['tabla']     
-    print(session['nombreColumnas'])    
+    tabla = session['tabla']         
     if request.method == 'POST':      
         camposFormulario = [] 
         args=(tabla,)
@@ -272,7 +271,7 @@ def updateTabla():
 
         # El registro está en la tabla
         if len(filas) > 0 :            
-            session['registroActualizacion'] = [[session['nombreColumnas'][pareja[0]],pareja[1],pareja[0]] for pareja in columnas_y_Valores]            
+            session['registroActualizacion'] = [[session['nombreColumnas'][0],pareja[1],pareja[0]] for pareja in columnas_y_Valores]            
             session.modified = True
             return redirect ('/verTabla/update?enTabla=True')
 
