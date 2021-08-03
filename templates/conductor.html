@@ -1,11 +1,7 @@
-{% extends 'base/baseCargos.html' %}
+{% extends 'base/baseCargos.html' %} {% block titulo %}
+<title>La Tocanita - Conductor</title>
 
-{% block titulo %}    
-    <title> La Tocanita - Conductor </title>   
-
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <main role="main" class="container-fluid">
   <div class="row">
     <div class="col-md-3">
@@ -13,12 +9,10 @@
         <section class="main-logo">
           <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
         </section>
-        <section class="main-buttons">
-          
-        </section>
-        </div>
+        <section class="main-buttons"></section>
       </div>
     </div>
+
     <div class="col-md-9">
       <div class="content-section">
         {% from "_macro.html" import create_elements_buttons %} {{
