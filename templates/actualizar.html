@@ -1,5 +1,28 @@
 {% extends 'base/base.html' %} {% block titulo %}
 <title>La Tocanita - actualizar {{type}} </title>
+<script>
+    function exito() {
+      alert("La operación se ha completado con exito");
+      window.location.href = "/rol";
+    }
+    function error() {
+      alert("La operación no se ha completado");
+      window.location.href = "/rol";
+    }
+  </script>
+  {% if exito %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      exito();
+    });
+  </script>
+  {% endif %} {% if error %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      error();
+    });
+  </script>
+  {% endif %}
 
 {% endblock %} {% block content %}
 

@@ -497,10 +497,55 @@ def realizarCompra():
 
 #############################################################################################################################
 @app.route('/actualizar', methods=['GET','POST'])
-def actualizar():
+def actualizar():    
     tipo = request.args.get('tipo') 
     if request.method == 'POST':
-        pass
+        tipo = session['tipoCrear']
+        estado = request.args.get('estado')
+        if estado == 'enviado' and tipo=='produccion':
+            argumentos = ['fecha', 'costo', 'opcion']
+            args = [request.form.get(argumento) for argumento in argumentos] 
+            try:
+                cursor.callproc("actualizar_prod", args)                    
+                baseDatos.commit()                     
+                return render_template('actualizar.html' , type = session['tipoCrear'] ,exito = True) 
+            except Exception as e:
+                print(e)
+                return render_template('actualizar.html' , type = session['tipoCrear'] ,error = True)      
+        elif estado == 'enviado' and tipo=='nomina':
+            argumentos = ['fecha', 'idtrabajadorOld', 'idtrabajadorOld', 'idtrabajador', 'pago', 'descuentos', 'opcion']
+            args = [request.form.get(argumento) for argumento in argumentos] 
+            print(args)
+            try:
+                cursor.callproc("actualizar_nomina", args)                   
+                baseDatos.commit()                     
+                return render_template('actualizar.html' , type = session['tipoCrear'] ,exito = True) 
+            except Exception as e:
+                print(e)
+                return render_template('actualizar.html' , type = session['tipoCrear'] ,error = True)  
+        elif estado == 'enviado' and tipo=='venta':           
+            argumentos = argumentos = ['id_vnt', 'productoOld', 'id_cl', 'producto', 'cantidad', 'total', 'codPostal', 'direccion', 'opcion']
+            args = [request.form.get(argumento) for argumento in argumentos]                
+            try:
+                cursor.callproc("act_venta", args)                    
+                baseDatos.commit()                     
+                return render_template('actualizar.html' , type = session['tipoCrear'] ,  exito = True) 
+            except Exception as e:
+                print(e)
+                return render_template('actualizar.html' , type = session['tipoCrear'] , error = True) 
+            
+        elif estado == 'enviado' and tipo=='compra':            
+            argumentos = argumentos = ['recibo', 'ins_cod_old', 'ins_cod', 'cantidad', 'costo', 'opcion']
+            args = [request.form.get(argumento) for argumento in argumentos]  
+            print(args)                
+            try:
+                cursor.callproc("act_compra", args)                  
+                baseDatos.commit()                     
+                return render_template('actualizar.html' , type = session['tipoCrear'] , exito = True) 
+            except Exception as e:
+                print(e)
+                return render_template('actualizar.html' , type = session['tipoCrear'] , error = True) 
+        return 'error'
     else:
         session['tipoCrear'] = tipo    
         session.modified = True
