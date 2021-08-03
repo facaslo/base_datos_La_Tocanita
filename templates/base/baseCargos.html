@@ -28,29 +28,29 @@
       function logout() {
         window.location.href = "/logout";
       }      
-      function redireccionarCompra(){
-        window.location.href = '/realizarCompra'
+      function hacerCompra(){
+        window.location.href = '/crear?tipo=compra'
       }
-      function redireccionarNomina(){
-        window.location.href = '/actualizarNomina'
+      function actualizarCompra(){
+        window.location.href = '/actualizar?tipo=compra'
       }
-      function redireccionarTrabajadores(){
-        window.location.href = '/ActualizarTrabajadores'
+      function hacerVenta(){
+        window.location.href = '/crear?tipo=venta'
       }
-      function redireccionarProduccion(){
-        window.location.href = '/ActualizarProducción'
+      function actualizarVenta(){
+        window.location.href = '/actualizar?tipo=venta'
       }
-      function redireccionarHacerVenta(){
-        window.location.href = '/RealizarVenta?clienteEnBase=False&geografiaEnBase=False&primerPaso=False&segundoPaso=False&final=False'        
+      function hacerNomina(){
+        window.location.href = '/crear?tipo=nomina'        
       }
-      function redireccionarVenta(){
-        window.location.href = '/ActualizarVenta'
+      function actualizarNomina(){
+        window.location.href = '/actualizar?tipo=nomina'
       }
-      function redireccionarCargamento(){
-        window.location.href = '/ActualizarCargamento'
+      function hacerProduccion(){
+        window.location.href = '/crear?tipo=produccion'
       }
-      function redireccionarCargos(){
-        window.location.href = '/ActualizarCargos'
+      function actualizarProduccion(){
+        window.location.href = '/actualizar?tipo=produccion'
       }
     </script>
     {%block titulo%} {% endblock %}

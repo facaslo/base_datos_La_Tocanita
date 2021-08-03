@@ -146,7 +146,7 @@ def infoTabla():
     except Exception as e:    
         print(e)
         return render_template ('401.html') , 401    
-
+####################################################################################################################################
 @app.route('/verTabla/buscar', methods=['GET','POST'])
 def buscar():
     tabla = session['tabla']         
@@ -162,7 +162,7 @@ def buscar():
         for campo in camposFormulario:
             valor = request.form.get(campo[0])
             if valor != '' :                
-                if campo[1] == 'DATE':
+                if campo[1] == 'DATE' or campo[1] == 'STR':
                     valor = "'{}'".format(valor)
                 pareja = [campo[0],valor]
                 camposNoVacios.append(pareja)
@@ -202,7 +202,7 @@ def buscar():
     except Exception as  e:
         print(e)        
         return render_template ('401.html') , 401      
-
+####################################################################################################################################
 @app.route('/verTabla/update', methods=['GET','POST'])
 def updateTabla(): 
     tabla = session['tabla']      
@@ -235,12 +235,14 @@ def updateTabla():
         columnas_y_Valores = []
         for nombreCampo in camposFormulario:
             valor = request.form.get(nombreCampo[0])
-            if nombreCampo[1] == 'DATE':
+            if nombreCampo[1] == 'DATE' or nombreCampo[1] == 'STR':
                 valor = "'{}'".format(valor)
             pareja = [nombreCampo[0], valor]        
             columnas_y_Valores.append(pareja)
 
         query = ''
+
+        
         for i in range(len(columnas_y_Valores)):
             if i != len(columnas_y_Valores)-1 :
                 query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1] + ','
@@ -274,7 +276,7 @@ def updateTabla():
         columnas_y_Valores = []
         for nombreCampo in camposFormulario:
             valor = request.form.get(nombreCampo[0])
-            if nombreCampo[1] == 'DATE':
+            if nombreCampo[1] == 'DATE' or nombreCampo[1] == 'STR':
                 valor = "'{}'".format(valor)
             pareja = [nombreCampo[0], valor]        
             columnas_y_Valores.append(pareja)       
@@ -293,6 +295,8 @@ def updateTabla():
             else:
                 condiciones += session['registroActualizacion'][i][2] + '=' + columnas_y_Valores[i][1]
 
+        print(query)
+        print(condiciones)
         try:
             args=(tabla,query,condiciones)
             cursor.callproc("PROC_UPDATE_QUERY", args)            
@@ -310,7 +314,7 @@ def updateTabla():
     else:
         return render_template ('update_delete.html', verificarExistencia = False,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposSecundarios , exitoActualizacion = False ,error = False, errorBusqueda = False , nombreRegistro = session['registroActualizacion'])  
     
-    
+####################################################################################################################################
 @app.route('/verTabla/delete', methods=['GET','POST'])
 def deleteTabla():
     tabla = session['tabla']  
@@ -346,14 +350,14 @@ def deleteTabla():
             cursor.callproc("PROC_DELETE_QUERY", args)            
             cursor.fetchall()
             baseDatos.commit()
-            return render_template ('update_delete.html', delete = True, update = False, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = True ,error = False, errorBusqueda = False)
+            return render_template ('update_delete.html', delete = True, update = False, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = True ,error = False, errorBorrado = False)
 
         except Exception as e:
             print(e)
-            return render_template ('update_delete.html', verificarExistencia = False,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False , errorBusqueda = True)
+            return render_template ('update_delete.html', verificarExistencia = False,  delete = False, update = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False , errorBorrado = True)
       
     
-    return render_template ('update_delete.html', delete = True, update = False,  nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False , error = False , errorBusqueda = False)
+    return render_template ('update_delete.html', delete = True, update = False,  nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False , error = False , errorBorrado = False)
 
       
 

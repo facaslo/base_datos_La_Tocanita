@@ -215,6 +215,7 @@ verificarExistencia and update %}
                     </legend>
                     <legend class="border-bottom mb-4">Campos clave de la entrada a borrar</legend>
                     {% endif %}
+                    <form method = 'POST' action>
                     <div class="mb-3" id="filtro-label">
                     {% for campo in campos %} {% if campo[1] == 'STR' %}
                     <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
@@ -285,7 +286,6 @@ verificarExistencia and update %}
                 <button type="submit" class="btn btn-info">Enviar claves de borrado</button>
                 {% endif %}
               </form>
-
 
 {% endif %}
             </div>

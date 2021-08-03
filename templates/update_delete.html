@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -14,36 +14,43 @@
       href="{{ url_for('static', filename='css/main.css') }}"
       type="text/css"
     />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update</title>
-    <script>
-      function exitoActualizacion() {
-        alert("Las entradas se han actualizado con exito");
-        window.location.href = "/verTabla";
-      }
-      function error() {
-        alert("Errores en los campos de actualización o borrado");
-      }
-      function errorBusqueda() {
-        alert("El registro no se encuentra en la tabla");
-      }
-      function goBack() {
-        window.history.back();
-      }
-      function search() {
-        window.location.href = `/verTabla/buscar`;
-      }
-      function update() {
-        window.location.href = `/verTabla/update`;
-      }
-      function del() {
-        window.location.href = `/verTabla/delete`;
-      }
-      function logout() {
-        window.location.href = "/logout";
-      }
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Update </title>
+    <script>         
+        function exitoActualizacion(){
+            alert("Las entradas se han actualizado con exito")
+            window.location.href = '/verTabla'
+        }
+        function error(){            
+            alert("Errores en los campos de actualización o borrado");
+            window.location.href = '/verTabla/update?enTabla=False';
+        }       
+        function errorBusqueda(){            
+            alert("El registro no se encuentra en la tabla");
+            window.location.href = '/verTabla/update?enTabla=False';
+        }    
+        function errorBorrado(){            
+            alert("El registro no se encuentra en la tabla");
+            window.location.href = '/verTabla/delete';
+        }    
+        function goBack() {
+            window.history.back();
+            window.location.href = '/verTabla';
+        }
+        function search() {
+            window.location.href = `/verTabla/buscar`;
+        }
+        function update() {
+            window.location.href = `/verTabla/update`;
+        }
+        function del() {
+            window.location.href = `/verTabla/delete`;
+        }
+        function logout() {
+                window.location.href = "/logout";
+        }     
     </script>
     {% if error %}
     <script>
@@ -62,6 +69,14 @@
       document.addEventListener("DOMContentLoaded", function () {
         errorBusqueda();
       });
+    </script>
+    {% endif %}
+
+    {% if errorBorrado%}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            errorBorrado();
+        });
     </script>
     {% endif %}
   </head>
