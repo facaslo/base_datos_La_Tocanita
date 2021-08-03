@@ -1,69 +1,78 @@
 {% macro crearFormulario(type) %} 
-    <form method="POST" action="/actualizar?estado=enviado"> 
-    
-    {% if type == 'compra' %}
-        <h1> Cambiar o borrar entrada con parámetros </h1>
-        <legend> Id recibo </legend>
-        <input required name='recibo' type="number">
-        <legend> Código insumo </legend>
-        <input required name='ins_cod_old' type="number">
-        <h2> Valor de los nuevos parámetros </h2>
-        <legend> Código insumo </legend>
-        <input name='ins_cod' type="number">
-        <legend> Cantidad </legend>
-        <input name='cantidad' type="number">
-        <legend> Costo </legend>
-        <input name='costo' type="number">      
+<main role="main" class="container">
+  <div class="row">
+    <div class="col col-lg-6 col-md-8 col-12 offset-md-2 offset-lg-3">
+      <div class="content-section" id="login-content">
+        <form method="POST" action="/actualizar?estado=enviado"> 
+            <div class="form-group">
+            {% if type == 'compra' %}
+                <legend class="border-bottom mb-4"> Cambiar o borrar entrada con parámetros </legend>
+                <label class="from-control-label mt-3"> Id recibo </label>
+                <input class="from-control form-control-lg" required name='recibo' type="number">
+                <label class="from-control-label mt-3"> Código insumo </label>
+                <input class="from-control form-control-lg" required name='ins_cod_old' type="number">
+                <legend class="border-bottom mb-4 mt-4"> Valor de los nuevos parámetros </legend>
+                <label class="from-control-label mt-3"> Código insumo </label>
+                <input class="from-control form-control-lg" name='ins_cod' type="number">
+                <label class="from-control-label mt-3"> Cantidad </label>
+                <input class="from-control form-control-lg" name='cantidad' type="number">
+                <label class="from-control-label mt-3"> Costo </label>
+                <input class="from-control form-control-lg" name='costo' type="number">      
+                
+            {% elif type == 'venta' %}
+                <legend class="border-bottom mb-4"> Cambiar o borrar entrada con parámetros </legend>
+                <label class="from-control-label mt-3"> Id venta </label>
+                <input class="from-control form-control-lg" required name='id_vnt' type="number">
+                <label class="from-control-label mt-3"> Id del producto </label>
+                <input class="from-control form-control-lg" required name='productoOld' type="number">
+                <legend class="border-bottom mb-4 mt-4"> Valor de los nuevos parámetros </legend>
+                <label class="from-control-label mt-3"> Id del cliente </label>
+                <input class="from-control form-control-lg" required name='id_cl' type="number">
+                <label class="from-control-label mt-3"> Producto </label>
+                <input class="from-control form-control-lg" required name='producto' type="number">
+                <label class="from-control-label mt-3"> Cantidad de producto </label>
+                <input class="from-control form-control-lg" required name='cantidad' type="number">
+                <label class="from-control-label mt-3"> Total </label>
+                <input class="from-control form-control-lg" required name='total' type="number">
+                <label class="from-control-label mt-3"> Código postal </label>
+                <input class="from-control form-control-lg" required name='codPostal' type="number">
+                <label class="from-control-label mt-3"> Dirección </label>
+                <input class="from-control form-control-lg" required name='direccion' type="text">
 
-        
-    {% elif type == 'venta' %}
-        <h1> Cambiar o borrar entrada con parámetros </h1>
-        <legend> Id venta </legend>
-        <input required name='id_vnt' type="number">
-        <legend> Id del producto </legend>
-        <input required name='productoOld' type="number">
-        <h2> Valor de los nuevos parámetros </h2>
-        <legend> Id del cliente </legend>
-        <input required name='id_cl' type="number">
-        <legend> Producto </legend>
-        <input required name='producto' type="number">
-        <legend> Cantidad de producto </legend>
-        <input required name='cantidad' type="number">
-        <legend> Total </legend>
-        <input required name='total' type="number">
-        <legend> Código postal </legend>
-        <input required name='codPostal' type="number">
-        <legend> Dirección </legend>
-        <input required name='direccion' type="text">
+            {% elif type == 'nomina' %}
+                <legend class="border-bottom mb-4"> Cambiar o borrar entrada con parámetros </legend>
+                <label class="from-control-label mt-3"> Fecha </label>
+                <input class="from-control form-control-lg" required name='fecha' type="date">
+                <label class="from-control-label mt-3"> Id del trabajador </label>
+                <input class="from-control form-control-lg" required name='idtrabajadorOld' type="number">
+                <legend class="border-bottom mb-4 mt-4"> Valor de los nuevos parámetros </legend>
+                <label class="from-control-label mt-3"> Id del trabajador </label>
+                <input class="from-control form-control-lg" required name='idtrabajador' type="number">
+                <label class="from-control-label mt-3"> Pago </label>
+                <input class="from-control form-control-lg" required name='pago' type="number">
+                <label class="from-control-label mt-3"> Descuento</label>
+                <input class="from-control form-control-lg" required name='descuentos' type="number">
 
-    {% elif type == 'nomina' %}
-        <h1> Cambiar o borrar entrada con parámetros </h1>
-        <legend> Fecha </legend>
-        <input required name='fecha' type="date">
-        <legend> Id del trabajador </legend>
-        <input required name='idtrabajadorOld' type="number">
-        <h2> Valor de los nuevos parámetros </h2>
-        <legend> Id del trabajador </legend>
-        <input required name='idtrabajador' type="number">
-        <legend> Pago </legend>
-        <input required name='pago' type="number">
-        <legend> Descuento</legend>
-        <input required name='descuentos' type="number">
+            {% elif type == 'produccion' %}
+                <legend class="border-bottom mb-4"> Cambiar o borrar entrada con parámetros </legend>
+                <label class="from-control-label mt-3"> Fecha </label>
+                <input class="from-control form-control-lg" required name='fecha' type="date">
+                <label class="from-control-label mt-3"> Costo de producción </label>
+                <input class="from-control form-control-lg" required name='costo' type="number">
+                    
+            
+            {% endif %}
 
-    {% elif type == 'produccion' %}
-        <h1> Cambiar o borrar entrada con parámetros </h1>
-        <legend> Fecha </legend>
-        <input required name='fecha' type="date">
-        <legend> Costo de producción </legend>
-        <input required name='costo' type="number">
-               
-    
-    {% endif %}
-
-    <select required name='opcion'>
-        <option value='actualizar'> Actualizar </option>
-        <option value='borrar'> Borrar </option>
-    </select>
-    <button type="submit" > Enviar </button> 
-    </form>
+            <select class="form-select form-select-sm mt-3" aria-label=".form-select-sm example" required name='opcion'>
+                <option value='actualizar'> Actualizar </option>
+                <option value='borrar'> Borrar </option>
+            </select>
+            </div>
+                <button type="submit" class="btn btn-info">
+                    Enviar 
+                </button>
+            </form>
+        </div>
+    </div>
+</main> 
 {% endmacro %}

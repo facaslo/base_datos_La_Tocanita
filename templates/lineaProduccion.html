@@ -10,7 +10,20 @@
           <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
         </section>
         <section class="main-buttons">
-          
+          <button
+            type="button"
+            class="btn btn-dark"
+            onclick="hacerProduccion()"
+          >
+            Ingresar información de producción
+          </button>
+          <button
+            type="button"
+            class="btn btn-dark"
+            onclick="actualizarProduccion()"
+          >
+            Actualizar información de producción
+          </button>
         </section>
       </div>
     </div>

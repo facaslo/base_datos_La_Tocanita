@@ -25,8 +25,28 @@
   {% endif %}
 
 {% endblock %} {% block content %}
-
-{% from "_macroDos.html" import crearFormulario %} {{
-    crearFormulario(type) }}    
-
+<header class="site-header">
+  <!-- As a heading -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">La Tocanita</span>
+      <div id="nav-tablas">
+        <button
+          onclick="goBack()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >
+          Volver
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+<main role="main" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      {% from "_macroDos.html" import crearFormulario %} {{
+      crearFormulario(type) }}
+    </div>
+  </div>
+</main>
 {% endblock %}
