@@ -223,6 +223,44 @@ END
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS act_venta;
+DELIMITER $$
+CREATE PROCEDURE act_venta( 
+    IN id_vnt INT,
+    IN productoOld TINYINT,
+    IN id_cl BIGINT,
+    IN producto TINYINT,
+    IN cantidad INT,
+    IN total INT,
+    IN codPostal INT,
+    IN direccion VARCHAR(45),
+    IN opcion VARCHAR(15)
+	)   
+BEGIN	
+	IF opcion = 'actualizar' THEN
+	UPDATE venta_productos SET vpn_id = producto, vpn_cantidad= cantidad, vpn_cantidad=total
+    WHERE vnt_id = id_vnt  AND vpn_id = productoOld;
+    UPDATE venta SET geo_codigoPostal=codPostal, vnt_direccion=direccion , cli_id=id_cl
+    WHERE vnt_id = id_vnt;
+	END IF;
+	IF opcion = 'borrar' THEN
+	DELETE FROM compra_insumos WHERE com_idrecibo = recibo AND ins_codigo = ins_cod_old;
+	END IF;
+    
+	
+    
+	INSERT INTO venta VALUES (id_vnt, id_cl, codPostal, @idFurgon , direccion, curdate(), 'No entregado');
+    END IF;
+	IF NOT EXISTS (SELECT * FROM cliente WHERE cli_id = id_cl) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El cliente no existe';
+    END IF;
+    
+	COMMIT;
+END
+$$
+DELIMITER ;
+
+
 -- Compra insumos
 DROP PROCEDURE IF EXISTS procedimiento_Compra;
 DELIMITER $$
@@ -248,6 +286,30 @@ END
 $$
 DELIMITER ;
 
+
+-- actualizar compra
+-- Boton actualizar compra
+DROP PROCEDURE IF EXISTS act_compra;
+DELIMITER $$
+CREATE PROCEDURE act_compra(
+	IN recibo INT,
+    IN ins_cod_old INT,
+    IN ins_cod INT,
+    IN cantidad INT,
+    IN costo INT,
+    IN opcion VARCHAR(15))
+BEGIN
+IF opcion = 'actualizar' THEN
+UPDATE compra_insumos SET ins_codigo = ins_cod, cin_cantidad = cantidad, cin_costototal = costo WHERE com_idrecibo = recibo AND ins_codigo = ins_cod_old;
+END IF;
+IF opcion = 'borrar' THEN
+DELETE FROM compra_insumos WHERE com_idrecibo = recibo AND ins_codigo = ins_cod_old;
+END IF;
+END
+$$
+DELIMITER ;
+
+
 -- Pago nomina
 -- Boton Realizar pago nomina
 
@@ -272,29 +334,24 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS actualizar_nomina;
 DELIMITER $$
 CREATE PROCEDURE actualizar_nomina(
-	IN idtrabajador INT,
-    IN pago INT )
+	IN fecha DATE,
+	IN idtrabajadorOld INT,
+    IN idtrabajador INT,
+    IN pago INT ,
+    IN descuentos INT,
+    IN opcion VARCHAR(15))
 BEGIN
-	UPDATE nomina SET nom_valorPago = pago WHERE tra_id = idtrabajador;
+IF opcion = 'actualizar' THEN
+UPDATE nomina SET  tra_id = idtrabajador,nom_valorPago = pago,nom_descuentos=descuentos,nom_valorPago = pago WHERE tra_id = idtrabajadorOld
+AND nom_fecha=fecha;
+END IF;
+IF opcion = 'borrar' THEN
+DELETE FROM nomina WHERE tra_id = idtrabajadorOld AND nom_fecha=fecha;
+END IF;
 END
 $$
 DELIMITER ;
 
--- Informacion de los trabajadores
-DROP PROCEDURE IF EXISTS procedimiento_trabajadores;
-DELIMITER $$
-CREATE PROCEDURE procedimiento_trabajadores(
-	IN tra_id DATE,
-    IN tra_nombre VARCHAR(5),    
-    IN tra_telefono BIGINT,    
-    IN tra BIGINT
-
-	)   
-BEGIN
-	INSERT INTO nomina VALUES (nom_fecha, nom_periodo, tra_id, nom_descuentos, nom_tipoCuenta, nom_numeroCuenta, nom_valorPago);    
-END
-$$
-DELIMITER ;
 
 
 -- Boton Ingresar produccion
@@ -320,4 +377,16 @@ END
 $$
 DELIMITER ;
 
+-- Boton actualizar produccion
+
+DROP PROCEDURE IF EXISTS actualizar_prod;
+DELIMITER $$
+CREATE PROCEDURE actualizar_prod(
+    IN fecha DATE,
+    IN costo INT)
+BEGIN
+	UPDATE produccion SET cdp_costoProduccion = costo WHERE cdp_fecha = fecha;
+END
+$$
+DELIMITER ;
 

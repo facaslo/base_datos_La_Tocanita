@@ -88,9 +88,13 @@ GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_UPDATE_QUERY TO 'Gerente','adminRecH
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_DELETE_QUERY TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.procedimiento_Compra TO 'Contador';
+GRANT EXECUTE ON PROCEDURE la_tocanita.act_compra TO 'Contador';
 GRANT EXECUTE ON PROCEDURE la_tocanita.procedimiento_Venta TO 'Jefe de Ventas';
+GRANT EXECUTE ON PROCEDURE la_tocanita.act_venta TO 'Jefe de Ventas';
 GRANT EXECUTE ON PROCEDURE la_tocanita.pago_nomina TO 'Contador';
 GRANT EXECUTE ON PROCEDURE la_tocanita.ingreso_prod TO 'Linea de Produccion';
+
+
 
 
 

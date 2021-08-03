@@ -1,0 +1,42 @@
+{% macro crearFormulario(type) %} 
+    <form method="POST" action="/actualizar?estado=enviado"> 
+    
+    {% if type == 'comprar' %}
+        <h1> Cambiar o borrar entrada con parámetros </h1>
+        <legend> Id recibo </legend>
+        <input required name='recibo' type="number">
+        <legend> Código insumo </legend>
+        <input required name='ins_cod_old' type="number">
+        <h2> Valor de los nuevos parámetros </h2>
+        <legend> Código insumo </legend>
+        <input name='ins_cod' type="number">
+        <legend> Cantidad </legend>
+        <input name='cantidad' type="number">
+        <legend> Costo </legend>
+        <input name='costo' type="number">      
+
+    {% elif type == 'venta' %}
+        <h1> Cambiar o borrar entrada con parámetros </h1>
+        <legend> Id recibo </legend>
+        <input required name='recibo' type="number">
+        <legend> Código insumo </legend>
+        <input required name='ins_cod_old' type="number">
+        <h2> Valor de los nuevos parámetros </h2>
+        <legend> Código insumo </legend>
+        <input required name='ins_cod' type="number">
+        <legend> Cantidad </legend>
+        <input required name='cantidad' type="number">
+        <legend> Costo </legend>
+        <input required name='costo' type="number">
+           
+
+    
+    {% endif %}
+
+    <select required name='opcion'>
+        <option value='actualizar'> Actualizar </option>
+        <option value='borrar'> Borrar </option>
+    </select>
+    <button type="submit" > Enviar </button> 
+    </form>
+{% endmacro %}

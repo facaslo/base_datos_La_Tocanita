@@ -21,7 +21,6 @@ baseDatos = None
 cursor = None
 #Campos de busqueda para los formularios 
 
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html") , 404
@@ -84,10 +83,8 @@ def principal():
      
 @app.route('/verTabla', methods=['GET','POST'])
 def infoTabla():
-    try:
-        
+    try:        
         # tabla = request.args.get('nombreTabla')                    
-
         nombreTablas = {}  
         rol = session['rol']    
         tabla = session['tabla']
@@ -493,11 +490,22 @@ def realizarCompra():
         session.modified = True
         if session['tipoCrear'] == 'compra' or session['tipoCrear'] == 'venta':
             return render_template('hacer.html' , type = session['tipoCrear'] , preguntarNumero = session['preguntarNumero'] )
-        elif session['tipoCrear'] == 'nomina':
+        else:
             return render_template('hacer.html', type = session['tipoCrear'])
-        elif session['tipoCrear'] == 'produccion':
-            return render_template('hacer.html', type = session['tipoCrear'])
+        
 
+
+#############################################################################################################################
+@app.route('/actualizar', methods=['GET','POST'])
+def actualizar():
+    tipo = request.args.get('tipo') 
+    if request.method == 'POST':
+        pass
+    else:
+        session['tipoCrear'] = tipo    
+        session.modified = True
+        return render_template ('actualizar.html', type = session['tipoCrear'])
+        
         
     
 #############################################################################################################################
