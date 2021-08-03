@@ -235,6 +235,7 @@ def updateTabla():
             for entrada in elemento:
                 campo.append(entrada)
             camposSecundarios.append(campo)  
+    
 
     if request.method == 'POST' and not session['registroEnTabla']:        
         camposFormulario = [[entrada[0], entrada[1]] for entrada in camposPrimarios]                      
@@ -256,8 +257,11 @@ def updateTabla():
                 query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1]
 
         
+        print(tabla)
+        print(query)
         args = (tabla, query)
         filas = []
+        
         cursor.callproc("PROC_SEARCH_QUERY", args)
         for resultado in cursor.stored_results():
             for elemento in resultado.fetchall():
@@ -288,6 +292,7 @@ def updateTabla():
             columnas_y_Valores.append(pareja)       
 
         query = ''
+        print(query)
         for i in range(len(columnas_y_Valores)):
             if i != len(columnas_y_Valores)-1 :
                 query += columnas_y_Valores[i][0] + '=' + columnas_y_Valores[i][1] + ','
