@@ -1,44 +1,49 @@
 {% extends 'base/base.html' %} {% block titulo %}
-<title> Hacer {{tipo}}</title>
-{% endblock %} {% block content %}
-<main role="main" class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="content-section" id="aside">
-        <section class="main-logo">
-          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
-        </section>
-        <section class="main-buttons">          
-        </section>
-        <script>
-            function exito(){
-                alert("La operación se ha completado con exito");
-                window.location.href = '/rol';
-            }
-            function error(){
-                alert("La operación no se ha completado");
-                window.location.href = '/rol';
-            }
-        </script>
-        {% if exito %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-            exito();  });
-        </script>
-        {% endif %}        
-        {% if error %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-            error();  });
-        </script>
-        {% endif %}
+<title>Hacer {{tipo}}</title>
+<script>
+  function exito() {
+    alert("La operación se ha completado con exito");
+    window.location.href = "/rol";
+  }
+  function error() {
+    alert("La operación no se ha completado");
+    window.location.href = "/rol";
+  }
+</script>
+{% if exito %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    exito();
+  });
+</script>
+{% endif %} {% if error %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    error();
+  });
+</script>
+{% endif %} {% endblock %} {% block content %}
+<header class="site-header">
+  <!-- As a heading -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">La Tocanita</span>
+      <div id="nav-tablas">
+        <button
+          onclick="goBack()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >
+          Volver
+        </button>
       </div>
     </div>
-    <div class="col-md-9">
-      <div class="content-section">
-        {% from "_macro.html" import boton_crear_form %} {{
-            boton_crear_form(type, preguntarNumero, totalElementos) }}        
-      </div>
+  </nav>
+</header>
+<main role="main" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      {% from "_macro.html" import boton_crear_form %} {{ boton_crear_form(type,
+      preguntarNumero, totalElementos) }}
     </div>
   </div>
 </main>
