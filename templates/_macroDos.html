@@ -1,7 +1,7 @@
 {% macro crearFormulario(type) %} 
     <form method="POST" action="/actualizar?estado=enviado"> 
     
-    {% if type == 'comprar' %}
+    {% if type == 'compra' %}
         <h1> Cambiar o borrar entrada con parámetros </h1>
         <legend> Id recibo </legend>
         <input required name='recibo' type="number">
@@ -15,21 +15,48 @@
         <legend> Costo </legend>
         <input name='costo' type="number">      
 
+        
     {% elif type == 'venta' %}
         <h1> Cambiar o borrar entrada con parámetros </h1>
-        <legend> Id recibo </legend>
-        <input required name='recibo' type="number">
-        <legend> Código insumo </legend>
-        <input required name='ins_cod_old' type="number">
+        <legend> Id venta </legend>
+        <input required name='id_vnt' type="number">
+        <legend> Id del producto </legend>
+        <input required name='productoOld' type="number">
         <h2> Valor de los nuevos parámetros </h2>
-        <legend> Código insumo </legend>
-        <input required name='ins_cod' type="number">
-        <legend> Cantidad </legend>
+        <legend> Id del cliente </legend>
+        <input required name='id_cl' type="number">
+        <legend> Producto </legend>
+        <input required name='producto' type="number">
+        <legend> Cantidad de producto </legend>
         <input required name='cantidad' type="number">
-        <legend> Costo </legend>
-        <input required name='costo' type="number">
-           
+        <legend> Total </legend>
+        <input required name='total' type="number">
+        <legend> Código postal </legend>
+        <input required name='codPostal' type="number">
+        <legend> Dirección </legend>
+        <input required name='direccion' type="text">
 
+    {% elif type == 'nomina' %}
+        <h1> Cambiar o borrar entrada con parámetros </h1>
+        <legend> Fecha </legend>
+        <input required name='fecha' type="date">
+        <legend> Id del trabajador </legend>
+        <input required name='idtrabajadorOld' type="number">
+        <h2> Valor de los nuevos parámetros </h2>
+        <legend> Id del trabajador </legend>
+        <input required name='idtrabajador' type="number">
+        <legend> Pago </legend>
+        <input required name='pago' type="number">
+        <legend> Descuento</legend>
+        <input required name='descuentos' type="number">
+
+    {% elif type == 'produccion' %}
+        <h1> Cambiar o borrar entrada con parámetros </h1>
+        <legend> Fecha </legend>
+        <input required name='fecha' type="date">
+        <legend> Costo de producción </legend>
+        <input required name='costo' type="number">
+               
     
     {% endif %}
 

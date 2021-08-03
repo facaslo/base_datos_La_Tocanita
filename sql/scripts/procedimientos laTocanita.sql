@@ -244,22 +244,11 @@ BEGIN
     WHERE vnt_id = id_vnt;
 	END IF;
 	IF opcion = 'borrar' THEN
-	DELETE FROM compra_insumos WHERE com_idrecibo = recibo AND ins_codigo = ins_cod_old;
-	END IF;
-    
-	
-    
-	INSERT INTO venta VALUES (id_vnt, id_cl, codPostal, @idFurgon , direccion, curdate(), 'No entregado');
-    END IF;
-	IF NOT EXISTS (SELECT * FROM cliente WHERE cli_id = id_cl) THEN
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El cliente no existe';
-    END IF;
-    
-	COMMIT;
+	DELETE FROM venta_productos WHERE vnt_id = id_vnt  AND vpn_id = productoOld;    
+    END IF;   
 END
 $$
 DELIMITER ;
-
 
 -- Compra insumos
 DROP PROCEDURE IF EXISTS procedimiento_Compra;
@@ -352,8 +341,6 @@ END
 $$
 DELIMITER ;
 
-
-
 -- Boton Ingresar produccion
 DROP PROCEDURE IF EXISTS ingreso_prod;
 DELIMITER $$
@@ -386,6 +373,12 @@ CREATE PROCEDURE actualizar_prod(
     IN costo INT)
 BEGIN
 	UPDATE produccion SET cdp_costoProduccion = costo WHERE cdp_fecha = fecha;
+	IF opcion = 'actualizar' THEN
+	UPDATE produccion SET cdp_costoProduccion = costo WHERE cdp_fecha = fecha;
+	END IF;
+	IF opcion = 'borrar' THEN
+	DELETE FROM produccion WHERE cdp_fecha = fecha;
+	END IF;
 END
 $$
 DELIMITER ;

@@ -92,7 +92,10 @@ GRANT EXECUTE ON PROCEDURE la_tocanita.act_compra TO 'Contador';
 GRANT EXECUTE ON PROCEDURE la_tocanita.procedimiento_Venta TO 'Jefe de Ventas';
 GRANT EXECUTE ON PROCEDURE la_tocanita.act_venta TO 'Jefe de Ventas';
 GRANT EXECUTE ON PROCEDURE la_tocanita.pago_nomina TO 'Contador';
+GRANT EXECUTE ON PROCEDURE la_tocanita.actualizar_nomina TO 'Contador';
 GRANT EXECUTE ON PROCEDURE la_tocanita.ingreso_prod TO 'Linea de Produccion';
+GRANT EXECUTE ON PROCEDURE la_tocanita.actualizar_prod TO 'Linea de Produccion';
+
 
 
 
