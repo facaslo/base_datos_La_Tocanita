@@ -29,8 +29,8 @@ filas)%}
 
 <table style="width: 100%" class="table-light table-striped">
   <tr>
-    {% for nombreColumna,nombreUsuario in columnas.items() %}
-    <th>{{nombreUsuario}}</th>
+    {% for columna in columnas %}
+    <th>{{columna[1]}}</th>
     {% endfor %}
   </tr>
   {% for fila in filas %}
@@ -292,3 +292,181 @@ verificarExistencia and update %}
         </div>
 
     </main> {% endmacro %}
+
+{% macro boton_crear_form(tipo, preguntarNumero, totalElementos)%}
+    {% if tipo == 'produccion' %}
+    <h1> Ingrese los datos de la producción </h1>
+    <form method='POST' action="/crear?estado=enviado">
+      <legend> Código del insumo </legend>
+      <input required name='id_insumo' type="number">
+      <legend> Cantidad de insumo </legend>
+      <input required name='cantidadIns' type="number">
+      <legend> Id de trabajador 1 </legend>
+      <input required name='trabajadorID1' type="number">
+      <legend> Id de trabajador 2 </legend>
+      <input required name='trabajadorID2' type="number">
+      <legend> Id de producto </legend>
+      <input required name='idProducto' type="number">
+      <legend> Cantidad de producto </legend>
+      <input required name='cantidadProducto' type="number">
+      <legend> Costo </legend>
+      <input required name='Costo' type="number">
+      <button type="submit" > Enviar </button> 
+    </form>
+    {% endif %}
+
+    {% if tipo == 'nomina' %}
+      <h1> Ingrese los datos de la nomina del trabajador </h1>
+      <form method='POST' action="/crear?estado=enviado">
+        <legend> Id del trabajador </legend>
+        <input required name='tra_id' type="number">
+        <legend> Periodo </legend>
+        <input required name='per_nom' type="text">
+        <legend> Descuento </legend>
+        <input required name='descuento' type="number">
+        <legend> Pago </legend>
+        <input required name='pago' type="number">
+        <button type="submit" > Enviar </button> 
+      </form>
+    {% endif %}
+    
+    {% if tipo == 'compra' and preguntarNumero %}
+      <h1> ¿Cuántas insumos diferentes va a comprar?</h1>
+    {% elif tipo == 'venta' and preguntarNumero %}
+      <h1> ¿Cuántas productos diferentes va a vender? </h1>
+    {% endif %}
+
+    {% if preguntarNumero  %}
+    <form method='POST' action="/crear?tipo={{tipo}}"> 
+        <legend> Total </legend>
+        <input required name='total' type="number">
+        <button type="submit" > Enviar </button>                                
+    </form>
+    {% endif %}
+
+    {% if not preguntarNumero and tipo == 'compra' %}
+    <form method='POST' action="/crear?estado=enviado">
+      <legend> Nit del proveedor </legend>
+      <input required name='nit' type="number">
+      <legend> Id del recibo </legend>
+      <input required name='id_recibo' type="number">
+      <legend> Fecha de la compra </legend>
+      <input required name='fecha' type="date">
+      {% for i in range(totalElementos)    %} 
+        <legend> Código del insumo {{i}} </legend>
+        <input required name='codigo{{i}}' type="number">
+        <legend> Cantidad de insumo {{i}} </legend>
+        <input required name='cantidad{{i}}' type="number">
+      {% endfor %}
+      <legend> Costo total </legend>
+      <input required name="costo" type='number'> 
+      <button type="submit" > Enviar </button> 
+    </form>
+    {% endif %}
+
+    {% if not preguntarNumero and tipo == 'venta' %}
+    <form method='POST' action="/crear?estado=enviado">
+      <legend> Id del cliente </legend>
+      <input required name='id_cl' type="number">      
+      <legend> Código postal </legend>
+      <input required name='postal' type="number">
+      <legend> Dirección </legend>
+      <input required name='direccion' type="text">
+      {% for i in range(totalElementos)    %} 
+        <legend> Código del producto {{i}} </legend>
+        <input required name='producto{{i}}' type="number">
+        <legend> Cantidad del producto {{i}} </legend>
+        <input required name='cantidad{{i}}' type="number">
+      {% endfor %}
+      <legend> Valor de la venta </legend>
+      <input required name="valorVenta" type='number'> 
+      <button type="submit" > Enviar </button> 
+    </form>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro crearFormularioInserción(insert,nombreTablas, campos_busqueda, nombreTabla) %}
+{% if insert%}
+<main role="main" class="container">
+  <div class="row">
+    <div class="col col-lg-6 col-md-8 col-12 offset-md-2 offset-lg-3">
+      <div class="content-section" id="login-content">
+            <form method="POST" action>
+                <fieldset class="form-group">
+                  <legend class="mb-4">Nueva entrada de {{nombreTablas[nombreTabla]}}</legend>                 
+                  
+                    <form method = 'POST' action>
+                    <div class="mb-3" id="filtro-label">
+                    {% for campo in campos_busqueda %} {% if campo[1] == 'STR' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <input  type="text" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'NUM' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <input  type="number" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'DATE' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <input  type="date" name="{{campo[0]}}" class="form-control" />
+                    {% elif campo[1] == 'DESP' %}
+                    <label for="{{campo[0]}}" class="form-label"> {{campo[2]}} </label>
+                    <select
+                    class="form-select form-select-sm"
+                    aria-label=".form-select-sm example"
+                    name="{{campo[0]}}"
+                    id="select-tablas"                    
+                    >
+                    {% if campo[0] == 'vnt_estado' %}
+
+                    <option value="''">--</option>
+                    <option value="'No entregado'">No entregado</option>
+                    <option value="'Entregado'">Entregado</option>
+
+                    {% elif campo[0] == 'car_tipoCargo' %}
+
+                    <option value="''">--</option>
+                    <option value="'Auxiliar'">Auxiliar</option>
+                    <option value="'Operativo'">Operativo</option>
+                    <option value="'Administrativo'">Administrativo</option>
+                    <option value="'Gerencial'">Gerencial</option>
+
+                    {% elif campo[0] == 'tra_titulacion' %}
+
+                    <option value="''">--</option>
+                    <option value="'Bachiller'">Bachiller</option>
+                    <option value="'Pregrado'">Pregrado</option>
+                    <option value="'Tecnico'">Técnico</option>
+                    <option value="'Maestria'">Maestría</option>
+
+                    {% elif campo[0] == 'nom_tipoCuenta' %}
+
+                    <option value="''">--</option>
+                    <option value="'AHORROS'">Ahorros</option>
+                    <option value="'CORRIENTE'">Corriente</option>
+
+                    {% elif campo[0] == 'crg_placaFurgon' %}
+                    <option value="''">--</option>
+                    <option value="'VNS-945'">VNS-945</option>
+                    <option value="'PRM-264'">PRM-264</option>
+
+                    {% elif campo[0] == 'ins_caducidad' %}
+
+                    <option value="''">--</option>
+                    <option value="'Sí'">Sí</option>
+                    <option value="'No'">No</option>
+
+                    {% endif %}
+                    </select>
+                    {% endif %} {% endfor %}
+                </div>
+                
+                <button type="submit" class="btn btn-info">
+                    Enviar 
+                </button>
+                
+              </form>
+            </div>
+          </div>
+  
+      </main> 
+{% endif %}
+{% endmacro %}

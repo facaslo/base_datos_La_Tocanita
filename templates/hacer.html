@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %} {% block titulo %}
+<title> Hacer {{tipo}}</title>
+{% endblock %} {% block content %}
+<main role="main" class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="content-section" id="aside">
+        <section class="main-logo">
+          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
+        </section>
+        <section class="main-buttons">          
+        </section>
+        <script>
+            function exito(){
+                alert("La operación se ha completado con exito");
+                window.location.href = '/rol';
+            }
+            function error(){
+                alert("La operación no se ha completado");
+                window.location.href = '/rol';
+            }
+        </script>
+        {% if exito %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            exito();  });
+        </script>
+        {% endif %}        
+        {% if error %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            error();  });
+        </script>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="content-section">
+        {% from "_macro.html" import boton_crear_form %} {{
+            boton_crear_form(type, preguntarNumero, totalElementos) }}        
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

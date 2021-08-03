@@ -66,6 +66,8 @@ GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_OBTENER_HTML TO 'Gerente','adminRecH
 'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_SELECT_TABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_INSERT_QUERY TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_GET_PRIMARY_FOR_TABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_GET_COLUMNS_FOR_TABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
@@ -73,6 +75,8 @@ GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_GET_COLUMNS_FOR_TABLE TO 'Gerente','
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_FILTROS TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_SEARCH_QUERY TO 'Gerente','adminRecHumanos','Jefe de Ventas',
+'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_IS_INSERTABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_IS_TABLE_UPDATABLE TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
@@ -82,4 +86,10 @@ GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_UPDATE_QUERY TO 'Gerente','adminRecH
 'Contador', 'Linea de Produccion', 'Conductor';
 GRANT EXECUTE ON PROCEDURE la_tocanita.PROC_DELETE_QUERY TO 'Gerente','adminRecHumanos','Jefe de Ventas',
 'Contador', 'Linea de Produccion', 'Conductor';
+GRANT EXECUTE ON PROCEDURE la_tocanita.procedimiento_Compra TO 'Contador';
+GRANT EXECUTE ON PROCEDURE la_tocanita.procedimiento_Venta TO 'Jefe de Ventas';
+GRANT EXECUTE ON PROCEDURE la_tocanita.pago_nomina TO 'Contador';
+GRANT EXECUTE ON PROCEDURE la_tocanita.ingreso_prod TO 'Linea de Produccion';
+
+
 

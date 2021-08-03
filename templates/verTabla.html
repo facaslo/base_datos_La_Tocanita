@@ -16,6 +16,9 @@
   function logout() {
     window.location.href = "/logout";
   }
+  function insert() {
+    window.location.href = "/verTabla/insert";
+  }
 </script>
 {% endblock %} {% block content%}
 <header class="site-header">
@@ -24,6 +27,14 @@
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">La Tocanita</span>
       <div id="nav-tablas">
+        {% if insertable == 'si' %}
+        <button
+          onclick="insert()"
+          class="btn btn-outline-info my-2 my-sm-0 d-flex"
+        >
+          Insertar registro
+        </button>
+        {% endif %}
         {% if actualizable == 'si' %}
         <button
           onclick="update()"

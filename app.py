@@ -86,7 +86,7 @@ def principal():
 def infoTabla():
     try:
         
-        # tabla = request.args.get('nombreTabla')                     
+        # tabla = request.args.get('nombreTabla')                    
 
         nombreTablas = {}  
         rol = session['rol']    
@@ -100,12 +100,13 @@ def infoTabla():
         session['nombreTablas'] = nombreTablas
         session.modified = True
 
-        nombreColumnas = {}
+        nombreColumnas = []
         args=(tabla,)
         cursor.callproc('PROC_GET_COLUMNS_FOR_TABLE', args)
         for resultado in cursor.stored_results():
             for elemento in resultado.fetchall():
-                nombreColumnas[elemento[0]] = elemento[2]   
+                pareja = [elemento[0],elemento[2]]
+                nombreColumnas.append(pareja)
 
         session['nombreColumnas'] = nombreColumnas
         session.modified = True
@@ -140,8 +141,14 @@ def infoTabla():
         #Ver si la tabla es actualizable
         esBorrable = cursor.callproc('PROC_IS_TABLE_DELETABLE', args)                 
         cursor.fetchall()
+
+        args = (rol,tabla,0)
+        #Ver si la tabla es insertable
+        esInsertable = cursor.callproc('PROC_IS_INSERTABLE', args)                 
+        cursor.fetchall()
         
-        return render_template ('verTabla.html', nombreTablas = nombreTablas,  nombreTabla = tabla, nombreColumnas = nombreColumnas, filas = filas, actualizable = esActualizable[2], borrable=esBorrable[2])
+        print(session['nombreColumnas']) 
+        return render_template ('verTabla.html', nombreTablas = nombreTablas,  nombreTabla = tabla, nombreColumnas = session['nombreColumnas'], filas = filas, actualizable = esActualizable[2], borrable=esBorrable[2], insertable = esInsertable[2])
 
     except Exception as e:    
         print(e)
@@ -149,7 +156,8 @@ def infoTabla():
 ####################################################################################################################################
 @app.route('/verTabla/buscar', methods=['GET','POST'])
 def buscar():
-    tabla = session['tabla']         
+    tabla = session['tabla']     
+    print(session['nombreColumnas'])    
     if request.method == 'POST':      
         camposFormulario = [] 
         args=(tabla,)
@@ -184,8 +192,9 @@ def buscar():
                 fila = []
                 for entrada in elemento:
                     fila.append(entrada)    
-                filas.append(fila)          
+                filas.append(fila)         
 
+         
         return render_template ('verTabla.html',  nombreTablas = session['nombreTablas'], nombreTabla = tabla, nombreColumnas = session['nombreColumnas'] , filas = filas)        
 
     try:   
@@ -359,77 +368,139 @@ def deleteTabla():
     
     return render_template ('update_delete.html', delete = True, update = False,  nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = camposPrimarios , exitoActualizacion = False , error = False , errorBorrado = False)
 
-      
+#############################################################################################################################    
+@app.route('/verTabla/insert', methods=['GET','POST'])
+def insertar():
+    tabla = session['tabla']  
+    campos = [] 
+    args=(tabla,)
+    cursor.callproc('PROC_GET_COLUMNS_FOR_TABLE', args)
+    for resultado in cursor.stored_results():            
+        for elemento in resultado.fetchall():                
+            campo = []
+            for entrada in elemento:
+                campo.append(entrada)
+            campos.append(campo) 
 
-@app.route('/RealizarVenta', methods=['GET','POST'])
-def realizarCompra():
-    global rol 
-    clienteEnBase = request.args.get('clienteEnBase') == 'True'
-    geografiaEnBase = request.args.get('geografiaEnBase') == 'True'
-    primerPaso = request.args.get('primerPaso') == 'True'
-    segundoPaso = request.args.get('segundoPaso') == 'True'
-    final = request.args.get('final') == 'True'
-    global cursor   
-    
-    if request.method == "POST":    
-        if not primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase and not final:            
-            argumentos = {"cli_id": None}
-            for llave in argumentos:                
-                argumentos[llave] = request.form.get(llave)                
-            query = "SELECT * FROM la_tocanita.cliente WHERE cli_id = {}".format(argumentos["cli_id"])
-            cursor.execute(query)
-            rows = cursor.fetchall()
-            if(len(rows) > 0):
-               return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=False&primerPaso=True&segundoPaso=False&final=False')
+    if request.method == 'POST':
+        camposNoVacios = []
+        for campo in campos:
+            valor = request.form.get(campo[0])
+            if valor != '' :                
+                if campo[1] == 'DATE' or campo[1] == 'STR':
+                    valor = "'{}'".format(valor)
+                pareja = [campo[0],valor]
+                camposNoVacios.append(pareja)
+        
+        queryParametros = ''
+        for i in range(len(camposNoVacios)):
+            if i != len(camposNoVacios)-1 :
+                queryParametros += camposNoVacios[i][0] + ',' 
             else:
-                return redirect ('/RealizarVenta?clienteEnBase=False&geografiaEnBase=False&primerPaso=True&segundoPaso=False&final=False')
-        elif primerPaso and not clienteEnBase and not segundoPaso and not geografiaEnBase and not final:
-            argumentos = {"cli_id": None, "cli_nombre": None, "cli_telefono":None, "cli_correo": None}
-            for llave in argumentos:
-                argumentos[llave] = request.args.get(llave)
-            query = "INSERT INTO cliente values({},{},{},{})".format(argumentos["cli_id"], argumentos["cli_nombre"], argumentos["cli_telefono"], argumentos["cli_correo"])            
-            cursor.execute(query)
-            cursor.fetchall()
-            return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=False&primerPaso=True&segundoPaso=False&final=False')
-        elif not segundoPaso and clienteEnBase and primerPaso and not geografiaEnBase and not final:
-            argumentos = {"geo_codigoPostal": None}
-            for llave in argumentos:
-                argumentos[llave] = request.args.get(llave)
-            query = "SELECT * FROM la_tocanita.geografia WHERE geo_codigoPostal = {}".format(argumentos["geo_codigoPostal"])
-            cursor.execute(query)
-            rows = cursor.fetchall()
-            if(len(rows) > 0):
-               return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=True&primerPaso=True&segundoPaso=True&final=False')
-            else:
-                return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=True&primerPaso=True&segundoPaso=True&final=False') 
-        elif segundoPaso and not geografiaEnBase and primerPaso and clienteEnBase and not final:
-            argumentos = {"geo_codigoPostal": None, "geo_nombre": None}
-            for llave in argumentos:
-                argumentos[llave] = request.args.get(llave)
-            query = "INSERT INTO geografia values({},{})".format(argumentos["geo_codigoPostal"], argumentos["geo_nombre"])         
-            cursor.execute(query)
-            cursor.fetchall()
-            return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=True&primerPaso=True&segundoPaso=False&final=False')
-        elif segundoPaso and geografiaEnBase and primerPaso and clienteEnBase and not final:
-            argumentos = {"id_venta": None, "id_cliente": None, "geo_codigoPostal": None, "vnt_direccion": None, "prd_id": None, "vpn_cantidad": None, "vpn_valorVenta": None}
-            for llave in argumentos:
-                argumentos[llave] = request.args.get(llave)
-            query = "INSERT INTO venta VALUES({},{},{}, -1, {}, curdate(), 'No entregado')".format(argumentos["id_venta"], argumentos["id_cliente"], argumentos["geo_codigoPostal"], argumentos["vnt_direccion"])
-            cursor.execute(query)
-            cursor.fetchall()
-            query = "INSERT INTO venta_productos VALUES({},{},{},{})".format(argumentos["id_venta"], argumentos["prd_id"], argumentos["vpn_cantidad"], argumentos["vpn_valorVenta"])
-            cursor.execute(query)
-            cursor.fetchall()
-            query = "INSERT INTO colaVentas VALUES({}, null, null)".format(argumentos["id_venta"])
-            cursor.execute(query)
-            cursor.fetchall()
-            return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=True&primerPaso=True&segundoPaso=False&final=True')
-        elif final:
-            return redirect ('/RealizarVenta?clienteEnBase=True&geografiaEnBase=True&primerPaso=True&segundoPaso=False&final=True')
+                queryParametros += camposNoVacios[i][0] 
 
-    return render_template ('realizarVenta.html', clienteEnBase = clienteEnBase , geografiaEnBase = geografiaEnBase , primerPaso = primerPaso , segundoPaso = segundoPaso, final = final )
+        queryValores = ''
+        for i in range(len(camposNoVacios)):
+            if i != len(camposNoVacios)-1 :
+                queryValores += camposNoVacios[i][1] + ',' 
+            else:
+                queryValores += camposNoVacios[i][1]
+
+        try:
+            args=(tabla,queryParametros,queryValores)
+            cursor.callproc("PROC_INSERT_QUERY", args)            
+            cursor.fetchall()
+            baseDatos.commit()
+            return render_template ('update_delete.html', insert = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = campos , exitoActualizacion = True ,error = False)
+
+        except Exception as e:
+            print(e)
+            return render_template ('update_delete.html', insert = True, nombreTablas = session['nombreTablas'] ,  nombreTabla = session['tabla'], campos = campos , exitoActualizacion = False , error = True)      
+        
+        
+
+
+    return render_template('insert.html' , insert = True , nombreTablas=session['nombreTablas'], campos_busqueda = campos, nombreTabla=tabla )
     
 
+# ########################################################################################################################## 
+
+@app.route('/crear', methods=['GET','POST'])
+def realizarCompra():    
+    tipo = request.args.get('tipo') 
+    if request.method == 'POST':
+        tipo = session['tipoCrear']
+        estado = request.args.get('estado')
+        if estado == 'enviado' and tipo=='produccion':
+            argumentos = ['id_insumo', 'cantidadIns', 'trabajadorID1', 'trabajadorID2', 'idProducto', 'cantidadProducto', 'Costo']
+            args = [request.form.get(argumento) for argumento in argumentos] 
+            try:
+                cursor.callproc("ingreso_prod", args)
+                cursor.fetchall()      
+                baseDatos.commit()                     
+                return render_template('hacer.html' , type = session['tipoCrear'] ,exito = True) 
+            except Exception as e:
+                print(e)
+                return render_template('hacer.html' , type = session['tipoCrear'] ,error = True)      
+        if estado == 'enviado' and tipo=='nomina':
+            argumentos = ['tra_id', 'per_nom', 'descuento', 'pago']
+            args = [request.form.get(argumento) for argumento in argumentos] 
+            print(args)
+            try:
+                cursor.callproc("pago_nomina", args)
+                cursor.fetchall()      
+                baseDatos.commit()                     
+                return render_template('hacer.html' , type = session['tipoCrear'] ,exito = True) 
+            except Exception as e:
+                print(e)
+                return render_template('hacer.html' , type = session['tipoCrear'] ,error = True)  
+        if estado == 'enviado' and tipo=='compra':
+            for i in range(session['total']):
+                argumentos = ['nit','id_recibo', 'fecha', 'codigo{}'.format(i), 'costo', 'cantidad{}'.format(i)]
+                args = [request.form.get(argumento) for argumento in argumentos]                
+                try:
+                    cursor.callproc("procedimiento_Compra", args)
+                    cursor.fetchall()      
+                    baseDatos.commit()                     
+                    return render_template('hacer.html' , type = session['tipoCrear'] , preguntarNumero = session['preguntarNumero'], totalElementos = session['total'] , exito = True) 
+                except Exception as e:
+                    print(e)
+                    return render_template('hacer.html' , type = session['tipoCrear'] , preguntarNumero = session['preguntarNumero'], totalElementos = session['total'] , error = True) 
+            
+        if estado == 'enviado' and tipo=='venta':
+            for i in range(session['total']):
+                argumentos = ['id_cl', 'producto{}'.format(i), 'cantidad{}'.format(i), 'valorVenta' , 'postal', 'direccion']
+                args = [request.form.get(argumento) for argumento in argumentos]  
+                print(args)                
+                try:
+                    cursor.callproc("procedimiento_Venta", args)
+                    cursor.fetchall()      
+                    baseDatos.commit()                     
+                    return render_template('hacer.html' , type = session['tipoCrear'] , preguntarNumero = session['preguntarNumero'], totalElementos = session['total'] , exito = True) 
+                except Exception as e:
+                    print(e)
+                    return render_template('hacer.html' , type = session['tipoCrear'] , preguntarNumero = session['preguntarNumero'], totalElementos = session['total'] , error = True)         
+
+        if tipo == 'compra' or tipo == 'venta':
+            session['preguntarNumero'] = False
+            session.modified = True            
+            session['total'] = int(request.form.get('total'))
+            return render_template('hacer.html' , type = session['tipoCrear'] , preguntarNumero = session['preguntarNumero'], totalElementos = session['total'])
+    else:        
+        session['tipoCrear'] = tipo    
+        session.modified = True
+        session['preguntarNumero'] = True
+        session.modified = True
+        if session['tipoCrear'] == 'compra' or session['tipoCrear'] == 'venta':
+            return render_template('hacer.html' , type = session['tipoCrear'] , preguntarNumero = session['preguntarNumero'] )
+        elif session['tipoCrear'] == 'nomina':
+            return render_template('hacer.html', type = session['tipoCrear'])
+        elif session['tipoCrear'] == 'produccion':
+            return render_template('hacer.html', type = session['tipoCrear'])
+
+        
+    
+#############################################################################################################################
 @app.route('/logout')
 def logout():
     try:

@@ -12,8 +12,10 @@ FROM trabajador NATURAL JOIN nomina;
 -- Información de la venta y los clientes correspondientes
 DROP VIEW IF EXISTS vw_info_venta;
 CREATE VIEW vw_info_venta AS 
-SELECT vnt_id,cli_id,vnt_direccion, geo_nombre,vnt_fecha,vnt_estado,prd_id, prd_nombre,vpn_cantidad,vpn_valorVenta 
-FROM (cliente NATURAL JOIN venta) NATURAL JOIN venta_productos NATURAL JOIN geografia NATURAL JOIN producto;
+SELECT venta.vnt_id,cliente.cli_id,venta.vnt_direccion, geografia.geo_nombre,
+venta.vnt_fecha,venta.vnt_estado,producto.prd_id, producto.prd_nombre, venta_productos.vpn_cantidad,venta_productos.vpn_valorVenta 
+FROM (cliente JOIN venta ON venta.cli_id = cliente.cli_id ) JOIN  venta_productos ON venta.vnt_id = venta_productos.vnt_id 
+JOIN geografia on venta.geo_codigoPostal = geografia.geo_codigoPostal JOIN producto on venta_productos.vpn_id = producto.prd_id;
 -- Información de la produccion en un día
 DROP VIEW IF EXISTS vw_info_produccion;
 CREATE VIEW vw_info_produccion AS 
@@ -39,3 +41,36 @@ GROUP BY cli_id;
 
 -- Informacion de la produccion promedio porproducto
 -- vw_info_produccion_promedio
+
+-- Boton Realizar pago nomina
+
+DROP PROCEDURE IF EXISTS pago_nomina;
+DELIMITER $$
+CREATE PROCEDURE pago_nomina(
+	IN idtrabajador INT,
+    IN periodo VARCHAR(5),
+    IN descuento INT,
+    IN pago INT )
+BEGIN
+	DECLARE tipoCuenta VARCHAR(10);
+    DECLARE numeroCuenta VARCHAR(20);
+	START TRANSACTION;	
+    SET tipoCuenta = (select nom_tipoCuenta from nomina where tra_id = idtrabajador group by tra_id);
+    SET numeroCuenta = (select nom_numeroCuenta from nomina where tra_id = idtrabajador group by tra_id);
+    INSERT INTO nomina VALUES (curdate(),periodo,idtrabajador,descuento,tipoCuenta,numeroCuenta,pago);
+    COMMIT;
+END
+$$
+DELIMITER ;
+-- Boton Actualizar nomina
+
+DROP PROCEDURE IF EXISTS actualizar_nomina;
+DELIMITER $$
+CREATE PROCEDURE actualizar_nomina(
+	IN idtrabajador INT,
+    IN pago INT )
+BEGIN
+	UPDATE nomina SET nom_valorPago = pago WHERE tra_id = idtrabajador;
+END
+$$
+DELIMITER ;

@@ -20,21 +20,14 @@
     <title> Update </title>
     <script>         
         function exitoActualizacion(){
-            alert("Las entradas se han actualizado con exito")
+            alert("La entrada ha sido añadida con exito")
             window.location.href = '/verTabla'
         }
         function error(){            
-            alert("Errores en los campos de actualización o borrado");
+            alert("Errores en los campos de inserción");
             window.location.href = '/verTabla/update?enTabla=False';
         }       
-        function errorBusqueda(){            
-            alert("El registro no se encuentra en la tabla");
-            window.location.href = '/verTabla/update?enTabla=False';
-        }    
-        function errorBorrado(){            
-            alert("El registro no se encuentra en la tabla");
-            window.location.href = '/verTabla/delete';
-        }    
+       
         function goBack() {            
             window.location.href = '/verTabla';
         }
@@ -62,21 +55,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         exitoActualizacion();
       });
-    </script>
-    {% endif %} {% if errorBusqueda %}
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        errorBusqueda();
-      });
-    </script>
-    {% endif %}
-
-    {% if errorBorrado%}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            errorBorrado();
-        });
-    </script>
+    </script>    
     {% endif %}
   </head>
   <body>
@@ -96,10 +75,10 @@
           </div>
         </div>
       </nav>
-    </header>
-    {% from "_macro.html" import create_update_delete_form %} {{
-    create_update_delete_form(verificarExistencia, delete , update ,
-    nombreTablas,nombreTabla,campos , nombreRegistro) }}   
+    </header>    
+
+    {% from "_macro.html" import crearFormularioInserción %} {{
+        crearFormularioInserción(insert , nombreTablas, campos_busqueda , nombreTabla ) }}
 
   </body>
 </html>
